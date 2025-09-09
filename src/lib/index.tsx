@@ -1,18 +1,28 @@
-import { useRef, useEffect } from 'react'
+// import { useRef, useEffect } from 'react'
 import './index.scss'
-import { init, destroy } from './main'
+import DC from './defaultConfig'
+import CenterComp from './comps/CenterComp'
  
 function Main() {
-  const containerRef = useRef(null)
+  const DCGSize = DC.global.size
 
-  useEffect(() => {
-    if (containerRef.current) init(containerRef.current)
-    else console.warn('不存在容器')
-    return () => {}
-  }, [])
+  const centerProps = {
+    bgStatusColor: '#01FEF7'
+  }
 
   return <>
-    <div className="diagram-container" ref={containerRef}></div>
+    <div className="diagram-container">
+      <svg
+        width="100%"
+        height="100%"
+        // style={}
+        viewBox={`${DCGSize.width * -0.5} ${DCGSize.height * -0.5} ${DCGSize.width} ${DCGSize.height}`}
+      >
+        <CenterComp
+          props={centerProps}
+        />
+      </svg>
+    </div>
   </>
 }
 

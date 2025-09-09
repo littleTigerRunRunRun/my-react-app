@@ -2,7 +2,8 @@
   width: 100%;
   height: 100%;
   background: #000505;
-  canvas {
+  svg {
+    display: block;
     width: 100% !important;
     height: 100% !important;
   }
