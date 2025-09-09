@@ -29,13 +29,22 @@ export default {
       x: 0,
       y: 0
     },
-    bgOuterCircle: {
+    bgFenceCircle: {
       r: 240,
-      width: 6
+      width: 40,
+      thickness: 2,
+      num: 150,
+      opacity: 0.1
+    },
+    bgOuterCircle: {
+      r: 133,
+      width: 3,
+      opacity: 1
     },
     bgInnerCircle: {
-      r: 220,
-      width: 4
+      r: 123,
+      width: 2,
+      opacity: 0.6
     }
   },
   right: {
