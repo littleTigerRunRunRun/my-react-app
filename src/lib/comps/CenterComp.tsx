@@ -6,12 +6,22 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
   const CCFCRectArray:Array<number> = []
   const CCOC = CC.bgOuterCircle
   const CCIC = CC.bgInnerCircle
+  const CCOP = CC.pointsLayer
+  const CCOPArray:Array<Array<{ angle: number, color: string }>> = []
+  const CCC = CC.column
 
-  for (let i = 0; i < CCFC.num; i++) {
-    CCFCRectArray.push(360 / CCFC.num * i)
+  for (let i = 0; i < CCFC.num; i++) CCFCRectArray.push(360 / CCFC.num * i)
+  for (let l = 0; l < CCOP.length; l++) {
+    const layer = CCOP[l]
+    const layerArray:Array<{ angle: number, color: string }> = []
+    for (let i = 0; i < layer.num; i++) {
+      layerArray.push({
+        angle: 360 / layer.num * i,
+        color: l < 2? DC.global.color.safe : DC.global.color[['low', 'middle', 'high', 'critical'][Math.floor(Math.random() * 3)]]
+      })
+    }
+    CCOPArray.push(layerArray)
   }
-
-  console.log(props)
 
   return <g
     className="center-comp"
@@ -41,7 +51,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           stroke={props.bgStatusColor}
           strokeWidth={CCOC.width}
           strokeOpacity={CCOC.opacity}
-          filter="url(#basicGlow)"
+          // filter="url(#basicGlow)"
         />
         <circle
           cx="0"
@@ -51,8 +61,70 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           stroke={props.bgStatusColor}
           strokeWidth={CCIC.width}
           strokeOpacity={CCIC.opacity}
-          filter="url(#basicGlow)"
+          // filter="url(#basicGlow)"
         />
+      </g>
+      <g className="case-points">
+        {
+          CCOPArray.map((layer, index) => {
+            return <g key={index} className="points-layer">
+              {
+                layer.map((item, iIndex) => {
+                  return <circle
+                    key={`${index}_${iIndex}`}
+                    r={CCOP[index].size}
+                    fill={item.color}
+                    cx={CCOP[index].r}
+                    cy="0"
+                    transform={`rotate(${item.angle} 0 0)`}
+                  />
+                })
+              }
+            </g>
+          })
+        }
+      </g>
+      <g className="infoShow left" transform={`translate(${CCC.leftPosition.x}, 0)`}>
+        <text
+          fontSize={CCC.count.size}
+          fill={CCC.count.color}
+          x={CCC.count.position.x}
+          y={CCC.count.position.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontWeight="bold"
+          letterSpacing={CCC.count.spacing}
+        >{props.leftColumn.count}</text>
+        <text
+          fontSize={CCC.label.size}
+          fill={CCC.label.color}
+          x={CCC.label.position.x}
+          y={CCC.label.position.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          letterSpacing={CCC.label.spacing}
+        >{props.leftColumn.label}</text>
+      </g>
+      <g className="infoShow right" transform={`translate(${CCC.rightPosition.x}, 0)`}>
+        <text
+          fontSize={CCC.count.size}
+          fill={CCC.count.color}
+          x={CCC.count.position.x}
+          y={CCC.count.position.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontWeight="bold"
+          letterSpacing={CCC.count.spacing}
+        >{props.rightColumn.count}</text>
+        <text
+          fontSize={CCC.label.size}
+          fill={CCC.label.color}
+          x={CCC.label.position.x}
+          y={CCC.label.position.y}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          letterSpacing={CCC.label.spacing}
+        >{props.rightColumn.label}</text>
       </g>
     </g>
   </g>

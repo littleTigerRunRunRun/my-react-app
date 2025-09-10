@@ -8,10 +8,17 @@ function Main() {
   const CCOC = DC.center.bgOuterCircle
 
   const centerProps = {
-    bgStatusColor: '#01FEF7'
+    bgStatusColor: '#01FEF7',
+    points: [],
+    leftColumn: {
+      label: 'ISSUES',
+      count: 999
+    },
+    rightColumn: {
+      label: 'CASES',
+      count: 999
+    }
   }
-
-  const glowBlur = 5
 
   return <>
     <div className="diagram-container">
@@ -29,8 +36,8 @@ function Main() {
             y2="1"
           >
             <stop offset="19.6%" stopColor="#fff" stopOpacity="1" />
-            <stop offset="25%" stopColor="#fff" stopOpacity="0" />
-            <stop offset="75%" stopColor="#fff" stopOpacity="0" />
+            <stop offset="28%" stopColor="#fff" stopOpacity="0" />
+            <stop offset="72%" stopColor="#fff" stopOpacity="0" />
             <stop offset="80.4%" stopColor="#fff" stopOpacity="1" />
           </linearGradient>
           <mask
