@@ -17,6 +17,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
     for (let i = 0; i < layer.num; i++) {
       layerArray.push({
         angle: 360 / layer.num * i,
+        // @ts-ignore
         color: l < 2? DC.global.color.safe : DC.global.color[['low', 'middle', 'high', 'critical'][Math.floor(Math.random() * 3)]]
       })
     }

@@ -14,10 +14,45 @@ export default {
       critical‌: '#8A0207'
     }
   },
+  // left内容是又对齐的
   left: {
     size: {
       width: 480,
-      height: 0 // free
+      height: 480 // free
+    },
+    position: {
+      x: -20,
+      y: 0
+    },
+    source: {
+      width: 300,
+      height: 50,
+      picHeight: 32,
+      x: -30,
+      lineEndRate: -0.427,
+      normalPoint: {
+        r: 5,
+        fill: '#000000',
+        strokeWidth: 2,
+        stroke: '#97ACBD',
+        lineStroke: '#97ACBD'
+      },
+      dangerPoint: {
+        r: 10,
+        fill: 'url(#svg_pt_rg_dangerPoint)',
+        strokeWidth: 0,
+        stroke: 'transparent',
+        lineStroke: '#FE191E'
+      }
+    },
+    arc: {
+      r: 400,
+      cx: -450,
+      opacity: 0.6,
+      stroke: '#97ACBD',
+      strokeWidth: 2,
+      outerLineStrokeWidth: 9,
+      outerLineOpacty: 0.2
     }
   },
   center: {
