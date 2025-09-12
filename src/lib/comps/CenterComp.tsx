@@ -103,6 +103,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           y={CCC.label.position.y}
           textAnchor="middle"
           dominantBaseline="middle"
+          fontWeight="bold"
           letterSpacing={CCC.label.spacing}
         >{props.leftColumn.label}</text>
       </g>
@@ -124,6 +125,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           y={CCC.label.position.y}
           textAnchor="middle"
           dominantBaseline="middle"
+          fontWeight="bold"
           letterSpacing={CCC.label.spacing}
         >{props.rightColumn.label}</text>
       </g>

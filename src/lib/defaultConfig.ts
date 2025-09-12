@@ -69,7 +69,7 @@ export default {
       width: 40,
       thickness: 1,
       num: 150,
-      opacity: 0.1
+      opacity: 0.2
     },
     bgOuterCircle: {
       r: 133,

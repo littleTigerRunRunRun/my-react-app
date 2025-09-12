@@ -3,6 +3,7 @@ import './index.scss'
 import DC from './defaultConfig'
 import LeftComp from './comps/LeftComp'
 import CenterComp from './comps/CenterComp'
+import RightComp from './comps/RightComp'
 import pic1 from '../assets/automatenspieler.png'
 import pic2 from '../assets/devexpress.png'
 import pic3 from '../assets/famoid.png'
@@ -40,6 +41,13 @@ function Main() {
     }
   }
 
+  const rightProps = {
+    critical‌: 999,
+    high: 999,
+    middle: 999,
+    low: 999
+  }
+
   return <>
     <div className="diagram-container">
       <svg
@@ -58,6 +66,42 @@ function Main() {
             <stop offset="0%" stopColor="#fff" stopOpacity="1" />
             <stop offset="94%" stopColor="#fff" stopOpacity="1" />
             <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightAutomated" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="#01FEF7" stopOpacity="0.6" />
+            <stop offset="80%" stopColor="#01FEF7" stopOpacity="0.6" />
+            <stop offset="90%" stopColor="#D6E9FE" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#D6E9FE" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightManual" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="#97ACBD" stopOpacity="0.6" />
+            <stop offset="60%" stopColor="#97ACBD" stopOpacity="0.6" />
+            <stop offset="80%" stopColor="#D6E9FE" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#D6E9FE" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightC" x1="0" y1="0.5" x2="1" y2="0.5">
+            <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="80%" stopColor="#8A0207" stopOpacity="1" />
+            <stop offset="100%" stopColor="#8A0207" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightH" x1="0" y1="0.5" x2="1" y2="0.5">
+            <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="80%" stopColor="#CD3737" stopOpacity="1" />
+            <stop offset="100%" stopColor="#CD3737" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightM" x1="0" y1="0.5" x2="1" y2="0.5">
+            <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="80%" stopColor="#EB9600" stopOpacity="1" />
+            <stop offset="100%" stopColor="#EB9600" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_rightL" x1="0" y1="0.5" x2="1" y2="0.5">
+            <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
+            <stop offset="80%" stopColor="#0F8CF0" stopOpacity="1" />
+            <stop offset="100%" stopColor="#0F8CF0" stopOpacity="1" />
           </linearGradient>
           <radialGradient id="svg_pt_rg_dangerPoint" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
             <stop offset="0%" stopColor="#FE191E" stopOpacity="1" />
@@ -110,6 +154,9 @@ function Main() {
         />
         <CenterComp
           props={centerProps}
+        />
+        <RightComp
+          props={rightProps}
         />
       </svg>
     </div>
