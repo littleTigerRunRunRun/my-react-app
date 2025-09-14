@@ -1,4 +1,5 @@
 import DC from '../defaultConfig'
+import LabelCount from './comp/LabelCount'
 
 function CenterComp({ props }:{ props: Record<string, any> }) {
   const CC = DC.center
@@ -85,50 +86,18 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           })
         }
       </g>
-      <g className="infoShow left" transform={`translate(${CCC.leftPosition.x}, 0)`}>
-        <text
-          fontSize={CCC.count.size}
-          fill={CCC.count.color}
-          x={CCC.count.position.x}
-          y={CCC.count.position.y}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.count.spacing}
-        >{props.leftColumn.count}</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >{props.leftColumn.label}</text>
-      </g>
-      <g className="infoShow right" transform={`translate(${CCC.rightPosition.x}, 0)`}>
-        <text
-          fontSize={CCC.count.size}
-          fill={CCC.count.color}
-          x={CCC.count.position.x}
-          y={CCC.count.position.y}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.count.spacing}
-        >{props.rightColumn.count}</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >{props.rightColumn.label}</text>
-      </g>
+      <LabelCount 
+        count={props.leftColumn.count}
+        labels={[props.leftColumn.label]}
+        align="middle"
+        transform={`translate(${CCC.leftPosition.x}, 0)`}
+      />
+      <LabelCount 
+        count={props.rightColumn.count}
+        labels={[props.rightColumn.label]}
+        align="middle"
+        transform={`translate(${CCC.rightPosition.x}, 0)`}
+      />
     </g>
   </g>
 }

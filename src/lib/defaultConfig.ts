@@ -12,6 +12,12 @@ export default {
       middle: '#EB9600',
       high: '#CD3737',
       critical‌: '#8A0207'
+    },
+    comp: {
+      LabelCount: {
+        label: { size: 14, color: '#848484', spacing: 2, position: { x: 0, y: 14 }, nextLine: 20 },
+        count: { size: 28, color: '#FBFBFB', spacing: 2, position: { x: 0, y: -16 } }
+      }
     }
   },
   // left内容是又对齐的
@@ -90,9 +96,7 @@ export default {
     ],
     column: {
       leftPosition: { x: -240, y: 0 },
-      rightPosition: { x: 240, y: 0 },
-      label: { size: 14, color: '#848484', spacing: 2, position: { x: 0, y: 14 } },
-      count: { size: 28, color: '#FBFBFB', spacing: 2, position: { x: 0, y: -16 } }
+      rightPosition: { x: 240, y: 0 }
     }
   },
   right: {

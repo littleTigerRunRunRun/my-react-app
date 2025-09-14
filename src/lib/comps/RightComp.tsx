@@ -1,6 +1,7 @@
 import DC from '../defaultConfig'
 import structurePic from '../../assets/structure.png'
 import userPic from '../../assets/user.png'
+import LabelCount from './comp/LabelCount'
 
 function RightComp({ props }:{ props: Record<string, any> }) {
   const CCC = DC.center.column
@@ -63,28 +64,12 @@ function RightComp({ props }:{ props: Record<string, any> }) {
         height="24"
         href={structurePic}
       />
-      <g className="infoShow" transform={`translate(220, -240)`}>
-        <text
-          fontSize={CCC.count.size}
-          fill={CCC.count.color}
-          x={CCC.count.position.x}
-          y={CCC.count.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.count.spacing}
-        >999</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >AUTOMATED</text>
-      </g>
+      <LabelCount
+        transform={`translate(220, -240)`}
+        count={999}
+        labels={['AUTOMATED']}
+        align="start"
+      />
     </g>
     <g className="manual">
       <path
@@ -137,61 +122,19 @@ function RightComp({ props }:{ props: Record<string, any> }) {
         height="20"
         href={userPic}
       />
-      <g className="infoShow" transform={`translate(220, 250)`}>
-        <text
-          fontSize={CCC.count.size}
-          fill={CCC.count.color}
-          x={CCC.count.position.x}
-          y={CCC.count.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.count.spacing}
-        >999</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >MANUAL</text>
-      </g>
+      <LabelCount
+        transform={`translate(220, 250)`}
+        count={999}
+        labels={['MANUAL']}
+        align="start"
+      />
     </g>
-    <g className="resolvedCases" transform={`translate(500, -142)`}>
-      <text
-        fontSize={CCC.count.size}
-        fill={CCC.count.color}
-        x={CCC.count.position.x}
-        y={CCC.count.position.y}
-        textAnchor="start"
-        dominantBaseline="middle"
-        fontWeight="bold"
-        letterSpacing={CCC.count.spacing}
-      >999</text>
-      <text
-        fontSize={CCC.label.size}
-        fill={CCC.label.color}
-        x={CCC.label.position.x}
-        y={CCC.label.position.y}
-        textAnchor="start"
-        dominantBaseline="middle"
-        fontWeight="bold"
-        letterSpacing={CCC.label.spacing}
-      >RESOLVED</text>
-      <text
-        fontSize={CCC.label.size}
-        fill={CCC.label.color}
-        x={CCC.label.position.x}
-        y={CCC.label.position.y + 20}
-        textAnchor="start"
-        dominantBaseline="middle"
-        fontWeight="bold"
-        letterSpacing={CCC.label.spacing}
-      >CASES</text>
-    </g>
+    <LabelCount
+      transform={`translate(500, -142)`}
+      count={999}
+      labels={['RESOLVED', 'CASES']}
+      align="start"
+    />
     <g className="openCases">
       <g>
         <path
@@ -260,38 +203,12 @@ function RightComp({ props }:{ props: Record<string, any> }) {
         </g>
         {/* { x: 240 + 125 + 40, y: 142 + 78 } */}
       </g>
-      <g transform={`translate(500, 220)`}>
-        <text
-          fontSize={CCC.count.size}
-          fill={CCC.count.color}
-          x={CCC.count.position.x}
-          y={CCC.count.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.count.spacing}
-        >999</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >OPEN</text>
-        <text
-          fontSize={CCC.label.size}
-          fill={CCC.label.color}
-          x={CCC.label.position.x}
-          y={CCC.label.position.y + 20}
-          textAnchor="start"
-          dominantBaseline="middle"
-          fontWeight="bold"
-          letterSpacing={CCC.label.spacing}
-        >CASES</text>
-      </g>
+      <LabelCount
+        transform={`translate(500, 220)`}
+        count={999}
+        labels={['OPEN', 'CASES']}
+        align="start"
+      />
     </g>
   </g>
 }
