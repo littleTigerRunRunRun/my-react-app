@@ -1,6 +1,7 @@
 import DC from '../../defaultConfig'
+import { formatNumber } from '../../utils/index'
 
-function LabelCount(props: { count:number, labels: Array<string>, align: 'start'|'middle'|'end', transform: string }) {
+function LabelCount(props: { count:number, labels: Array<string>, align: 'start'|'middle'|'end', transform?: string, showPositive?: boolean }) {
   const LCC = DC.global.comp.LabelCount
 
   return <g className="infoShow right" transform={props.transform}>
@@ -13,7 +14,7 @@ function LabelCount(props: { count:number, labels: Array<string>, align: 'start'
       dominantBaseline="middle"
       fontWeight="bold"
       letterSpacing={LCC.count.spacing}
-    >{props.count}</text>
+    >{(props.showPositive ? '+' : '')+ formatNumber(props.count)}</text>
     {
       props.labels.map((label, index) => {
         return <text

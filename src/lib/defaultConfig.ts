@@ -24,7 +24,7 @@ export default {
   left: {
     size: {
       width: 480,
-      height: 480 // free
+      height: 600 // free
     },
     position: {
       x: -20,
@@ -57,7 +57,7 @@ export default {
       opacity: 0.6,
       stroke: '#97ACBD',
       strokeWidth: 2,
-      outerLineStrokeWidth: 9,
+      outerLineStrokeWidth: 10,
       outerLineOpacty: 0.2
     }
   },
@@ -75,7 +75,13 @@ export default {
       width: 40,
       thickness: 1,
       num: 150,
-      opacity: 0.2
+      opacity: {
+        safe: 0.25,
+        low: 0.3,
+        middle: 0.25,
+        high: 0.35,
+        critical‌: 0.4
+      }
     },
     bgOuterCircle: {
       r: 133,
@@ -88,7 +94,7 @@ export default {
       opacity: 0.6
     },
     pointsLayer: [
-      { r: 78, size: 2.8, num: 23 },
+      { r: 78, size: 2.8, num: 24 },
       { r: 59, size: 2.4, num: 23 },
       { r: 40, size: 1.6, num: 23 },
       { r: 30, size: 1.5, num: 19 },

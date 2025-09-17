@@ -1,7 +1,13 @@
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
 
-function CenterComp({ props }:{ props: Record<string, any> }) {
+function CenterComp({ props }:{
+    props: {
+      bgStatus: 'safe' | 'low' | 'middle' | 'high' | 'critical‌',
+      points: Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical‌' }>,
+      [key:string]: any
+    }
+  }) {
   const CC = DC.center
   const CCFC = CC.bgFenceCircle
   const CCFCRectArray:Array<number> = []
@@ -10,8 +16,10 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
   const CCOP = CC.pointsLayer
   const CCOPArray:Array<Array<{ angle: number, color: string }>> = []
   const CCC = CC.column
+  const statusColor = DC.global.color[props.bgStatus]
 
   for (let i = 0; i < CCFC.num; i++) CCFCRectArray.push(360 / CCFC.num * i)
+  let layerStart = 0
   for (let l = 0; l < CCOP.length; l++) {
     const layer = CCOP[l]
     const layerArray:Array<{ angle: number, color: string }> = []
@@ -19,11 +27,13 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
       layerArray.push({
         angle: 360 / layer.num * i,
         // @ts-ignore
-        color: l < 2? DC.global.color.safe : DC.global.color[['low', 'middle', 'high', 'critical'][Math.floor(Math.random() * 3)]]
+        color: DC.global.color[props.points[layerStart + i]]
       })
     }
     CCOPArray.push(layerArray)
+    layerStart += layer.num
   }
+  console.log(CCOPArray)
 
   return <g
     className="center-comp"
@@ -38,8 +48,8 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
             y={CCFC.thickness * -0.5}
             width={CCFC.width}
             height={CCFC.thickness}
-            fill={props.bgStatusColor}
-            fillOpacity={CCFC.opacity}
+            fill={statusColor}
+            fillOpacity={CCFC.opacity[props.bgStatus]}
             transform={`rotate(${angle} 0 0)`}
           />
         ))
@@ -50,7 +60,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           cy="0"
           r={CCOC.r}
           fill="transparent"
-          stroke={props.bgStatusColor}
+          stroke={statusColor}
           strokeWidth={CCOC.width}
           strokeOpacity={CCOC.opacity}
           // filter="url(#basicGlow)"
@@ -60,7 +70,7 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
           cy="0"
           r={CCIC.r}
           fill="transparent"
-          stroke={props.bgStatusColor}
+          stroke={statusColor}
           strokeWidth={CCIC.width}
           strokeOpacity={CCIC.opacity}
           // filter="url(#basicGlow)"
@@ -87,14 +97,14 @@ function CenterComp({ props }:{ props: Record<string, any> }) {
         }
       </g>
       <LabelCount 
-        count={props.leftColumn.count}
-        labels={[props.leftColumn.label]}
+        count={props.leftCount}
+        labels={['ISSUES']}
         align="middle"
         transform={`translate(${CCC.leftPosition.x}, 0)`}
       />
       <LabelCount 
-        count={props.rightColumn.count}
-        labels={[props.rightColumn.label]}
+        count={props.rightCount}
+        labels={['CASES']}
         align="middle"
         transform={`translate(${CCC.rightPosition.x}, 0)`}
       />

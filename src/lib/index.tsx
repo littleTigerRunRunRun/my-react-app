@@ -4,49 +4,10 @@ import DC from './defaultConfig'
 import LeftComp from './comps/LeftComp'
 import CenterComp from './comps/CenterComp'
 import RightComp from './comps/RightComp'
-import pic1 from '../assets/automatenspieler.png'
-import pic2 from '../assets/devexpress.png'
-import pic3 from '../assets/famoid.png'
-import pic5 from '../assets/laravel.png'
-import pic6 from '../assets/leofame.png'
  
-function Main() {
+function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
   const CCOC = DC.center.bgOuterCircle
-
-  const leftProps = {
-    endpoints: 41732, // 需要自行转成k、m单位
-    dataSources: 68,
-    sources: [
-      { pic: pic1, status: 'safe', width: 78, height: 32 },
-      { pic: pic2, status: 'safe', width: 192, height: 32 },
-      { pic: pic3, status: 'safe', width: 32, height: 32 },
-      { pic: pic5, status: 'safe', width: 109, height: 32 },
-      { pic: pic5, status: 'danger', width: 109, height: 32 },
-      { pic: pic6, status: 'safe', width: 120, height: 32 },
-      { pic: pic3, status: 'safe', width: 32, height: 32 }
-    ]
-  }
-
-  const centerProps = {
-    bgStatusColor: '#01FEF7',
-    points: [],
-    leftColumn: {
-      label: 'ISSUES',
-      count: 999
-    },
-    rightColumn: {
-      label: 'CASES',
-      count: 999
-    }
-  }
-
-  const rightProps = {
-    critical‌: 999,
-    high: 999,
-    middle: 999,
-    low: 999
-  }
 
   return <>
     <div className="diagram-container">
@@ -150,13 +111,13 @@ function Main() {
           </filter>
         </defs>
         <LeftComp
-          props={leftProps}
+          props={data.left}
         />
         <CenterComp
-          props={centerProps}
+          props={data.center}
         />
         <RightComp
-          props={rightProps}
+          props={data.right}
         />
       </svg>
     </div>

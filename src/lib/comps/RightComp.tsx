@@ -4,7 +4,6 @@ import userPic from '../../assets/user.png'
 import LabelCount from './comp/LabelCount'
 
 function RightComp({ props }:{ props: Record<string, any> }) {
-  const CCC = DC.center.column
   const points = {
     automated: { x: 240, y: -142 },
     manual: { x: 240, y: 142 },
@@ -66,7 +65,7 @@ function RightComp({ props }:{ props: Record<string, any> }) {
       />
       <LabelCount
         transform={`translate(220, -240)`}
-        count={999}
+        count={props.automated}
         labels={['AUTOMATED']}
         align="start"
       />
@@ -124,14 +123,14 @@ function RightComp({ props }:{ props: Record<string, any> }) {
       />
       <LabelCount
         transform={`translate(220, 250)`}
-        count={999}
+        count={props.manual}
         labels={['MANUAL']}
         align="start"
       />
     </g>
     <LabelCount
       transform={`translate(500, -142)`}
-      count={999}
+      count={props.resolvedCases}
       labels={['RESOLVED', 'CASES']}
       align="start"
     />
@@ -151,7 +150,7 @@ function RightComp({ props }:{ props: Record<string, any> }) {
             fill={DC.global.color.critical‌}
           />
           <text x="12" y="13" textAnchor="middle" dominantBaseline="middle" fill="#fff">C</text>
-          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.critical‌}</text>
+          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.openCases.critical}</text>
         </g>
         <path
           d="M364,218 C390,218 380,200 405,200"
@@ -167,7 +166,7 @@ function RightComp({ props }:{ props: Record<string, any> }) {
             fill={DC.global.color.high}
           />
           <text x="12" y="13" textAnchor="middle" dominantBaseline="middle" fill="#fff">H</text>
-          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.high}</text>
+          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.openCases.high}</text>
         </g>
         <path
           d="M364,222 C390,222 380,235 405,235"
@@ -183,7 +182,7 @@ function RightComp({ props }:{ props: Record<string, any> }) {
             fill={DC.global.color.middle}
           />
           <text x="12" y="13" textAnchor="middle" dominantBaseline="middle" fill="#fff">M</text>
-          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.middle}</text>
+          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.openCases.middle}</text>
         </g>
         <path
           d="M364,225 C390,225 380,270 405,270"
@@ -199,13 +198,13 @@ function RightComp({ props }:{ props: Record<string, any> }) {
             fill={DC.global.color.low}
           />
           <text x="12" y="13" textAnchor="middle" dominantBaseline="middle" fill="#fff">L</text>
-          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.low}</text>
+          <text x="28" y="12" fontSize="14" textAnchor="start" dominantBaseline="middle" fill="#D6E9FE">{props.openCases.low}</text>
         </g>
         {/* { x: 240 + 125 + 40, y: 142 + 78 } */}
       </g>
       <LabelCount
         transform={`translate(500, 220)`}
-        count={999}
+        count={props.openCases.critical + props.openCases.high + props.openCases.middle + props.openCases.low}
         labels={['OPEN', 'CASES']}
         align="start"
       />
