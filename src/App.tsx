@@ -27,7 +27,9 @@ function App() {
       ]
     },
     center: {
+      // 中间环背景的状态色显示
       bgStatus: 'safe', // 'safe' | 'low' | 'middle' | 'high' | 'critical‌'
+      // 中间100个状态点的状态
       points: (() => {
         const arr = new Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical‌' }>()
         for (let i = 0; i < 100; i++) {
@@ -36,10 +38,12 @@ function App() {
         }
         return arr
       })(),
+      // 数据展示
       leftCount: 999,
       rightCount: 999
     },
     right: {
+      // 数据展示
       automated: 991,
       resolvedCases: 992,
       manual: 993,
