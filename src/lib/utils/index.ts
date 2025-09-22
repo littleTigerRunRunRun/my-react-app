@@ -17,3 +17,4 @@ export function formatNumber(num:number, precision = 2) {
   
   return formattedValue + units[exp];
 }
+

@@ -1,5 +1,6 @@
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
+import Bezier from './comp/Bezier'
 
 function LeftComp({ props }:{ props: {
   endpoints: number,
@@ -10,7 +11,7 @@ function LeftComp({ props }:{ props: {
   const CLS = CL.source
   const CLA = CL.arc
 
-  console.log(props)
+  // console.log(props)
   const arcsPosition = props.sources.map((_source, index) => {
     const y = (index - (props.sources.length - 1) * 0.5) * CLS.height
     const x = CLA.cx + Math.sqrt(CLA.r * CLA.r - y * y)
@@ -93,18 +94,22 @@ function LeftComp({ props }:{ props: {
                 showPositive={true}
               />: <></>
             }
-            <path
-              d={`M${position.x},${position.y} L${position.x + CLS.width * (0.1 + 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5))},${position.y * 1} C${CLS.width * 0.3},${position.y * 1} ${CLS.width * 0.4},${position.ey * 1.1} ${CLS.width},${position.ey}`}
+            <Bezier
+              start={{ x: position.x, y: position.y }}
+              end={{ x: CLS.width, y: position.ey }}
+              extendS={CLS.width * (0.1 + 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5))}
+              bezier={[CLS.width * (0.2 - 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5)) - position.x, 0, CLS.width * 0.6, 0]}
               fill="none"
-              // stroke={CLA.stroke}
               stroke={style.lineStroke}
               strokeWidth={2}
               strokeOpacity={0.3}
             />
-            <path
-              d={`M${position.x},${position.y} L${position.x + CLS.width * (0.1 + 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5))},${position.y * 1} C${CLS.width * 0.3},${position.y * 1} ${CLS.width * 0.4},${position.ey * 1.1} ${CLS.width},${position.ey}`}
+            <Bezier
+              start={{ x: position.x, y: position.y }}
+              end={{ x: CLS.width, y: position.ey }}
+              extendS={CLS.width * (0.1 + 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5))}
+              bezier={[CLS.width * (0.2 - 0.04 * Math.abs(index - (props.sources.length - 1) * 0.5)) - position.x, 0, CLS.width * 0.6, 0]}
               fill="none"
-              // stroke={CLA.stroke}
               stroke={style.lineStroke}
               strokeWidth={CLA.outerLineStrokeWidth}
               strokeOpacity={CLA.outerLineOpacty}
