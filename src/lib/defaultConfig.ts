@@ -11,7 +11,7 @@ export default {
       low: '#0F8CF0',
       middle: '#EB9600',
       high: '#CD3737',
-      critical‌: '#8A0207'
+      critical: '#8A0207'
     },
     comp: {
       LabelCount: {
@@ -80,7 +80,7 @@ export default {
         low: 0.3,
         middle: 0.25,
         high: 0.35,
-        critical‌: 0.4
+        critical: 0.4
       }
     },
     bgOuterCircle: {

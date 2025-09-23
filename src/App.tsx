@@ -28,10 +28,10 @@ function App() {
     },
     center: {
       // 中间环背景的状态色显示
-      bgStatus: 'safe', // 'safe' | 'low' | 'middle' | 'high' | 'critical‌'
+      bgStatus: 'safe', // 'safe' | 'low' | 'middle' | 'high' | 'critical'
       // 中间100个状态点的状态
       points: (() => {
-        const arr = new Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical‌' }>()
+        const arr = new Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical' }>()
         for (let i = 0; i < 100; i++) {
           // @ts-ignore
           arr.push((['safe', 'low', 'middle', 'high', 'critical'])[Math.floor(Math.random() * 4)])

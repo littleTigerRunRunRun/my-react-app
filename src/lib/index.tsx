@@ -40,25 +40,25 @@ function Main({ data }:{ data: Record<string, any> }) {
             <stop offset="80%" stopColor="#D6E9FE" stopOpacity="0.6" />
             <stop offset="100%" stopColor="#D6E9FE" stopOpacity="1" />
           </linearGradient>
-          <linearGradient id="svg_pt_lg_rightC" x1="0" y1="0.5" x2="1" y2="0.5">
+          <linearGradient id="svg_pt_lg_right_critical" x1="0" y1="0.5" x2="1" y2="0.5">
             <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="80%" stopColor="#8A0207" stopOpacity="1" />
             <stop offset="100%" stopColor="#8A0207" stopOpacity="1" />
           </linearGradient>
-          <linearGradient id="svg_pt_lg_rightH" x1="0" y1="0.5" x2="1" y2="0.5">
+          <linearGradient id="svg_pt_lg_right_high" x1="0" y1="0.5" x2="1" y2="0.5">
             <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="80%" stopColor="#CD3737" stopOpacity="1" />
             <stop offset="100%" stopColor="#CD3737" stopOpacity="1" />
           </linearGradient>
-          <linearGradient id="svg_pt_lg_rightM" x1="0" y1="0.5" x2="1" y2="0.5">
+          <linearGradient id="svg_pt_lg_right_middle" x1="0" y1="0.5" x2="1" y2="0.5">
             <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="80%" stopColor="#EB9600" stopOpacity="1" />
             <stop offset="100%" stopColor="#EB9600" stopOpacity="1" />
           </linearGradient>
-          <linearGradient id="svg_pt_lg_rightL" x1="0" y1="0.5" x2="1" y2="0.5">
+          <linearGradient id="svg_pt_lg_right_low" x1="0" y1="0.5" x2="1" y2="0.5">
             <stop offset="0%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="40%" stopColor="#D6E9FE" stopOpacity="1" />
             <stop offset="80%" stopColor="#0F8CF0" stopOpacity="1" />

@@ -3,8 +3,8 @@ import LabelCount from './comp/LabelCount'
 
 function CenterComp({ props }:{
     props: {
-      bgStatus: 'safe' | 'low' | 'middle' | 'high' | 'critical‌',
-      points: Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical‌' }>,
+      bgStatus: 'safe' | 'low' | 'middle' | 'high' | 'critical',
+      points: Array<{ status: 'safe' | 'low' | 'middle' | 'high' | 'critical' }>,
       [key:string]: any
     }
   }) {

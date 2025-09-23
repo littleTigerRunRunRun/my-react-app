@@ -11,7 +11,8 @@ function Bezier(props: {
   fillOpacity?: number,
   stroke?: string,
   strokeWidth?: number,
-  strokeOpacity?: number
+  strokeOpacity?: number,
+  opacity?: number
 }) {
   const extendS = props.extendS || 0
   const extendE = props.extendE || 0
@@ -43,6 +44,7 @@ function Bezier(props: {
     stroke={props.stroke}
     strokeWidth={props.strokeWidth}
     strokeOpacity={props.strokeOpacity}
+    opacity={props.opacity}
   />
 }
 
