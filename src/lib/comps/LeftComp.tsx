@@ -1,6 +1,8 @@
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
 import Bezier from './comp/Bezier'
+import './index.scss'
+import { subscriber, Event } from '../utils/Subscriber'
 
 function LeftComp({ props }:{ props: {
   endpoints: number,
@@ -74,7 +76,12 @@ function LeftComp({ props }:{ props: {
         arcsPosition.map((position, index) => {
           const source = props.sources[index] || { labels: ['DATE SOURCES'], count: props.dataSources - 9, status: 'safe' }
           const style = source.status === 'safe' ? CLS.normalPoint : CLS.dangerPoint
-          return <g className="source" key={index}>
+          const handleClick = () => {
+            subscriber.broadcast(Event.LEFT_DIG)
+          }
+          const clickProps = typeof source.count === 'number' ? { onClick: handleClick }: {}
+
+          return <g className={`source${source.count ? ' more-source' : ''}`} key={index}>
             {
               source.pic ? <image
                 x={-source.width * CLS.picHeight / source.height + CLS.x + position.x}
@@ -92,6 +99,7 @@ function LeftComp({ props }:{ props: {
                 align="start"
                 transform={`translate(${position.x - 90}, ${position.y + 18})`}
                 showPositive={true}
+                {...clickProps}
               />: <></>
             }
             <Bezier
