@@ -33,7 +33,7 @@ function CenterComp({ props }:{
     CCOPArray.push(layerArray)
     layerStart += layer.num
   }
-  console.log(CCOPArray)
+  // console.log(CCOPArray)
 
   return <g
     className="center-comp"

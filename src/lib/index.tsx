@@ -1,13 +1,22 @@
-// import { useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import './index.scss'
 import DC from './defaultConfig'
 import LeftComp from './comps/LeftComp'
 import CenterComp from './comps/CenterComp'
 import RightComp from './comps/RightComp'
+import {} from './animation'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
   const CCOC = DC.center.bgOuterCircle
+
+  useEffect(() => {
+    console.log('挂载')
+
+    return () => {
+      console.log('卸载')
+    }
+  }, [])
 
   return <>
     <div className="diagram-container">
@@ -124,4 +133,4 @@ function Main({ data }:{ data: Record<string, any> }) {
   </>
 }
 
-export default Main
+export default Main  

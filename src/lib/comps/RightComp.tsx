@@ -161,7 +161,6 @@ function RightComp({ props }:{ props: Record<string, any> }) {
       {
         // @ts-ignore
         Object.entries(props.openCases).map(([key, value]:['safe' | 'low' | 'middle' | 'high' | 'critical', number], index) => {
-          console.log(key)
           return <g key={key}>
             <Bezier
               start={{ x: points.openCase.x - 1, y: points.openCase.y + (index - 1.5) * 4 }}
