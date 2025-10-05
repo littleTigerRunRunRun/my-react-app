@@ -117,7 +117,7 @@ export class Tick {
       return
     }
 
-    this.activates.map((callback) => callback(now - this.startTime, now - this.lastNow))
+    this.activates.map((callback) => callback(now - this.lastNow, now - this.startTime))
 
     if (this.nows.length > 0) {
       for (const nowCall of this.nows) nowCall()

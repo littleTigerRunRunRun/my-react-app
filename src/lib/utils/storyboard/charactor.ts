@@ -26,7 +26,6 @@ export class Charactor {
 
 export type PropDescription = {
   name: string
-  isFunction: boolean
   value?: any
 }
 class Prop {
@@ -35,10 +34,12 @@ class Prop {
   value = null
   constructor(prop:PropDescription) {
     this.name = prop.name
-    this.isFunction = prop.isFunction
+    this.isFunction = typeof prop.value === 'function'
     this.value = prop.value
   }
-  getValue(index) {
+  // 根据某个规则获取值，value可以是固定值，当value传入是一个函数时，isFunction将是true
+  // 对于固定值的前者，getValue不需要传入任何值返回value即可，否则将需要传入一个参数，这个参数依据Prop的定义而定
+  getValue(key) {
     if (!this.value) {
       console.error(`名为${this.name}的道具未就位`)
       return

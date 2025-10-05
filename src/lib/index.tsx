@@ -4,7 +4,7 @@ import DC from './defaultConfig'
 import LeftComp from './comps/LeftComp'
 import CenterComp from './comps/CenterComp'
 import RightComp from './comps/RightComp'
-import {} from './animation'
+import './animation'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size

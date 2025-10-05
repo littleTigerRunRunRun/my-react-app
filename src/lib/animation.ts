@@ -2,4 +2,7 @@
 import { Tick } from './utils/storyboard'
 
 // 整个系统复杂动画的控制系统
-const tick = new Tick()
+export const tick = new Tick()
+
+// tick.add((delt, tilltime) => {
+// }, true)
