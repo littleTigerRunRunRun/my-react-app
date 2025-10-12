@@ -6,13 +6,7 @@ function Bezier(props: {
   extendS?: number,
   extendE?: number,
   bezier: [number, number, number, number],
-  transform?: string,
-  fill?: string,
-  fillOpacity?: number,
-  stroke?: string,
-  strokeWidth?: number,
-  strokeOpacity?: number,
-  opacity?: number
+  pathAttr: React.SVGProps<SVGPathElement>
 }) {
   const extendS = props.extendS || 0
   const extendE = props.extendE || 0
@@ -33,18 +27,12 @@ function Bezier(props: {
   // 存在横向结束扩展
   // 结束点被包含在贝塞尔曲线的终点上
   if (extendE) {
-    path += ` Z${props.end.x},${props.end.y}`
+    path += ` L${props.end.x},${props.end.y}`
   }
 
   return <path
     d={path}
-    transform={props.transform}
-    fill={props.fill}
-    fillOpacity={props.fillOpacity}
-    stroke={props.stroke}
-    strokeWidth={props.strokeWidth}
-    strokeOpacity={props.strokeOpacity}
-    opacity={props.opacity}
+    {...props.pathAttr}
   />
 }
 

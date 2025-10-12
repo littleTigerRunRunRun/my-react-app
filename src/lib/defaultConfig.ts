@@ -1,10 +1,10 @@
 export default {
   global: {
     size: {
-      width: 480 + 560 + 680, // 480 = leftWidth 560 = centerWidth 680 = rightWidth
+      width: 400 + 540 + 554, // 480 = leftWidth 560 = centerWidth 680 = rightWidth
       height: 480, // 只有center有高度
       hp: 120, // 水平方向padding
-      vp: 200, // 竖直方向padding
+      vp: 100, // 竖直方向padding
     },
     color: {
       safe: '#01FEF7',
@@ -22,52 +22,35 @@ export default {
   },
   // left内容是又对齐的
   left: {
-    size: {
-      width: 480,
-      height: 600 // free
-    },
-    position: {
-      x: -20,
-      y: 0
-    },
-    source: {
-      width: 300,
-      height: 50,
-      picHeight: 32,
-      x: -30,
-      lineEndRate: -0.427,
-      normalPoint: {
-        r: 5,
-        fill: '#000000',
-        strokeWidth: 2,
-        stroke: '#97ACBD',
-        lineStroke: '#97ACBD'
-      },
-      dangerPoint: {
-        r: 10,
-        fill: 'url(#svg_pt_rg_dangerPoint)',
-        strokeWidth: 0,
-        stroke: 'transparent',
-        lineStroke: '#FE191E'
-      }
-    },
-    arc: {
-      r: 400,
-      cx: -450,
-      opacity: 0.6,
-      stroke: '#97ACBD',
-      strokeWidth: 2,
-      outerLineStrokeWidth: 10,
-      outerLineOpacty: 0.2
+    width: 400, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNL + lineWidth
+    iconStartPosition: 0, // = 0
+    nameStartPosition: 72, // = iconMaxWidth + paddingIN
+    lineStartPosition: 200, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNL
+    iconMaxWidth: 60,
+    nameMaxWidth: 106,
+    lineWidth: 200,
+    // paddingIN: 12,
+    // paddingNL: 22,
+    height: 52,
+    lineEndHeight: 12,
+    iconMaxHeight: 28,
+    nameHeight: 24,
+    // 会直接赋予name这个text标签的属性
+    nameAttr: {
+      fontFamily: 'PingFang',
+      fontSize: 16,
+      fill: 'rgba(255, 255, 255, 0.85)',
+      dominantBaseline: 'middle',
+      textAnchor: 'start'
     }
   },
   center: {
     size: {
-      width: 560,
+      width: 540,
       height: 480
     },
     position: {
-      x: 0,
+      x: -77,
       y: 0
     },
     bgFenceCircle: {
@@ -107,7 +90,7 @@ export default {
   },
   right: {
     size: {
-      width: 680,
+      width: 554,
       height: 0 // free
     }
   }

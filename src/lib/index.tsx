@@ -97,13 +97,13 @@ function Main({ data }:{ data: Record<string, any> }) {
             // 用于给中央圈制造渐变剔除效果的遮罩层
             id="svg_pt_leftMask"
           >
-            <rect
+            {/* <rect
               fill="url(#svg_pt_lg_leftMask)"
               x={-500}
               y={DC.left.size.height * -0.5}
               width={DC.left.source.width + 500}
               height={DC.left.size.height}
-            />
+            /> */}
           </mask>
          <filter id="basicGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>

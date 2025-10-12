@@ -1,6 +1,4 @@
 import DC from '../defaultConfig'
-import structurePic from '../../assets/structure.png'
-import userPic from '../../assets/user.png'
 import LabelCount from './comp/LabelCount'
 import Bezier from './comp/Bezier'
 
@@ -67,13 +65,6 @@ function RightComp({ props }:{ props: Record<string, any> }) {
             filter: 'drop-shadow(0px 0px 8px #01FEF7)'
           }}
         />
-        <image
-          x="228"
-          y="-155"
-          width="24"
-          height="24"
-          href={structurePic}
-        />
       </g>
       <LabelCount
         transform={`translate(220, -240)`}
@@ -135,13 +126,6 @@ function RightComp({ props }:{ props: Record<string, any> }) {
           }}
           // stroke="#01FEF7"
           // stroke-width="2"
-        />
-        <image
-          x="230"
-          y="131"
-          width="20"
-          height="20"
-          href={userPic}
         />
       </g>
       <LabelCount

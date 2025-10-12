@@ -1,10 +1,9 @@
 import DiagramMain from './lib/index'
 import './App.css'
-import pic1 from './assets/automatenspieler.png'
-import pic2 from './assets/devexpress.png'
-import pic3 from './assets/famoid.png'
-import pic5 from './assets/laravel.png'
-import pic6 from './assets/leofame.png'
+import amazon from './assets/amazon.png'
+import google_cloud from './assets/google_cloud.png'
+import microsoft from './assets/microsoft.png'
+import office from './assets/office.png'
 import { useState } from 'react'
 
 function App() {
@@ -15,15 +14,18 @@ function App() {
       dataSources: 77, // 总数据源数量
       // 权重前9的数据源
       sources: [
-        { pic: pic1, status: 'safe', width: 78, height: 32 },
-        { pic: pic2, status: 'safe', width: 192, height: 32 },
-        { pic: pic3, status: 'danger', width: 32, height: 32 },
-        { pic: pic5, status: 'safe', width: 109, height: 32 },
-        { pic: pic5, status: 'safe', width: 109, height: 32 },
-        { pic: pic6, status: 'safe', width: 120, height: 32 },
-        { pic: pic3, status: 'safe', width: 32, height: 32 },
-        { pic: pic3, status: 'safe', width: 32, height: 32 },
-        { pic: pic3, status: 'safe', width: 32, height: 32 }
+        { pic: amazon, name: 'Amazon', status: 'safe', width: 745, height: 200 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+        { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+        { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 },
+        { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+        { pic: microsoft, name: 'Microsort', status: 'safe', width: 200, height: 200 },
+        { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 },
+        // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+        // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+        // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+        // { pic: office, name: 'Microsort 365', status: 'safe', wwidth: 621, height: 200 }
       ]
     },
     center: {
