@@ -32,11 +32,6 @@ function Main({ data }:{ data: Record<string, any> }) {
             <stop offset="72%" stopColor="#fff" stopOpacity="0" />
             <stop offset="80.4%" stopColor="#fff" stopOpacity="1" />
           </linearGradient>
-          <linearGradient id="svg_pt_lg_leftMask" x1="0" y1="0.5" x2="1" y2="0.5">
-            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
-            <stop offset="94%" stopColor="#fff" stopOpacity="1" />
-            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-          </linearGradient>
           <linearGradient id="svg_pt_lg_rightAutomated" x1="0.5" y1="0" x2="0.5" y2="1">
             <stop offset="0%" stopColor="#01FEF7" stopOpacity="0.6" />
             <stop offset="80%" stopColor="#01FEF7" stopOpacity="0.6" />
@@ -92,18 +87,6 @@ function Main({ data }:{ data: Record<string, any> }) {
               width={CCOC.r * 2.8 + CCOC.width}
               height={CCOC.r * 2.8 + CCOC.width}
             />
-          </mask>
-          <mask
-            // 用于给中央圈制造渐变剔除效果的遮罩层
-            id="svg_pt_leftMask"
-          >
-            {/* <rect
-              fill="url(#svg_pt_lg_leftMask)"
-              x={-500}
-              y={DC.left.size.height * -0.5}
-              width={DC.left.source.width + 500}
-              height={DC.left.size.height}
-            /> */}
           </mask>
          <filter id="basicGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>

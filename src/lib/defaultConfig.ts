@@ -32,7 +32,7 @@ export default {
     // paddingIN: 12,
     // paddingNL: 22,
     height: 52,
-    lineEndHeight: 12,
+    lineEndHeight: 16,
     iconMaxHeight: 28,
     nameHeight: 24,
     // 会直接赋予name这个text标签的属性

@@ -1,9 +1,9 @@
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
-import Bezier from './comp/Bezier'
 import './index.scss'
 import { subscriber, Event } from '../utils/Subscriber'
 import type { Attributes, SVGAttributes } from 'react'
+import { getBezier } from '../utils'
 
 function LeftComp({ props }:{ props: {
   endpoints: number,
@@ -12,7 +12,7 @@ function LeftComp({ props }:{ props: {
   sources: Array<{ pic?: string, name: string, status: string, width: number, height: number }>
 } }) {
   const CL = DC.left
-  const height = 0
+  const height = (props.sources.length - 1) * CL.height + CL.iconMaxHeight
 
   const items = props.sources.map((item) => {
     let rate = 1
@@ -39,13 +39,34 @@ function LeftComp({ props }:{ props: {
 
   return <g
     className="left-comp"
-    transform={`translate(${-CL.width - DC.center.size.width * 0.5 + DC.center.position.x}, ${height * -0.5})`}
+    transform={`translate(${-CL.width - DC.center.size.width * 0.5 + DC.center.position.x}, 0)`}
   >
+    <defs>
+      <linearGradient id="svg_pt_lg_leftMask" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="60%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient id="svg_pt_lg_lc_flow_line" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+        <stop offset="50%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+      </linearGradient>
+      <mask id="svg_pt_mask_left_line">
+        <rect
+          width={CL.lineWidth}
+          height={height}
+          fill="url(#svg_pt_lg_leftMask)"
+          x={CL.lineStartPosition}
+          y={height * -0.5}
+        />
+      </mask>
+    </defs>
     {
       items.map((item, i) => {
         return <g
           className='left-item'
-          transform={`translate(0, ${CL.height * (i - items.length *0.5)})`}
+          transform={`translate(0, ${CL.height * (i - (items.length - 1) * 0.5)})`}
           key={i}
         >
           <image
@@ -71,22 +92,70 @@ function LeftComp({ props }:{ props: {
         </g>
       })
     }
-    <g className="line-group">
+    <g className="line-group" mask="url(#svg_pt_mask_left_line)">
+      {/* <rect
+        id="circle"
+        x="-20"
+        y="-4"
+        width="40"
+        height="8"
+        fill="url(#lineFlowGradient)"
+      />
+      <animateMotion
+        ref="motion"
+        xlink:href="#circle"
+        dur="5s"
+        begin="0s"
+        fill="remove"
+        repeatCount="indefinite"
+        rotate="auto"
+        path="linePath"
+      /> */}
       {
         items.map((item, i) => {
-          return <Bezier
-            key={i}
-            start={{ x: CL.lineStartPosition, y: CL.height * (i - items.length *0.5) }}
-            end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - items.length *0.5) }}
-            extendS={0.3 * CL.lineWidth}
-            extendE={0.1 * CL.lineWidth}
-            bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
-            pathAttr={{
-              fill: 'none',
-              stroke: 'rgba(255, 255, 255, 0.3)',
-              strokeWidth: 4
-            }}
-          />
+          const path = getBezier({
+            start: { x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) },
+            end: { x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) },
+            extendS: 0.3 * CL.lineWidth,
+            extendE: 0.1 * CL.lineWidth,
+            bezier: [0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]
+          })
+
+          return <>
+            <defs>
+              <mask id={`flowline_${i}`}>
+                <path
+                  key={`il_mask_${i}`}
+                  d={path}
+                  {...{
+                    fill: 'none',
+                    stroke: '#fff',
+                    strokeWidth: 2,
+                    strokeLinecap: 'round'
+                  }}
+                />
+              </mask>
+            </defs>
+            <rect
+              key={`rect_${i}`}
+              mask={`url(#flowline_${i})`}
+              x={CL.lineStartPosition}
+              y={CL.height * (i - (items.length - 1) * 0.5) - 50}
+              width="100"
+              height="100"
+              fill="url(#svg_pt_lg_lc_flow_line)"
+            />
+            <path
+              key={`ol_${i}`}
+              d={path}
+              {...{
+                fill: 'none',
+                stroke: 'rgba(255, 255, 255, 0.2)',
+                strokeWidth: 8,
+                strokeLinecap: 'round'
+              }}
+            />
+          </>
         })
       }
     </g> 
