@@ -42,7 +42,7 @@ function LeftComp({ props }:{ props: {
     transform={`translate(${-CL.width - DC.center.size.width * 0.5 + DC.center.position.x}, 0)`}
   >
     <defs>
-      <linearGradient id="svg_pt_lg_leftMask" x1="0" y1="0.5" x2="1" y2="0.5">
+      <linearGradient id="svg_pt_lg_left_mask" x1="0" y1="0.5" x2="1" y2="0.5">
         <stop offset="0%" stopColor="#fff" stopOpacity="1" />
         <stop offset="60%" stopColor="#fff" stopOpacity="1" />
         <stop offset="100%" stopColor="#fff" stopOpacity="0" />
@@ -52,12 +52,23 @@ function LeftComp({ props }:{ props: {
         <stop offset="50%" stopColor="#fff" stopOpacity="1" />
         <stop offset="100%" stopColor="#fff" stopOpacity="0" />
       </linearGradient>
+      <radialGradient id="svg_pt_lg_lc_danger_point" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="0%" stopColor="#F54E4E" stopOpacity="0.8" />
+        <stop offset="33%" stopColor="#F54E4E" stopOpacity="0.8" />
+        <stop offset="33%" stopColor="#F54E4E" stopOpacity="0.5" />
+        <stop offset="66%" stopColor="#F54E4E" stopOpacity="0.5" />
+        <stop offset="66%" stopColor="#F54E4E" stopOpacity="0.2" />
+        <stop offset="100%" stopColor="#F54E4E" stopOpacity="0.2" />
+      </radialGradient>
       <mask id="svg_pt_mask_left_line">
+        {
+          // 这里的12是用于流线开始的危险内容的圆形
+        }
         <rect
-          width={CL.lineWidth}
+          width={CL.lineWidth + 12}
           height={height}
-          fill="url(#svg_pt_lg_leftMask)"
-          x={CL.lineStartPosition}
+          fill="url(#svg_pt_lg_left_mask)"
+          x={CL.lineStartPosition - 12}
           y={height * -0.5}
         />
       </mask>
@@ -121,41 +132,50 @@ function LeftComp({ props }:{ props: {
             bezier: [0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]
           })
 
-          return <>
+          return <g key={`line_${i}`}>
             <defs>
               <mask id={`flowline_${i}`}>
                 <path
-                  key={`il_mask_${i}`}
                   d={path}
-                  {...{
-                    fill: 'none',
-                    stroke: '#fff',
-                    strokeWidth: 2,
-                    strokeLinecap: 'round'
-                  }}
+                  {...(CL.innerLineAttr as React.SVGProps<SVGPathElement>)}
                 />
               </mask>
             </defs>
-            <rect
-              key={`rect_${i}`}
-              mask={`url(#flowline_${i})`}
-              x={CL.lineStartPosition}
-              y={CL.height * (i - (items.length - 1) * 0.5) - 50}
-              width="100"
-              height="100"
-              fill="url(#svg_pt_lg_lc_flow_line)"
-            />
             <path
-              key={`ol_${i}`}
               d={path}
-              {...{
-                fill: 'none',
-                stroke: 'rgba(255, 255, 255, 0.2)',
-                strokeWidth: 8,
-                strokeLinecap: 'round'
-              }}
+              {...(CL.outerLineAttr as React.SVGProps<SVGPathElement>)}
             />
-          </>
+            {
+              item.status === 'danger' ? <>
+                <circle
+                  cx={CL.lineStartPosition}
+                  cy={CL.height * (i - (items.length - 1) * 0.5)}
+                  fill="url(#svg_pt_lg_lc_danger_point)"
+                  {...(CL.linePoint.danger)}
+                />
+                <path
+                  d={path}
+                  {...(CL.innerLineAttr as React.SVGProps<SVGPathElement>)}
+                  stroke="#F54E4E"
+                  strokeOpacity="0.5"
+                />
+              </> : <>
+                <rect
+                  mask={`url(#flowline_${i})`}
+                  x={CL.lineStartPosition}
+                  y={CL.height * (i - (items.length - 1) * 0.5) - 50}
+                  width="100"
+                  height="100"
+                  fill="url(#svg_pt_lg_lc_flow_line)"
+                />
+                <circle
+                  cx={CL.lineStartPosition}
+                  cy={CL.height * (i - (items.length - 1) * 0.5)}
+                  {...(CL.linePoint.normalAttr)}
+                />
+              </>
+            }
+          </g>
         })
       }
     </g> 

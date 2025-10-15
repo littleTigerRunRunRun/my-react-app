@@ -8,7 +8,6 @@ import './animation'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
-  const CCOC = DC.center.bgOuterCircle
 
   useEffect(() => {
     console.log('挂载')
@@ -76,18 +75,6 @@ function Main({ data }:{ data: Record<string, any> }) {
             <stop offset="80%" stopColor="#FE191E" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#FE191E" stopOpacity="0.5" />
           </radialGradient>
-          <mask
-            // 用于给中央圈制造渐变剔除效果的遮罩层
-            id="svg_pt_centerCircleMask"
-          >
-            <rect
-              fill="url(#svg_pt_lg_centerCircleMask)"
-              x={-CCOC.r * 1.4 - CCOC.width * 0.5}
-              y={-CCOC.r * 1.4 - CCOC.width * 0.5}
-              width={CCOC.r * 2.8 + CCOC.width}
-              height={CCOC.r * 2.8 + CCOC.width}
-            />
-          </mask>
          <filter id="basicGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
             

@@ -42,50 +42,62 @@ export default {
       fill: 'rgba(255, 255, 255, 0.85)',
       dominantBaseline: 'middle',
       textAnchor: 'start'
+    },
+    innerLineAttr: {
+      fill: 'none',
+      stroke: '#fff',
+      strokeWidth: 2,
+      strokeLinecap: 'round'
+    },
+    outerLineAttr: {
+      fill: 'none',
+      stroke: 'rgba(255, 255, 255, 0.2)',
+      strokeWidth: 8,
+      strokeLinecap: 'round'
+    },
+    linePoint: {
+      normalAttr: {
+        r: 3.5, // (outerLineAttr.strokeWidth - 1) * 0.5
+        fill: '#000000',
+        stroke: 'rgba(255, 255, 255, 0.5',
+        strokeWidth: 0.5,
+      },
+      danger: {
+        r: 12
+      }
     }
   },
   center: {
     size: {
       width: 540,
-      height: 480
+      height: 540
     },
     position: {
       x: -77,
       y: 0
     },
-    bgFenceCircle: {
-      r: 240,
-      width: 40,
-      thickness: 1,
-      num: 150,
-      opacity: {
-        safe: 0.25,
-        low: 0.3,
-        middle: 0.25,
-        high: 0.35,
-        critical: 0.4
-      }
+    alertsPosition: 540 * -0.5 + 110 * 0.5, // 540 = CC.size.width 110 = CC.alerts.width
+    incidentsPosition: 540 * 0.5 - 110 * 0.5,
+    label: {
+      x: 0,
+      y: -22,
+      fill: '#fff',
+      fontWeight: 'bold',
+      fontFamily: '苹方-简 中粗体',
+      fontSize: 36,
+      letterSpacing: 4,
+      dominantBaseline: 'middle',
+      textAnchor: 'middle'
     },
-    bgOuterCircle: {
-      r: 133,
-      width: 3,
-      opacity: 1
-    },
-    bgInnerCircle: {
-      r: 123,
-      width: 2,
-      opacity: 0.6
-    },
-    pointsLayer: [
-      { r: 78, size: 2.8, num: 24 },
-      { r: 59, size: 2.4, num: 23 },
-      { r: 40, size: 1.6, num: 23 },
-      { r: 30, size: 1.5, num: 19 },
-      { r: 19, size: 1.4, num: 11 }
-    ],
-    column: {
-      leftPosition: { x: -240, y: 0 },
-      rightPosition: { x: 240, y: 0 }
+    count: {
+      x: 0,
+      y: 22,
+      fill: '#929293',
+      fontFamily: '苹方-简 中粗体',
+      fontSize: 22,
+      letterSpacing: 1,
+      dominantBaseline: 'middle',
+      textAnchor: 'middle'
     }
   },
   right: {

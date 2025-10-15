@@ -1,21 +1,19 @@
 // 将数字转成千分格式
-export function formatNumber(num:number, precision = 2) {
-  const units = ['', 'K', 'M', 'B', 'T'];
-  const threshold = 1000;
+export function formatNumberWithCommas(num:number) {
+  if (isNaN(num)) return 'Invalid Number';
   
-  if (Math.abs(num) < threshold) {
-    return num.toString();
-  }
-
-  const exp = Math.floor(Math.log10(Math.abs(num)) / 3);
-  const value = num / Math.pow(threshold, exp);
+  // 处理字符串类型的数字输入
+  const str = String(num);
   
-  // 处理精度为0时去掉小数点
-  const formattedValue = precision === 0 
-    ? Math.round(value)
-    : value.toFixed(precision);
+  // 分割整数和小数部分
+  const parts = str.split('.');
+  let integerPart = parts[0];
+  const decimalPart = parts.length > 1 ? `.${parts[1]}` : '';
   
-  return formattedValue + units[exp];
+  // 添加千分符
+  integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  
+  return integerPart + decimalPart;
 }
 
 // 生成一个贝塞尔曲线
