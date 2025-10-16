@@ -34,15 +34,10 @@ function App() {
     },
     right: {
       // 数据展示
-      automated: 991,
-      resolvedCases: 992,
-      manual: 993,
-      openCases: {
-        critical: 999,
-        high: 998,
-        middle: 997,
-        low: 999
-      }
+      automated: 252,
+      resolvedIncidents: 258,
+      manual: 98,
+      openIncidents: 92
     }
   })
 

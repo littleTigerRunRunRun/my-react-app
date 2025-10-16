@@ -1,10 +1,10 @@
 export default {
   global: {
     size: {
-      width: 400 + 540 + 554, // 480 = leftWidth 560 = centerWidth 680 = rightWidth
+      width: 1548, // 410 + 688 + 450, 480 = leftWidth 560 = centerWidth 680 = rightWidth
       height: 480, // 只有center有高度
-      hp: 120, // 水平方向padding
-      vp: 100, // 竖直方向padding
+      hp: 50, // 水平方向padding
+      vp: 80, // 竖直方向padding
     },
     color: {
       safe: '#01FEF7',
@@ -22,13 +22,13 @@ export default {
   },
   // left内容是又对齐的
   left: {
-    width: 400, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNL + lineWidth
+    width: 410, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNL + lineWidth
     iconStartPosition: 0, // = 0
     nameStartPosition: 72, // = iconMaxWidth + paddingIN
     lineStartPosition: 200, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNL
     iconMaxWidth: 60,
     nameMaxWidth: 106,
-    lineWidth: 200,
+    lineWidth: 210,
     // paddingIN: 12,
     // paddingNL: 22,
     height: 52,
@@ -69,18 +69,18 @@ export default {
   },
   center: {
     size: {
-      width: 540,
+      width: 688, // 540 + 74 * 2
       height: 540
     },
     position: {
-      x: -77,
+      x: 0,
       y: 0
     },
-    alertsPosition: 540 * -0.5 + 110 * 0.5, // 540 = CC.size.width 110 = CC.alerts.width
-    incidentsPosition: 540 * 0.5 - 110 * 0.5,
+    alertsPosition: 35 + 50,
+    incidentsPosition: 688 - 85,
     label: {
       x: 0,
-      y: -22,
+      y: -18,
       fill: '#fff',
       fontWeight: 'bold',
       fontFamily: '苹方-简 中粗体',
@@ -91,8 +91,8 @@ export default {
     },
     count: {
       x: 0,
-      y: 22,
-      fill: '#929293',
+      y: 26,
+      fill: '#ABABAC',
       fontFamily: '苹方-简 中粗体',
       fontSize: 22,
       letterSpacing: 1,
@@ -102,8 +102,49 @@ export default {
   },
   right: {
     size: {
-      width: 554,
+      width: 450,
       height: 0 // free
+    },
+    position: {
+      x: -32,
+      y: 0
+    },
+    label: {
+      x: 0,
+      y: -16,
+      fill: '#fff',
+      fontWeight: 'bold',
+      fontFamily: '苹方-简 中粗体',
+      fontSize: 32,
+      letterSpacing: 4,
+      dominantBaseline: 'middle',
+      textAnchor: 'middle'
+    },
+    count: {
+      x: 0,
+      y: 16,
+      fill: '#ABABAC',
+      fontFamily: '苹方-简 中粗体',
+      fontSize: 20,
+      letterSpacing: 1,
+      dominantBaseline: 'middle',
+      textAnchor: 'middle'
+    },
+    automatedPosition: {
+      text: { x: 169, y: -248 },
+      point: { x: 169, y: -176 }
+    },
+    resolvedIncidentsPosition: {
+      text: { x: 362, y: -248 },
+      point: { x: 362, y: -176 }
+    },
+    manualPosition: {
+      text: { x: 169, y: 244 },
+      point: { x: 169, y: 172 }
+    },
+    openIncidentsPosition: {
+      text: { x: 362, y: 244 },
+      point: { x: 362, y: 172 }
     }
   }
 }

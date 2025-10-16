@@ -92,11 +92,11 @@ function Main({ data }:{ data: Record<string, any> }) {
         <LeftComp
           props={data.left}
         />
-        <CenterComp
-          props={data.center}
-        />
         <RightComp
           props={data.right}
+        />
+        <CenterComp
+          props={data.center}
         />
       </svg>
     </div>
