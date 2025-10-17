@@ -130,21 +130,33 @@ export default {
       dominantBaseline: 'middle',
       textAnchor: 'middle'
     },
+    icon: {
+      r: 28
+    },
     automatedPosition: {
       text: { x: 169, y: -248 },
-      point: { x: 169, y: -176 }
+      icon: { x: 169, y: -176 }
     },
     resolvedIncidentsPosition: {
       text: { x: 362, y: -248 },
-      point: { x: 362, y: -176 }
+      icon: { x: 362, y: -176 }
     },
     manualPosition: {
-      text: { x: 169, y: 244 },
-      point: { x: 169, y: 172 }
+      text: { x: 169, y: 250 },
+      icon: { x: 169, y: 172 }
     },
     openIncidentsPosition: {
-      text: { x: 362, y: 244 },
-      point: { x: 362, y: 172 }
+      text: { x: 362, y: 250 },
+      icon: { x: 362, y: 172 }
+    }
+  },
+  component: {
+    node: {
+      r: 28,
+      radiusRate: 0.1, // 越大圆角越大
+      radiusR: 0.2,
+      fill: '#000',
+      iconSize: 32
     }
   }
 }

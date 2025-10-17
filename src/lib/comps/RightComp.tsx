@@ -1,6 +1,10 @@
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
-import Bezier from './comp/Bezier'
+import Node from './comp/Node'
+import ic_automated from '../../assets/ic_automated.png'
+import ic_resolved from '../../assets/ic_resolved.png'
+import ic_manual from '../../assets/ic_manual.png'
+import ic_open from '../../assets/ic_open.png'
 
 function RightComp({ props }:{ props: {
   automated: number,
@@ -38,6 +42,26 @@ function RightComp({ props }:{ props: {
       labelAttr={CR.label as React.SVGProps<SVGTextElement>}
       countAttr={CR.count as React.SVGProps<SVGTextElement>}
       transform={`translate(${CR.openIncidentsPosition.text.x}, ${CR.openIncidentsPosition.text.y})`}
+    />
+    <Node
+      icon={ic_automated}
+      x={CR.automatedPosition.icon.x}
+      y={CR.automatedPosition.icon.y}
+    />
+    <Node
+      icon={ic_resolved}
+      x={CR.resolvedIncidentsPosition.icon.x}
+      y={CR.resolvedIncidentsPosition.icon.y}
+    />
+    <Node
+      icon={ic_manual}
+      x={CR.manualPosition.icon.x}
+      y={CR.manualPosition.icon.y}
+    />
+    <Node
+      icon={ic_open}
+      x={CR.openIncidentsPosition.icon.x}
+      y={CR.openIncidentsPosition.icon.y}
     />
   </g>
 }
