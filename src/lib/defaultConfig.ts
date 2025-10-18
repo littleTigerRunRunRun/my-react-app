@@ -153,7 +153,7 @@ export default {
   component: {
     node: {
       r: 28,
-      radiusRate: 0.1, // 越大圆角越大
+      radiusRate: 0.15, // 越大圆角越大
       radiusR: 0.2,
       fill: '#000',
       iconSize: 32

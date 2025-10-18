@@ -44,21 +44,29 @@ function RightComp({ props }:{ props: {
       transform={`translate(${CR.openIncidentsPosition.text.x}, ${CR.openIncidentsPosition.text.y})`}
     />
     <Node
+      keyword="automated"
+      style="blue"
       icon={ic_automated}
       x={CR.automatedPosition.icon.x}
       y={CR.automatedPosition.icon.y}
     />
     <Node
+      keyword="resolved"
+      style="blue"
       icon={ic_resolved}
       x={CR.resolvedIncidentsPosition.icon.x}
       y={CR.resolvedIncidentsPosition.icon.y}
     />
     <Node
+      keyword="manual"
+      style="cyan"
       icon={ic_manual}
       x={CR.manualPosition.icon.x}
       y={CR.manualPosition.icon.y}
     />
     <Node
+      keyword="open"
+      style="cyan"
       icon={ic_open}
       x={CR.openIncidentsPosition.icon.x}
       y={CR.openIncidentsPosition.icon.y}

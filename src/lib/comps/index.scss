@@ -1,2 +1,17 @@
 .left-comp{
 }
+
+.comp-interact-node{
+  cursor: pointer;
+  .inner-path, .outer-path{
+    transition: transform 0.8s;
+  }
+  &:hover {
+    .inner-path, .outer-path{
+      transform: rotate(90deg);
+    }
+  }
+  image{
+    pointer-events: none;
+  }
+}
