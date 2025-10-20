@@ -244,13 +244,10 @@ export const subscriber = new Subscriber()
 // 按钮的指令也和这里的定义相关，你可以用subscriber绑定一个触发函数，并定义一个Event.YOUR_EVENT_NAME: eventName, 这时将按钮的command设置为eventName就可以触发这个事件绑定的对应触发函数
 // 而不需要在command中使用的事件，则建议设置为一个小数字，来减小缓存
 export const Event = {
-  LEFT_DIG: 'leftDig'
+  LEFT_LINE_ANIME: (i:number) => `left_anime_${i}`
 }
 
 export const Value = {
-  BORDER_COLOR: 'borderColor',
-  BORDER_STYLE: 'borderStyle',
-  BORDER_TYPE: 'borderType'
 }
 
 // command是一个由|分隔的由调用名和参数组成的字符串，该方法需要帮助用户把里面的数字参数自动从字符串转成数字

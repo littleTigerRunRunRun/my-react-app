@@ -1,7 +1,8 @@
 import DC from '../defaultConfig'
 import './index.scss'
-// import { subscriber, Event } from '../utils/Subscriber'
+import { subscriber, Event } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
+import { useState } from 'react'
 
 function LeftComp({ props }:{ props: {
   extraSource: number,
@@ -163,6 +164,9 @@ function LeftComp({ props }:{ props: {
     <g className="line-group" mask="url(#svg_pt_mask_left_line)">
       {
         items.map((item, i) => {
+          console.log(i, () => {
+            subscriber.broadcast(Event.LEFT_LINE_ANIME(i))
+          })
           if (item.status === 'danger') return <g key={`line_${i}`}>
             <GlowBezier
               k={`${i}`}
@@ -180,6 +184,7 @@ function LeftComp({ props }:{ props: {
               }}
               startAnimeBegin={`${0.1 * i + 0.8}s`}
               random={false}
+              anime={Event.LEFT_LINE_ANIME(i)}
             />
             <circle
               cx={CL.lineStartPosition}
@@ -213,6 +218,7 @@ function LeftComp({ props }:{ props: {
               }}
               startAnimeBegin={`${0.1 * i + 0.9}s`}
               random={true}
+              anime={Event.LEFT_LINE_ANIME(i)}
             />
             <circle
               cx={CL.lineStartPosition}

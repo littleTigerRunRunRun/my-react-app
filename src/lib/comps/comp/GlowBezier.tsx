@@ -1,4 +1,6 @@
 import { getBezier } from '../../utils'
+import { useRef, useEffect } from 'react'
+import { subscriber, Event } from '../../utils/Subscriber'
 
 // 发光贝塞尔曲线，相比起一般的贝塞尔曲线，包含了一个内置的流线动画功能，可以经由外部手动驱动执行
 // 此外还搭配了自带的淡入绘制动画
@@ -15,7 +17,8 @@ export function GlowBezier(props: {
     innerLine: React.SVGProps<SVGPathElement>
   },
   startAnimeBegin: string,
-  random: boolean
+  random: boolean,
+  anime?: string
 }) {
   const path = getBezier({
     start: { x: 0, y: 0 },
@@ -28,6 +31,22 @@ export function GlowBezier(props: {
   const fms = { w: 100, h: 80 } // flowMaskSize
   const sas = { w: 20, h: 20} // start anime size
   const moveGlowPath = path + `l${fms.w}, 0`
+
+  // if (val) (this.$refs.motion as any).beginElement()
+  // else (this.$refs.motion as any).endElement()
+
+  const animeRef = useRef<SVGAnimateMotionElement>(null);
+  const playAnime = () => {
+    if (animeRef.current) animeRef.current.beginElement()
+  }
+
+  useEffect(() =>{
+    if (props.anime) subscriber.listen(props.anime, playAnime)
+
+    return () => {
+      if (props.anime) subscriber.remove(props.anime, playAnime)
+    }
+  }, [])
 
   return <g className="comp-glow-bezier" key={`line_${pk}`}>
     <defs>
@@ -67,6 +86,7 @@ export function GlowBezier(props: {
           fill="url(#svg_pt_lg_lc_flow_line)"
         >
           <animateMotion
+            ref={animeRef}
             xlinkHref={`#move_glow_${pk}`}
             dur="2s"
             begin={`accessKey(move_glow_${pk})`}
