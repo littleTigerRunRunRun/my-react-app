@@ -31,17 +31,22 @@ export function GlowBezier(props: {
 
   return <g className="comp-glow-bezier" key={`line_${pk}`}>
     <defs>
-      {/* maskUnits="userSpaceOnUse" */}
-      <mask id={`start_anime_${pk}`}>
+      <mask
+        id={`start_anime_${pk}`}
+        maskUnits="userSpaceOnUse"
+        width={props.end.x - props.start.x + sas.w * 2}
+        height={Math.abs(props.end.y - props.start.y) + sas.h * 2}
+        x={props.start.x - sas.w}
+        y={Math.min(props.start.y, props.end.y) - sas.h}
+      >
         <rect
           x={props.start.x - sas.w}
           y={Math.min(props.start.y, props.end.y) - sas.h}
-          width={props.end.x - props.start.x + sas.w * 2}
+          width={0}
           height={Math.abs(props.end.y - props.start.y) + sas.h * 2}
           fill="#fff"
-          // fillOpacity={pk === 'atr' ? 1 : 0}
         >
-          {/* <animate
+          <animate
             attributeName="width"
             from={0}
             to={props.end.x - props.start.x + sas.w * 2}
@@ -49,7 +54,7 @@ export function GlowBezier(props: {
             begin={props.startAnimeBegin}
             repeatCount="1"
             fill="freeze"
-          /> */}
+          />
         </rect>
       </mask>
       <mask id={`flowline_${pk}`}>

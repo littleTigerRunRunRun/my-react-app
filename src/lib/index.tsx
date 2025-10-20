@@ -36,10 +36,9 @@ function Main({ data }:{ data: Record<string, any> }) {
             <stop offset="25%" stopColor="#FFFFFF" stopOpacity="1" />
             <stop offset="75%" stopColor="#00DEFE" stopOpacity="1" />
           </linearGradient>
-         <filter id="basicGlow" x="-50%" y="-50%" width="200%" height="200%">
+         {/* <filter id="basicGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"/>
             
-            {/* <feFlood flood-color="#01FEF7" flood-opacity="0.8" result="glowColor"/> */}
             <feFlood floodColor="#008FFF" floodOpacity="1" result="glowColor"/>
             
             <feComposite in="glowColor" in2="blur" operator="in" result="coloredBlur"/>
@@ -48,8 +47,9 @@ function Main({ data }:{ data: Record<string, any> }) {
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
-          </filter>
+          </filter> */}
         </defs>
+        <circle/>
         <LeftComp
           props={data.left}
         />

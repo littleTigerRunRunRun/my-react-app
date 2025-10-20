@@ -10,8 +10,7 @@ function App() {
   // 可视化交互组件所需数据结构
   const [data, setData] = useState({
     left: {
-      endpoints: 41732, // 需要自行转成k、m单位
-      dataSources: 77, // 总数据源数量
+      extraSource: 12, // 总数据源数量
       // 权重前9的数据源
       sources: [
         { pic: amazon, name: 'Amazon', status: 'safe', width: 745, height: 200 },
@@ -25,7 +24,7 @@ function App() {
         // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
         // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
         // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
-        // { pic: office, name: 'Microsort 365', status: 'safe', wwidth: 621, height: 200 }
+        // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
       ]
     },
     center: {

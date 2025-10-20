@@ -4,15 +4,22 @@ import './index.scss'
 import { GlowBezier } from './comp/GlowBezier'
 
 function LeftComp({ props }:{ props: {
-  endpoints: number,
-  dataSources: number,
-  showLength: number,
+  extraSource: number,
   sources: Array<{ pic?: string, name: string, status: string, width: number, height: number }>
 } }) {
   const CL = DC.left
-  const height = (props.sources.length - 1) * CL.height + CL.iconMaxHeight
+  const height = props.sources.length * CL.height + CL.iconMaxHeight
 
-  const items = props.sources.map((item) => {
+  const items:Array<{
+    pic?: {
+      url?: string,
+      width: number,
+      height: number
+    },
+    count?: number,
+    name: string,
+    status: string
+  }> = props.sources.map((item) => {
     let rate = 1
     let pwidth
     let pheight
@@ -27,13 +34,23 @@ function LeftComp({ props }:{ props: {
     } else pheight = item.height * rate
 
     return {
-      src: item.pic,
-      pwidth,
-      pheight,
+      pic: {
+        url: item.pic,
+        width: pwidth,
+        height: pheight
+      },
       name: item.name,
       status: item.status
     }
   })
+  
+  if (props.extraSource > 0) {
+    items.push({
+      name: 'Date Sources',
+      count: props.extraSource,
+      status: 'normal'
+    })
+  }
 
   return <g
     className="left-comp"
@@ -83,28 +100,48 @@ function LeftComp({ props }:{ props: {
             attributeName="opacity"
             from="0"
             to="1"
-            dur="0.5s"
-            begin={`${0.15 * i + 0.5}s`}
+            dur="0.4s"
+            begin={`${0.1 * i + 0.5}s`}
             repeatCount="1"
             fill="freeze"
           />
-          <image
-            href={item.src}
-            width={item.pwidth}
-            height={item.pheight}
-            x={CL.iconMaxWidth * 0.5 - item.pwidth * 0.5 - 20}
-            y={item.pheight * -0.5}
-          >
-            <animate
-              attributeName="x"
-              from={CL.iconMaxWidth * 0.5 - item.pwidth * 0.5 - 20}
-              to={CL.iconMaxWidth * 0.5 - item.pwidth * 0.5}
-              dur="0.5s"
-              begin={`${0.15 * i + 0.5}s`}
-              repeatCount="1"
-              fill="freeze"
-            />
-          </image>
+          {
+            item.pic ? <image
+              href={item.pic.url}
+              width={item.pic.width}
+              height={item.pic.height}
+              x={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5 - 20}
+              y={item.pic.height * -0.5}
+            >
+              <animate
+                attributeName="x"
+                from={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5 - 20}
+                to={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5}
+                dur="0.2s"
+                begin={`${0.1 * i + 0.5}s`}
+                repeatCount="1"
+                fill="freeze"
+              />
+            </image> : ''
+          }
+          {
+            item.count ? <text
+              x={CL.iconMaxWidth * 0.5 - 20}
+              {...CL.nameAttr as React.SVGProps<SVGTextElement>}
+              fontSize={22}
+            >
+              +{ item.count }
+              <animate
+                attributeName="x"
+                from={CL.iconMaxWidth * 0.5 - 20}
+                to={CL.iconMaxWidth * 0.5 * 0.5}
+                dur="0.2s"
+                begin={`${0.1 * i + 0.5}s`}
+                repeatCount="1"
+                fill="freeze"
+              />
+            </text> : ''
+          }
           <text
             x={CL.nameStartPosition - 20}
             {...CL.nameAttr as React.SVGProps<SVGTextElement>}
@@ -114,8 +151,8 @@ function LeftComp({ props }:{ props: {
               attributeName="x"
               from={CL.nameStartPosition - 20}
               to={CL.nameStartPosition}
-              dur="0.5s"
-              begin={`${0.15 * i + 0.5}s`}
+              dur="0.2s"
+              begin={`${0.1 * i + 0.5}s`}
               repeatCount="1"
               fill="freeze"
             />
@@ -126,74 +163,6 @@ function LeftComp({ props }:{ props: {
     <g className="line-group" mask="url(#svg_pt_mask_left_line)">
       {
         items.map((item, i) => {
-          // const sx = CL.lineStartPosition
-          // const sy = CL.height * (i - (items.length - 1) * 0.5)
-          // const path = getBezier({
-          //   start: { x: 0, y: 0 },
-          //   end: { x: CL.lineStartPosition + CL.lineWidth - sx, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) - sy },
-          //   extendS: 0.3 * CL.lineWidth,
-          //   extendE: 0.1 * CL.lineWidth,
-          //   bezier: [0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]
-          // })
-          // const moveGlowPath = path + 'l100, 0'
-
-          // return <g key={`line_${i}`}>
-          //   <defs>
-          //     <mask id={`flowline_${i}`}>
-          //       <rect
-          //         id={`move_glow_${i}`}
-          //         width="100"
-          //         height="80"
-          //         x="-100"
-          //         y="-40"
-          //         fill="url(#svg_pt_lg_lc_flow_line)"
-          //       >
-          //         <animateMotion
-          //           xlinkHref={`#move_glow_${i}`}
-          //           dur="2s"
-          //           begin={`accessKey(move_glow_${i})`}
-          //           fill="freeze"
-          //           rotate="auto"
-          //           path={moveGlowPath}
-          //         />
-          //       </rect>
-          //     </mask>
-          //   </defs>
-          //   <path
-          //     d={path}
-          //     transform={`translate(${sx}, ${sy})`}
-          //     {...(CL.outerLineAttr as React.SVGProps<SVGPathElement>)}
-          //   />
-          //   {
-          //     item.status === 'danger' ? <>
-          //       <circle
-          //         cx={CL.lineStartPosition}
-          //         cy={CL.height * (i - (items.length - 1) * 0.5)}
-          //         fill="url(#svg_pt_lg_lc_danger_point)"
-          //         {...(CL.linePoint.danger)}
-          //       />
-          //       <path
-          //         transform={`translate(${sx}, ${sy})`}
-          //         d={path}
-          //         {...(CL.innerLineAttr as React.SVGProps<SVGPathElement>)}
-          //         stroke="#F54E4E"
-          //         strokeOpacity="0.5"
-          //       />
-          //     </> : <>
-          //       <path
-          //         d={path}
-          //         transform={`translate(${sx}, ${sy})`}
-          //         mask={`url(#flowline_${i})`}
-          //         {...(CL.innerLineAttr as React.SVGProps<SVGPathElement>)}
-          //       />
-          //       <circle
-          //         cx={CL.lineStartPosition}
-          //         cy={CL.height * (i - (items.length - 1) * 0.5)}
-          //         {...(CL.linePoint.normalAttr)}
-          //       />
-          //     </>
-          //   }
-          // </g>
           if (item.status === 'danger') return <g key={`line_${i}`}>
             <GlowBezier
               k={`${i}`}
@@ -209,7 +178,7 @@ function LeftComp({ props }:{ props: {
                   strokeOpacity: 0.5
                 }) as React.SVGProps<SVGPathElement>
               }}
-              startAnimeBegin={`${0.15 * i + 0.8}s`}
+              startAnimeBegin={`${0.1 * i + 0.8}s`}
               random={false}
             />
             <circle
@@ -224,7 +193,7 @@ function LeftComp({ props }:{ props: {
                 from={0}
                 to={1}
                 dur="0.5s"
-                begin={`${0.15 * i + 0.8}s`}
+                begin={`${0.1 * i + 0.8}s`}
                 repeatCount="1"
                 fill="freeze"
               />
@@ -242,7 +211,7 @@ function LeftComp({ props }:{ props: {
                 outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
                 innerLine: CL.innerLineAttr as React.SVGProps<SVGPathElement>
               }}
-              startAnimeBegin={`${0.15 * i + 0.9}s`}
+              startAnimeBegin={`${0.1 * i + 0.9}s`}
               random={true}
             />
             <circle
@@ -256,7 +225,7 @@ function LeftComp({ props }:{ props: {
                 from={0}
                 to={1}
                 dur="0.5s"
-                begin={`${0.15 * i + 0.8}s`}
+                begin={`${0.1 * i + 0.8}s`}
                 repeatCount="1"
                 fill="freeze"
               />

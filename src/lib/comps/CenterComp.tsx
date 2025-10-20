@@ -3,6 +3,7 @@ import LabelCount from './comp/LabelCount'
 import pic_cl from '../../assets/center_left.png'
 import pic_cm from '../../assets/center_main.png'
 import pic_cr from '../../assets/center_right.png'
+import video_cm from '../../assets/center.mp4'
 
 function CenterComp({ props }:{
   props: {
@@ -16,13 +17,23 @@ function CenterComp({ props }:{
     className="center-comp"
     transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}
   >
-    <image
+    {/* <image
       href={pic_cm}
       x={CC.size.width * 0.5 - 270}
       y={CC.size.height * 0.5 - 270}
       width="540"
       height="540"
-    />
+    /> */}
+    <foreignObject
+      x={CC.size.width * 0.5 - 270}
+      y={CC.size.height * 0.5 - 270}
+      width="540"
+      height="540"
+      >
+        <video width="100%" height="100%" autoPlay muted loop>
+        <source src={video_cm} type="video/mp4" />
+      </video>
+    </foreignObject>
     <image
       href={pic_cl}
       x={0}

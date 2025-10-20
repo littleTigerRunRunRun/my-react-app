@@ -74,7 +74,6 @@ function Node(props: {
   const style = styles[props.style]
   const more = 2
   
-  // filter="url(#basicGlow)"
   return <g
     className="comp-interact-node"
     transform={`translate(${props.x}, ${props.y})`}
@@ -89,7 +88,6 @@ function Node(props: {
         />
       </mask>
     </defs>
-    {/* mask={`url(#svg_pt_mask_node_${props.keyword})`} */}
     <g className="node-border" mask={`url(#svg_pt_mask_node_${props.keyword})`}>
       <rect
         x={-CN.r - more}

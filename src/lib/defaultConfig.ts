@@ -106,7 +106,7 @@ export default {
       height: 0 // free
     },
     position: {
-      x: -32,
+      x: -48,
       y: 0
     },
     label: {
