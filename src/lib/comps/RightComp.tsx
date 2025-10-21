@@ -6,6 +6,7 @@ import ic_automated from '../../assets/ic_automated.png'
 import ic_resolved from '../../assets/ic_resolved.png'
 import ic_manual from '../../assets/ic_manual.png'
 import ic_open from '../../assets/ic_open.png'
+import { Event } from '../utils/Subscriber'
 
 function RightComp({ props }:{ props: {
   automated: number,
@@ -64,7 +65,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 8,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'none',
           strokeWidth: 2,
@@ -72,7 +73,7 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`0.6s`}
-      random={false}
+      anime={Event.LINE_ANIME('sta')}
     />
     <GlowBezier
       k={'stm'}
@@ -88,7 +89,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 8,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'none',
           strokeWidth: 2,
@@ -96,7 +97,6 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`0.6s`}
-      random={false}
     />
     <GlowBezier
       k={'atr'}
@@ -112,7 +112,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 8,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'none',
           strokeWidth: 2,
@@ -120,7 +120,6 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`1.2s`}
-      random={false}
     />
     <GlowBezier
       k={'mto'}
@@ -136,7 +135,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 8,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'none',
           strokeWidth: 2,
@@ -144,7 +143,6 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`1.2s`}
-      random={false}
     />
     <GlowBezier
       k={'ato'}
@@ -160,7 +158,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 6,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_ato)',
           strokeWidth: 2,
@@ -168,7 +166,6 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`1.2s`}
-      random={false}
     />
     <GlowBezier
       k={'mtr'}
@@ -184,7 +181,7 @@ function RightComp({ props }:{ props: {
           strokeWidth: 6,
           strokeLinecap: 'round'
         },
-        innerLine: {
+        flowLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_mtr)',
           strokeWidth: 2,
@@ -192,7 +189,6 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`1.2s`}
-      random={false}
     />
     <g className="type-node" opacity="0">
       <animate

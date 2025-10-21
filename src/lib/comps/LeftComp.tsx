@@ -1,8 +1,7 @@
 import DC from '../defaultConfig'
 import './index.scss'
-import { subscriber, Event } from '../utils/Subscriber'
+import { Event } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
-import { useState } from 'react'
 
 function LeftComp({ props }:{ props: {
   extraSource: number,
@@ -164,9 +163,6 @@ function LeftComp({ props }:{ props: {
     <g className="line-group" mask="url(#svg_pt_mask_left_line)">
       {
         items.map((item, i) => {
-          console.log(i, () => {
-            subscriber.broadcast(Event.LEFT_LINE_ANIME(i))
-          })
           if (item.status === 'danger') return <g key={`line_${i}`}>
             <GlowBezier
               k={`${i}`}
@@ -176,15 +172,17 @@ function LeftComp({ props }:{ props: {
               extendE={0.1 * CL.lineWidth}
               bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
               styleAttr={{
-                outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
                 innerLine: Object.assign({}, CL.innerLineAttr, {
                   stroke: "#F54E4E",
-                  strokeOpacity: 0.5
+                  strokeOpacity: 0.2
+                }) as React.SVGProps<SVGPathElement>,
+                outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
+                flowLine:  Object.assign({}, CL.flowLineAttr, {
+                  stroke: "#F54E4E"
                 }) as React.SVGProps<SVGPathElement>
               }}
               startAnimeBegin={`${0.1 * i + 0.8}s`}
-              random={false}
-              anime={Event.LEFT_LINE_ANIME(i)}
+              anime={Event.LINE_ANIME(i)}
             />
             <circle
               cx={CL.lineStartPosition}
@@ -214,11 +212,10 @@ function LeftComp({ props }:{ props: {
               bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
               styleAttr={{
                 outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
-                innerLine: CL.innerLineAttr as React.SVGProps<SVGPathElement>
+                flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
               }}
               startAnimeBegin={`${0.1 * i + 0.9}s`}
-              random={true}
-              anime={Event.LEFT_LINE_ANIME(i)}
+              anime={Event.LINE_ANIME(i)}
             />
             <circle
               cx={CL.lineStartPosition}

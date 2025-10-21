@@ -49,6 +49,12 @@ export default {
       strokeWidth: 2,
       strokeLinecap: 'round'
     },
+    flowLineAttr: {
+      fill: 'none',
+      stroke: '#fff',
+      strokeWidth: 2,
+      strokeLinecap: 'round'
+    },
     outerLineAttr: {
       fill: 'none',
       stroke: 'rgba(255, 255, 255, 0.2)',

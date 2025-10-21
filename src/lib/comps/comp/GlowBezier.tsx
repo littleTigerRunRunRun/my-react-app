@@ -1,6 +1,6 @@
 import { getBezier } from '../../utils'
 import { useRef, useEffect } from 'react'
-import { subscriber, Event } from '../../utils/Subscriber'
+import { subscriber } from '../../utils/Subscriber'
 
 // 发光贝塞尔曲线，相比起一般的贝塞尔曲线，包含了一个内置的流线动画功能，可以经由外部手动驱动执行
 // 此外还搭配了自带的淡入绘制动画
@@ -13,11 +13,11 @@ export function GlowBezier(props: {
   extendE: number,
   bezier: [number, number, number, number]
   styleAttr: {
-    outerLine: React.SVGProps<SVGPathElement>
-    innerLine: React.SVGProps<SVGPathElement>
+    outerLine?: React.SVGProps<SVGPathElement>
+    innerLine?: React.SVGProps<SVGPathElement>
+    flowLine?: React.SVGProps<SVGPathElement>
   },
   startAnimeBegin: string,
-  random: boolean,
   anime?: string
 }) {
   const path = getBezier({
@@ -28,7 +28,7 @@ export function GlowBezier(props: {
     bezier: props.bezier
   })
   const pk = props.k
-  const fms = { w: 100, h: 80 } // flowMaskSize
+  const fms = { w: 100, h: 100 } // flowMaskSize
   const sas = { w: 20, h: 20} // start anime size
   const moveGlowPath = path + `l${fms.w}, 0`
 
@@ -103,11 +103,18 @@ export function GlowBezier(props: {
         transform={`translate(${props.start.x}, ${props.start.y})`}
         {...props.styleAttr.outerLine}
       />
+      {
+        props.styleAttr.innerLine ? <path
+          d={path}
+          transform={`translate(${props.start.x}, ${props.start.y})`}
+          {...props.styleAttr.innerLine}
+        /> : ''
+      }
       <path
         d={path}
         transform={`translate(${props.start.x}, ${props.start.y})`}
-        mask={props.random ? `url(#flowline_${pk})` : ''}
-        {...props.styleAttr.innerLine}
+        mask={`url(#flowline_${pk})`}
+        {...props.styleAttr.flowLine}
       />
     </g>
   </g>

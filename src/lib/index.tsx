@@ -4,16 +4,23 @@ import DC from './defaultConfig'
 import LeftComp from './comps/LeftComp'
 import CenterComp from './comps/CenterComp'
 import RightComp from './comps/RightComp'
-import './animation'
+import { RandomLeftFlowline } from './animation'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
 
   useEffect(() => {
     console.log('挂载')
+    const rlfl = new RandomLeftFlowline({
+      targetNumber: data.left.sources.length + 1,
+      duration: 2000,
+      frequency: 0.8,
+      parallelLimit: 4
+    })
 
     return () => {
       console.log('卸载')
+      rlfl.destroy()
     }
   }, [])
 
