@@ -57,7 +57,7 @@ export default {
     },
     outerLineAttr: {
       fill: 'none',
-      stroke: 'rgba(255, 255, 255, 0.2)',
+      stroke: 'rgba(255, 255, 255, 0.16)',
       strokeWidth: 8,
       strokeLinecap: 'round'
     },

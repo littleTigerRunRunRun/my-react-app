@@ -76,9 +76,6 @@ function LeftComp({ props }:{ props: {
         <stop offset="100%" stopColor="#F54E4E" stopOpacity="0.2" />
       </radialGradient>
       <mask id="svg_pt_mask_left_line">
-        {
-          // 这里的12是用于流线开始的危险内容的圆形
-        }
         <rect
           width={CL.lineWidth + 12}
           height={height}
