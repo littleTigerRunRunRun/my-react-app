@@ -21,13 +21,28 @@ function CenterComp({ props }:{
       animationDelay: DC.center.anime.delay
     }}
   >
-    {/* <image
-      href={pic_cm}
-      x={CC.size.width * 0.5 - 270}
-      y={CC.size.height * 0.5 - 270}
-      width="540"
-      height="540"
-    /> */}
+    <defs>
+      <linearGradient id="svg_pt_csn_mask_lg" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stopColor="#fff " stopOpacity="0" />
+        <stop offset="16.7%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="83.3%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="100%" stopColor="#fff " stopOpacity="0" />
+      </linearGradient>
+      <mask
+        id="svg_pt_csn_mask"
+        // maskUnits="userSpaceOnUse"
+        // width="25"
+        // height="68"
+      >
+        <rect
+          x="-13"
+          y="-33"
+          width="26"
+          height="66"
+          fill="url(#svg_pt_csn_mask_lg)"
+        />
+      </mask>
+    </defs>
     <foreignObject
       x={CC.size.width * 0.5 - 270}
       y={CC.size.height * 0.5 - 270}

@@ -112,7 +112,7 @@ export default {
       fill: '#ABABAC',
       fontFamily: '苹方-简 中粗体',
       fontSize: 22,
-      letterSpacing: 1,
+      letterSpacing: 0,
       dominantBaseline: 'middle',
       textAnchor: 'middle'
     },

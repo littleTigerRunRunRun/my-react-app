@@ -1,5 +1,6 @@
 // import DC from '../../defaultConfig'
-import { formatNumberWithCommas } from '../../utils/index'
+import { formatNumberTo4SignificantDigits } from '../../utils/index'
+import ScrollNumber from './ScrollNumber'
 
 function LabelCount(props: {
   count:number,
@@ -10,9 +11,10 @@ function LabelCount(props: {
 }) {
 
   return <g className="infoShow right" transform={props.transform}>
-    <text
-      {...props.labelAttr}
-    >{formatNumberWithCommas(props.count)}</text>
+    <ScrollNumber
+      count={formatNumberTo4SignificantDigits(props.count)}
+      attr={props.labelAttr}
+    />
     {
       props.labels.map((label, index) => {
         return <text

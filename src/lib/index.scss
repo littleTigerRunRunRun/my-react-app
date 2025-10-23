@@ -35,6 +35,14 @@
     }
   }
 
+  .comp-scroll-number{
+    .number-unit{
+      .move{
+        transition: transform 0.4s;
+      }
+    }
+  }
+
   .comp-glow-bezier{
     
   }
