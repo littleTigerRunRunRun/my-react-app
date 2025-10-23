@@ -4,41 +4,33 @@ import { GlowBezier } from './comp/GlowBezier'
 
 function LeftComp({ props }:{ props: {
   extraSource: number,
-  sources: Array<{ pic?: string, name: string, status: string, width: number, height: number }>
+  sources: Array<{ pic?: string, name: string, status: string }>
 } }) {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
 
   const items:Array<{
-    pic?: {
-      url?: string,
-      width: number,
-      height: number
-    },
+    pic?: string,
     count?: number,
     name: string,
     status: string
   }> = props.sources.map((item) => {
-    let rate = 1
-    let pwidth
-    let pheight
-    if (item.width > CL.iconMaxWidth) {
-      pwidth = CL.iconMaxWidth
-      rate = CL.iconMaxWidth / item.width
-    } else pwidth = item.width
+    // let rate = 1
+    // let pwidth
+    // let pheight
+    // if (item.width > CL.iconMaxWidth) {
+    //   pwidth = CL.iconMaxWidth
+    //   rate = CL.iconMaxWidth / item.width
+    // } else pwidth = item.width
 
-    if (item.height * rate > CL.iconMaxHeight) {
-      pheight = CL.iconMaxHeight
-      // rate = CL.iconMaxHeight / (item.height * rate)
-    } else pheight = item.height * rate
+    // if (item.height * rate > CL.iconMaxHeight) {
+    //   pheight = CL.iconMaxHeight
+    //   // rate = CL.iconMaxHeight / (item.height * rate)
+    // } else pheight = item.height * rate
 
     return {
-      pic: {
-        url: item.pic,
-        width: pwidth,
-        height: pheight
-      },
+      pic: item.pic,
       name: item.name,
       status: item.status
     }
@@ -104,16 +96,16 @@ function LeftComp({ props }:{ props: {
           />
           {
             item.pic ? <image
-              href={item.pic.url}
-              width={item.pic.width}
-              height={item.pic.height}
-              x={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5 - 20}
-              y={item.pic.height * -0.5}
+              href={item.pic}
+              width={CL.iconMaxWidth}
+              height={CL.iconMaxHeight}
+              x={0}
+              y={CL.iconMaxHeight * -0.5}
             >
               <animate
                 attributeName="x"
-                from={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5 - 20}
-                to={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5}
+                from={-20}
+                to={0}
                 dur={CL.anime.itemsMoveDuration}
                 begin={`${CLAI(i)}s`}
                 repeatCount="1"
