@@ -30,6 +30,10 @@ function Main({ data }:{ data: Record<string, any> }) {
         width="100%"
         height="100%"
         viewBox={`${DCGSize.width * -0.5 - DCGSize.hp} ${DCGSize.height * -0.5 - DCGSize.vp} ${DCGSize.width + DCGSize.hp * 2} ${DCGSize.height + DCGSize.vp * 2}`}
+        style={{
+          animationDuration: DC.global.anime.duration,
+          animationDelay: DC.global.anime.delay
+        }}
       >
         <defs>
           <linearGradient id="svg_pt_comp_node_lg_1" x1="0.5" y1="0" x2="0.5" y2="1">

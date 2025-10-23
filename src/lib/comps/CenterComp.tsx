@@ -16,6 +16,10 @@ function CenterComp({ props }:{
   return <g
     className="center-comp"
     transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}
+    style={{
+      animationDuration: DC.center.anime.duration,
+      animationDelay: DC.center.anime.delay
+    }}
   >
     {/* <image
       href={pic_cm}

@@ -6,5 +6,45 @@
     display: block;
     width: 100% !important;
     height: 100% !important;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .left-comp{
+  }
+
+  .center-comp{
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .comp-interact-node{
+    cursor: pointer;
+    .inner-path, .outer-path{
+      transition: transform 0.8s;
+    }
+    &:hover {
+      .inner-path, .outer-path{
+        transform: rotate(90deg);
+      }
+    }
+    image{
+      pointer-events: none;
+    }
+  }
+
+  .comp-glow-bezier{
+    
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

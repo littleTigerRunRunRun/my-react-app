@@ -1,0 +1,117 @@
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "data_sources": {
+            "total_size": 7813709910,
+            "packages": [
+                {
+                    "package": "das_waf",
+                    "package_version": "1.0.0",
+                    "count": 1,
+                    "total_size": 5232934901
+                },
+                {
+                    "package": "system",
+                    "package_version": "2.6.0",
+                    "count": 14,
+                    "total_size": 1249276420
+                },
+                {
+                    "package": "sysmon_linux",
+                    "package_version": "1.8.1",
+                    "count": 1,
+                    "total_size": 984579366
+                },
+                {
+                    "package": "das_ndr",
+                    "package_version": "0.1.0",
+                    "count": 1,
+                    "total_size": 244076076
+                },
+                {
+                    "package": "network_traffic",
+                    "package_version": "1.33.0",
+                    "count": 6,
+                    "total_size": 92543916
+                },
+                {
+                    "package": "elastic_agent",
+                    "package_version": "2.6.2",
+                    "count": 10,
+                    "total_size": 8364405
+                },
+                {
+                    "package": "windows",
+                    "package_version": "3.1.0",
+                    "count": 6,
+                    "total_size": 2411756
+                },
+                {
+                    "package": "apache",
+                    "package_version": "2.1.1",
+                    "count": 2,
+                    "total_size": 48126
+                },
+                {
+                    "package": "apt_udp",
+                    "package_version": "0.0.1",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "111",
+                    "package_version": "unknown",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "imperva",
+                    "package_version": "1.7.0",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "udp",
+                    "package_version": "2.2.1",
+                    "count": 2,
+                    "total_size": 0
+                },
+                {
+                    "package": "panw",
+                    "package_version": "5.3.3",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "fortinet_fortigate",
+                    "package_version": "1.32.1",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "crowdstrike",
+                    "package_version": "1.75.0",
+                    "count": 1,
+                    "total_size": 0
+                },
+                {
+                    "package": "fleet_server",
+                    "package_version": "1.6.0",
+                    "count": 2,
+                    "total_size": -525056
+                }
+            ]
+        },
+        "alerts": {
+            "total": 133
+        },
+        "incidents": {
+            "total": 3,
+            "closed": 0,
+            "open": 3,
+            "automated_handled": 1,
+            "manual_handled": 2
+        }
+    }
+}

@@ -72,7 +72,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`0.6s`}
+      startAnimeBegin={CR.anime.lineBegin1}
       anime={Event.LINE_ANIME('sta')}
     />
     <GlowBezier
@@ -96,7 +96,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`0.6s`}
+      startAnimeBegin={CR.anime.lineBegin1}
     />
     <GlowBezier
       k={'atr'}
@@ -119,7 +119,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`1.2s`}
+      startAnimeBegin={CR.anime.lineBegin2}
     />
     <GlowBezier
       k={'mto'}
@@ -142,7 +142,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`1.2s`}
+      startAnimeBegin={CR.anime.lineBegin2}
     />
     <GlowBezier
       k={'ato'}
@@ -165,7 +165,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`1.2s`}
+      startAnimeBegin={CR.anime.lineBegin2}
     />
     <GlowBezier
       k={'mtr'}
@@ -188,15 +188,15 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={`1.2s`}
+      startAnimeBegin={CR.anime.lineBegin2}
     />
     <g className="type-node" opacity="0">
       <animate
         attributeName="opacity"
         from="0"
         to="1"
-        dur="0.3s"
-        begin="1.1s"
+        dur={CR.anime.nodeDuration}
+        begin={CR.anime.nodeBegin1}
         fill="freeze"
       />
       {/* <animateTransform
@@ -204,7 +204,7 @@ function RightComp({ props }:{ props: {
         type="translate"
         from={'0,20'}
         to={'0,0'}
-        dur="0.3s"
+        dur={CR.anime.nodeDuration}
         begin="1s"
         fill="freeze"
       /> */}
@@ -228,8 +228,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur="0.3s"
-        begin="1.7s"
+        dur={CR.anime.nodeDuration}
+        begin={CR.anime.nodeBegin2}
         fill="freeze"
       />
       <LabelCount 
@@ -252,8 +252,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur="0.3s"
-        begin="1.1s"
+        dur={CR.anime.nodeDuration}
+        begin={CR.anime.nodeBegin1}
         fill="freeze"
       />
       <LabelCount 
@@ -276,8 +276,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur="0.3s"
-        begin="1.7s"
+        dur={CR.anime.nodeDuration}
+        begin={CR.anime.nodeBegin2}
         fill="freeze"
       />
       <LabelCount 

@@ -18,6 +18,10 @@ export default {
         label: { size: 14, color: '#848484', spacing: 2, position: { x: 0, y: 14 }, nextLine: 20 },
         count: { size: 28, color: '#FBFBFB', spacing: 2, position: { x: 0, y: -16 } }
       }
+    },
+    anime: {
+      duration: '0.3s',
+      delay: '0s'
     }
   },
   // left内容是又对齐的
@@ -71,6 +75,13 @@ export default {
       danger: {
         r: 12
       }
+    },
+    anime: {
+      itemsBegin: (i:number) => 0.1 * i + 0.5,
+      itemsOpacityDuration: '0.4s',
+      itemsMoveDuration: '0.2s',
+      lineBegin: (i:number) => 0.1 * i + 0.8,
+      lineStartDuration: '0.5s'
     }
   },
   center: {
@@ -104,6 +115,10 @@ export default {
       letterSpacing: 1,
       dominantBaseline: 'middle',
       textAnchor: 'middle'
+    },
+    anime: {
+      duration: '0.5s',
+      delay: '1.2s'
     }
   },
   right: {
@@ -154,6 +169,13 @@ export default {
     openIncidentsPosition: {
       text: { x: 362, y: 250 },
       icon: { x: 362, y: 172 }
+    },
+    anime: {
+      lineBegin1: '1.6s',
+      lineBegin2: '2.2s',
+      nodeBegin1: '2.1s',
+      nodeBegin2: '2.7s',
+      nodeDuration: '0.3s'
     }
   },
   component: {
@@ -163,6 +185,12 @@ export default {
       radiusR: 0.2,
       fill: '#000',
       iconSize: 32
+    },
+    glowBezier: {
+      anime: {
+        createDuration: '0.6s',
+        flowDuration: '2s'
+      }
     }
   }
 }

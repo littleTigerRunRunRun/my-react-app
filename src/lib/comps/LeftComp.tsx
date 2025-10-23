@@ -1,5 +1,4 @@
 import DC from '../defaultConfig'
-import './index.scss'
 import { Event } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 
@@ -8,6 +7,7 @@ function LeftComp({ props }:{ props: {
   sources: Array<{ pic?: string, name: string, status: string, width: number, height: number }>
 } }) {
   const CL = DC.left
+  const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
 
   const items:Array<{
@@ -97,8 +97,8 @@ function LeftComp({ props }:{ props: {
             attributeName="opacity"
             from="0"
             to="1"
-            dur="0.4s"
-            begin={`${0.1 * i + 0.5}s`}
+            dur={CL.anime.itemsOpacityDuration}
+            begin={`${CLAI(i)}s`}
             repeatCount="1"
             fill="freeze"
           />
@@ -114,8 +114,8 @@ function LeftComp({ props }:{ props: {
                 attributeName="x"
                 from={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5 - 20}
                 to={CL.iconMaxWidth * 0.5 - item.pic.width * 0.5}
-                dur="0.2s"
-                begin={`${0.1 * i + 0.5}s`}
+                dur={CL.anime.itemsMoveDuration}
+                begin={`${CLAI(i)}s`}
                 repeatCount="1"
                 fill="freeze"
               />
@@ -132,8 +132,8 @@ function LeftComp({ props }:{ props: {
                 attributeName="x"
                 from={CL.iconMaxWidth * 0.5 - 20}
                 to={CL.iconMaxWidth * 0.5 * 0.5}
-                dur="0.2s"
-                begin={`${0.1 * i + 0.5}s`}
+                dur={CL.anime.itemsMoveDuration}
+                begin={`${CLAI(i)}s`}
                 repeatCount="1"
                 fill="freeze"
               />
@@ -148,8 +148,8 @@ function LeftComp({ props }:{ props: {
               attributeName="x"
               from={CL.nameStartPosition - 20}
               to={CL.nameStartPosition}
-              dur="0.2s"
-              begin={`${0.1 * i + 0.5}s`}
+              dur={CL.anime.itemsMoveDuration}
+              begin={`${CLAI(i)}s`}
               repeatCount="1"
               fill="freeze"
             />
@@ -211,7 +211,7 @@ function LeftComp({ props }:{ props: {
                 outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
                 flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
               }}
-              startAnimeBegin={`${0.1 * i + 0.9}s`}
+              startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
               anime={Event.LINE_ANIME(i)}
             />
             <circle
@@ -224,8 +224,8 @@ function LeftComp({ props }:{ props: {
                 attributeName="opacity"
                 from={0}
                 to={1}
-                dur="0.5s"
-                begin={`${0.1 * i + 0.8}s`}
+                dur={CL.anime.lineStartDuration}
+                begin={`${CL.anime.lineBegin(i)}s`}
                 repeatCount="1"
                 fill="freeze"
               />

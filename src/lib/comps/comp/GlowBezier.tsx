@@ -1,6 +1,7 @@
 import { getBezier } from '../../utils'
 import { useRef, useEffect } from 'react'
 import { subscriber } from '../../utils/Subscriber'
+import DC from '../../defaultConfig'
 
 // 发光贝塞尔曲线，相比起一般的贝塞尔曲线，包含了一个内置的流线动画功能，可以经由外部手动驱动执行
 // 此外还搭配了自带的淡入绘制动画
@@ -69,7 +70,7 @@ export function GlowBezier(props: {
             attributeName="width"
             from={0}
             to={props.end.x - props.start.x + sas.w * 2}
-            dur="0.6s"
+            dur={DC.component.glowBezier.anime.createDuration}
             begin={props.startAnimeBegin}
             repeatCount="1"
             fill="freeze"
@@ -88,7 +89,7 @@ export function GlowBezier(props: {
           <animateMotion
             ref={animeRef}
             xlinkHref={`#move_glow_${pk}`}
-            dur="2s"
+            dur={DC.component.glowBezier.anime.flowDuration}
             begin={`accessKey(move_glow_${pk})`}
             fill="freeze"
             rotate="auto"
