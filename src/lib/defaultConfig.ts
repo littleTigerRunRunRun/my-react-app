@@ -1,3 +1,5 @@
+const fontFamilySetting = 'PingFang SC, Nunito'
+
 export default {
   global: {
     size: {
@@ -41,7 +43,7 @@ export default {
     nameHeight: 24,
     // 会直接赋予name这个text标签的属性
     nameAttr: {
-      fontFamily: 'PingFang',
+      fontFamily: fontFamilySetting,
       fontSize: 16,
       fill: 'rgba(255, 255, 255, 0.85)',
       dominantBaseline: 'middle',
@@ -100,7 +102,7 @@ export default {
       y: -18,
       fill: '#fff',
       fontWeight: 'bold',
-      fontFamily: '苹方-简 中粗体',
+      fontFamily: fontFamilySetting,
       fontSize: 36,
       letterSpacing: 4,
       dominantBaseline: 'middle',
@@ -110,7 +112,7 @@ export default {
       x: 0,
       y: 26,
       fill: '#ABABAC',
-      fontFamily: '苹方-简 中粗体',
+      fontFamily: fontFamilySetting,
       fontSize: 22,
       letterSpacing: 0,
       dominantBaseline: 'middle',
@@ -135,7 +137,7 @@ export default {
       y: -16,
       fill: '#fff',
       fontWeight: 'bold',
-      fontFamily: '苹方-简 中粗体',
+      fontFamily: fontFamilySetting,
       fontSize: 32,
       letterSpacing: 4,
       dominantBaseline: 'middle',
@@ -145,7 +147,7 @@ export default {
       x: 0,
       y: 16,
       fill: '#ABABAC',
-      fontFamily: '苹方-简 中粗体',
+      fontFamily: fontFamilySetting,
       fontSize: 20,
       letterSpacing: 1,
       dominantBaseline: 'middle',
