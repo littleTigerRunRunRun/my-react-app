@@ -51,7 +51,7 @@ export default {
     },
     innerLineAttr: {
       fill: 'none',
-      stroke: '#fff',
+      stroke: 'rgba(255, 255, 255, 0.1)',
       strokeWidth: 2,
       strokeLinecap: 'round'
     },
@@ -63,7 +63,7 @@ export default {
     },
     outerLineAttr: {
       fill: 'none',
-      stroke: 'rgba(255, 255, 255, 0.16)',
+      stroke: 'rgba(255, 255, 255, 0.2)',
       strokeWidth: 8,
       strokeLinecap: 'round'
     },
@@ -120,7 +120,8 @@ export default {
     },
     anime: {
       duration: '0.5s',
-      delay: '1.2s'
+      delay: '1.2s',
+      videoPlayDelay: 1800
     }
   },
   right: {
@@ -173,10 +174,14 @@ export default {
       icon: { x: 362, y: 172 }
     },
     anime: {
-      lineBegin1: '1.6s',
-      lineBegin2: '2.2s',
-      nodeBegin1: '2.1s',
-      nodeBegin2: '2.7s',
+      // lineBegin1: '1.6s',
+      // lineBegin2: '2.2s',
+      // nodeBegin1: '2.1s',
+      // nodeBegin2: '2.7s',
+      lineBegin1: '2.6s',
+      lineBegin2: '3.2s',
+      nodeBegin1: '3.1s',
+      nodeBegin2: '3.7s',
       nodeDuration: '0.3s'
     }
   },
@@ -191,7 +196,7 @@ export default {
     glowBezier: {
       anime: {
         createDuration: '0.6s',
-        flowDuration: '2s'
+        flowDuration: '3s'
       }
     }
   }

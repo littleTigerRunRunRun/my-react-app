@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
 import pic_cl from '../../assets/center_left.png'
@@ -12,6 +13,10 @@ function CenterComp({ props }:{
   }
 }) {
   const CC = DC.center
+  const videoRef = useRef<HTMLVideoElement>(null);
+  setTimeout(() => {
+    if (videoRef.current) videoRef.current.play()
+  }, CC.anime.videoPlayDelay)
 
   return <g
     className="center-comp"
@@ -49,7 +54,13 @@ function CenterComp({ props }:{
       width="540"
       height="540"
       >
-        <video width="100%" height="100%" autoPlay muted loop>
+        <video
+          ref={videoRef}
+          width="100%"
+          height="100%"
+          muted
+          loop
+        >
         <source src={video_cm} type="video/mp4" />
       </video>
     </foreignObject>

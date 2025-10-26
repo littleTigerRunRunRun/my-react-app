@@ -201,11 +201,44 @@ function LeftComp({ props }:{ props: {
               bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
               styleAttr={{
                 outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
+                innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                 flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
               }}
               startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
               anime={Event.LINE_ANIME(i)}
             />
+            {
+              item.count ? <>
+                <GlowBezier
+                  k={`${i}`}
+                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
+                  end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
+                  extendS={0.3 * CL.lineWidth}
+                  extendE={0.1 * CL.lineWidth}
+                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                  styleAttr={{
+                    innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
+                    flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
+                  }}
+                  startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                  anime={Event.LINE_ANIME(i)}
+                />
+                <GlowBezier
+                  k={`${i}`}
+                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
+                  end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
+                  extendS={0.3 * CL.lineWidth}
+                  extendE={0.1 * CL.lineWidth}
+                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                  styleAttr={{
+                    innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
+                    flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
+                  }}
+                  startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                  anime={Event.LINE_ANIME(i)}
+                />
+              </> : ''
+            }
             <circle
               cx={CL.lineStartPosition}
               cy={CL.height * (i - (items.length - 1) * 0.5)}

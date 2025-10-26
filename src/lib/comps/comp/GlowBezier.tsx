@@ -29,7 +29,7 @@ export function GlowBezier(props: {
     bezier: props.bezier
   })
   const pk = props.k
-  const fms = { w: 100, h: 100 } // flowMaskSize
+  const fms = { w: 150, h: 200 } // flowMaskSize
   const sas = { w: 20, h: 20} // start anime size
   const moveGlowPath = path + `l${fms.w}, 0`
 
@@ -99,11 +99,13 @@ export function GlowBezier(props: {
       </mask>
     </defs>
     <g className="bezier-content" mask={`url(#start_anime_${pk})`}>
-      <path
-        d={path}
-        transform={`translate(${props.start.x}, ${props.start.y})`}
-        {...props.styleAttr.outerLine}
-      />
+      {
+        props.styleAttr.outerLine ? <path
+          d={path}
+          transform={`translate(${props.start.x}, ${props.start.y})`}
+          {...props.styleAttr.outerLine}
+        /> : ''
+      }
       {
         props.styleAttr.innerLine ? <path
           d={path}

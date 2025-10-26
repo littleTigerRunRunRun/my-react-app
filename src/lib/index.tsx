@@ -13,7 +13,7 @@ function Main({ data }:{ data: Record<string, any> }) {
     console.log('挂载')
     const rlfl = new RandomLeftFlowline({
       targetNumber: data.left.sources.length + 1,
-      duration: 2000,
+      duration: 3000,
       frequency: 0.8,
       parallelLimit: 4
     })
@@ -30,6 +30,7 @@ function Main({ data }:{ data: Record<string, any> }) {
         width="100%"
         height="100%"
         viewBox={`${DCGSize.width * -0.5 - DCGSize.hp} ${DCGSize.height * -0.5 - DCGSize.vp} ${DCGSize.width + DCGSize.hp * 2} ${DCGSize.height + DCGSize.vp * 2}`}
+        // viewBox="-680 150 200 150"
         style={{
           animationDuration: DC.global.anime.duration,
           animationDelay: DC.global.anime.delay

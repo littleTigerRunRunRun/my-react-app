@@ -7,6 +7,16 @@ import office from './assets/office.png'
 import { useState } from 'react'
 
 function App() {
+  // const [centerAlerts, updateCenterAlert] = useState(0)
+  // const [centerIncidents, updateCenterIncidents] = useState(0)
+
+  // console.log('xxx!')
+  // setTimeout(() => {
+  //   updateCenterAlert(5493)
+  //   updateCenterIncidents(350)
+  //   console.log('update!')
+  // }, 4000)
+
   // 可视化交互组件所需数据结构
   const [data, setData] = useState({
     left: {
@@ -39,6 +49,40 @@ function App() {
       openIncidents: 92
     }
   })
+
+  // setTimeout(() => {
+  //   setData({
+  //     left: {
+  //       extraSource: 12, // 总数据源数量
+  //       // 权重前9的数据源
+  //       sources: [
+  //         { pic: amazon, name: 'Amazon', status: 'safe' },
+  //         { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
+  //         { pic: microsoft, name: 'Microsort', status: 'danger' },
+  //         { pic: office, name: 'Microsort 365', status: 'safe' },
+  //         { pic: amazon, name: 'Amazon', status: 'safe' },
+  //         { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
+  //         { pic: microsoft, name: 'Microsort', status: 'safe' },
+  //         { pic: office, name: 'Microsort 365', status: 'danger' },
+  //         // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+  //         // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+  //         // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+  //         // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
+  //       ]
+  //     },
+  //     center: {
+  //       alerts: 5493,
+  //       incidents: 350
+  //     },
+  //     right: {
+  //       // 数据展示
+  //       automated: 252,
+  //       resolvedIncidents: 258,
+  //       manual: 98,
+  //       openIncidents: 92
+  //     }
+  //   })
+  // }, 2000)
 
   return (
     <>
