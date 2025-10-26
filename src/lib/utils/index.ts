@@ -221,7 +221,7 @@ function calculateTextWidth(text:string, fontFamily:string, fontSize:number, fon
     
     // 创建隐藏的canvas元素用于测量
     const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
     
     // 构建字体样式字符串
     const fontString = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;

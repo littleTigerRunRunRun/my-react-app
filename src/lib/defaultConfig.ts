@@ -124,6 +124,25 @@ export default {
       videoPlayDelay: 1800
     }
   },
+  // left left comp覆盖配置
+  leftLeft: {
+    width: 670, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNT + trafficMaxWidth + paddingTL + lineWidth
+    iconStartPosition: 0, // = 0
+    nameStartPosition: 72, // = iconMaxWidth + paddingIN
+    trafficStartPosition: 221, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNT
+    lineStartPosition: 370, // = width - lineWidth
+    iconMaxWidth: 60,
+    nameMaxWidth: 127,
+    trafficMaxWidth: 127,
+    lineWidth: 300,
+    // paddingIN: 12,
+    // paddingNT: 22,
+    // paddingTL: 22
+    height: 52,
+    lineEndHeight: 16,
+    iconMaxHeight: 28,
+    nameHeight: 24,
+  },
   right: {
     size: {
       width: 450,
@@ -183,6 +202,55 @@ export default {
       nodeBegin1: '3.1s',
       nodeBegin2: '3.7s',
       nodeDuration: '0.3s'
+    }
+  },
+  leftRight: {
+    size: {
+      width: 650,
+      height: 454 // 中间放射线圆的直径
+    },
+    innerRadius: 90,
+    mediumRadius: 140,
+    outerStartRadius: 154,
+    outerEndRadius: 227,
+    keywordRadius: 40,
+    centerText: {
+      percentNumberAttr: {
+        x: -10,
+        y: -32,
+        fill: '#fff',
+        fontSize: 36,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      },
+      percentAttr: {
+        x: 24,
+        y: -26,
+        fill: '#fff',
+        fontSize: 16,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      },
+      nameAttr: {
+        x: 0,
+        y: 12,
+        fill: '#ABABAC ',
+        fontSize: 20,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      },
+      numAttr: {
+        x: 0,
+        y: 44,
+        fill: '#fff ',
+        fontSize: 14,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      }
     }
   },
   component: {
