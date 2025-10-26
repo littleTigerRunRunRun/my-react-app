@@ -7,22 +7,30 @@ function LabelCount(props: {
   labels: Array<string>,
   transform?: string,
   labelAttr: React.SVGProps<SVGTextElement>,
-  countAttr: React.SVGProps<SVGTextElement>
+  countAttr: React.SVGProps<SVGTextElement>,
+  clipPath?: string
 }) {
 
-  return <g className="infoShow right" transform={props.transform}>
-    <ScrollNumber
-      count={formatNumberTo4SignificantDigits(props.count)}
-      attr={props.labelAttr}
-    />
-    {
-      props.labels.map((label, index) => {
-        return <text
-          key={index}
-          {...props.countAttr}
-        >{label}</text>
-      })
-    }
+  return <g
+    className="infoShow right"
+    clipPath={props.clipPath}
+    transform={props.transform}
+  >
+    <g className="hover-g">
+      <ScrollNumber
+        count={formatNumberTo4SignificantDigits(props.count)}
+        attr={props.labelAttr}
+      />
+      {
+        props.labels.map((label, index) => {
+          return <text
+            className="label"
+            key={index}
+            {...props.countAttr}
+          >{label}</text>
+        })
+      }
+    </g>
   </g>
 }
 

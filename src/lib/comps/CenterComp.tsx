@@ -47,6 +47,21 @@ function CenterComp({ props }:{
           fill="url(#svg_pt_csn_mask_lg)"
         />
       </mask>
+      <clipPath
+        id="svg_pt_ctext_cp"
+        clipPathUnits="userSpaceOnUse"
+        x="-80"
+        y="-50"
+        width="160"
+        height="100"
+      >
+        <rect 
+          x="-80"
+          y="-50"
+          width="160"
+          height="100"
+        />
+      </clipPath>
     </defs>
     <foreignObject
       x={CC.size.width * 0.5 - 270}
@@ -78,12 +93,20 @@ function CenterComp({ props }:{
       width="176"
       height="140"
     />
+    {/* <rect 
+      x="-80"
+      y="-50"
+      width="160"
+      height="100"
+      fill="rgba(255, 255, 255, 0.4)"
+    /> */}
     <LabelCount 
       count={props.alerts}
       labels={['Alerts']}
       labelAttr={CC.label as React.SVGProps<SVGTextElement>}
       countAttr={CC.count as React.SVGProps<SVGTextElement>}
       transform={`translate(${CC.alertsPosition}, ${CC.size.height * 0.5})`}
+      clipPath="url(#svg_pt_ctext_cp)"
     />
     <LabelCount 
       count={props.incidents}
@@ -91,6 +114,7 @@ function CenterComp({ props }:{
       labelAttr={CC.label as React.SVGProps<SVGTextElement>}
       countAttr={CC.count as React.SVGProps<SVGTextElement>}
       transform={`translate(${CC.incidentsPosition}, ${CC.size.height * 0.5})`}
+      clipPath="url(#svg_pt_ctext_cp)"
     />
   </g>
 }

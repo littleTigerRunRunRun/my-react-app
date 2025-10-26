@@ -23,14 +23,14 @@ function App() {
       extraSource: 12, // 总数据源数量
       // 权重前9的数据源
       sources: [
-        { pic: amazon, name: 'Amazon', status: 'safe' },
-        { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
-        { pic: microsoft, name: 'Microsort', status: 'danger' },
-        { pic: office, name: 'Microsort 365', status: 'safe' },
-        { pic: amazon, name: 'Amazon', status: 'safe' },
-        { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
-        { pic: microsoft, name: 'Microsort', status: 'safe' },
-        { pic: office, name: 'Microsort 365', status: 'danger' },
+        { pic: amazon, name: 'Amazon', status: 'safe', size: 121321 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 231 },
+        { pic: microsoft, name: 'Microsort', status: 'danger', size: 1321321321 },
+        { pic: office, name: 'Microsort 365', status: 'safe', size: 1313 },
+        { pic: amazon, name: 'Amazon', status: 'safe', size: 44444 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 123 },
+        { pic: microsoft, name: 'Microsort', status: 'safe', size: 1 },
+        { pic: office, name: '标题长度测试测试测试测试测试xxxxxxxxxxxxxxxxxxxxxxxxx', status: 'danger', size: 11111111111111 },
         // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
         // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
         // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },

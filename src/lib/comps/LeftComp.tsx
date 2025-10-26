@@ -1,10 +1,18 @@
 import DC from '../defaultConfig'
 import { Event } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
+import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
+
+const byteUnits = [
+  { threshold: 1e12, unit: 'T' },
+  { threshold: 1e9, unit: 'G' },
+  { threshold: 1e6, unit: 'M' },
+  { threshold: 1e3, unit: 'K' }
+]
 
 function LeftComp({ props }:{ props: {
   extraSource: number,
-  sources: Array<{ pic?: string, name: string, status: string }>
+  sources: Array<{ pic?: string, name: string, status: string, size: number }>
 } }) {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
@@ -14,7 +22,8 @@ function LeftComp({ props }:{ props: {
     pic?: string,
     count?: number,
     name: string,
-    status: string
+    status: string,
+    size: number
   }> = props.sources.map((item) => {
     // let rate = 1
     // let pwidth
@@ -32,7 +41,8 @@ function LeftComp({ props }:{ props: {
     return {
       pic: item.pic,
       name: item.name,
-      status: item.status
+      status: item.status,
+      size: item.size
     }
   })
   
@@ -40,7 +50,8 @@ function LeftComp({ props }:{ props: {
     items.push({
       name: 'Date Sources',
       count: props.extraSource,
-      status: 'normal'
+      status: 'normal',
+      size: 0
     })
   }
 
@@ -70,10 +81,10 @@ function LeftComp({ props }:{ props: {
       <mask id="svg_pt_mask_left_line">
         <rect
           width={CL.lineWidth + 12}
-          height={height}
+          height={height + 40}
           fill="url(#svg_pt_lg_left_mask)"
           x={CL.lineStartPosition - 12}
-          y={height * -0.5}
+          y={height * -0.5 - 40}
         />
       </mask>
     </defs>
@@ -135,7 +146,7 @@ function LeftComp({ props }:{ props: {
             x={CL.nameStartPosition - 20}
             {...CL.nameAttr as React.SVGProps<SVGTextElement>}
           >
-            { item.name }
+            { textLengthLimit(item.name, CL.nameAttr.fontSize, 106, 6) }
             <animate
               attributeName="x"
               from={CL.nameStartPosition - 20}
@@ -152,109 +163,149 @@ function LeftComp({ props }:{ props: {
     <g className="line-group" mask="url(#svg_pt_mask_left_line)">
       {
         items.map((item, i) => {
-          if (item.status === 'danger') return <g key={`line_${i}`}>
-            <GlowBezier
-              k={`${i}`}
-              start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
-              end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-              extendS={0.3 * CL.lineWidth}
-              extendE={0.1 * CL.lineWidth}
-              bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
-              styleAttr={{
-                innerLine: Object.assign({}, CL.innerLineAttr, {
-                  stroke: "#F54E4E",
-                  strokeOpacity: 0.2
-                }) as React.SVGProps<SVGPathElement>,
-                outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
-                flowLine:  Object.assign({}, CL.flowLineAttr, {
-                  stroke: "#F54E4E"
-                }) as React.SVGProps<SVGPathElement>
-              }}
-              startAnimeBegin={`${0.1 * i + 0.8}s`}
-              anime={Event.LINE_ANIME(i)}
-            />
-            <circle
-              cx={CL.lineStartPosition}
-              cy={CL.height * (i - (items.length - 1) * 0.5)}
-              fill="url(#svg_pt_lg_lc_danger_point)"
-              opacity="0"
-              {...(CL.linePoint.danger)}
-            >
-              <animate
-                attributeName="opacity"
-                from={0}
-                to={1}
-                dur="0.5s"
-                begin={`${0.1 * i + 0.8}s`}
-                repeatCount="1"
-                fill="freeze"
+          const size = formatNumberTo4SignificantDigits(item.size, byteUnits)
+          const sizeNum = parseFloat(size)
+          const sizeUnit = size.replace(`${sizeNum}`, '') + 'B/24H'
+          return <g className="left-line" key={`line_${i}`}>
+            <g className="traffic" transform={`translate(${CL.lineStartPosition}, ${CL.height * (i - (items.length - 1) * 0.5)})`}>
+              <text
+                fontSize="12"
+                x={20}
+                y={-30}
+                dominantBaseline="middle"
+                textAnchor="start"
+              >
+                <tspan fill="#fff">{ sizeNum } </tspan>
+                <tspan fill="#C5C5C5">{ sizeUnit }</tspan>
+              </text>
+              <circle
+                cx={28}
+                cy={0}
+                r="2"
+                fill="#fff"
               />
-            </circle>
-          </g>
-          else return <g key={`line_${i}`}>
-            <GlowBezier
-              k={`${i}`}
-              start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
-              end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-              extendS={0.3 * CL.lineWidth}
-              extendE={0.1 * CL.lineWidth}
-              bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
-              styleAttr={{
-                outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
-                innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
-                flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
-              }}
-              startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
-              anime={Event.LINE_ANIME(i)}
-            />
+              <circle
+                cx={28}
+                cy={0}
+                r="4"
+                stroke="#fff"
+                strokeWidth="0.8"
+                fill="none"
+              />
+              <line
+                x1={28}
+                y1={-4}
+                x2={28}
+                y2={-20}
+                stroke="#fff"
+                strokeWidth="2"
+              />
+            </g>
             {
-              item.count ? <>
+              item.status === 'danger' ? <>
                 <GlowBezier
                   k={`${i}`}
-                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
+                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.3 * CL.lineWidth}
                   extendE={0.1 * CL.lineWidth}
                   bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
                   styleAttr={{
+                    innerLine: Object.assign({}, CL.innerLineAttr, {
+                      stroke: "#F54E4E",
+                      strokeOpacity: 0.2
+                    }) as React.SVGProps<SVGPathElement>,
+                    outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
+                    flowLine:  Object.assign({}, CL.flowLineAttr, {
+                      stroke: "#F54E4E"
+                    }) as React.SVGProps<SVGPathElement>
+                  }}
+                  startAnimeBegin={`${0.1 * i + 0.8}s`}
+                  anime={Event.LINE_ANIME(i)}
+                />
+                <circle
+                  cx={CL.lineStartPosition}
+                  cy={CL.height * (i - (items.length - 1) * 0.5)}
+                  fill="url(#svg_pt_lg_lc_danger_point)"
+                  opacity="0"
+                  {...(CL.linePoint.danger)}
+                >
+                  <animate
+                    attributeName="opacity"
+                    from={0}
+                    to={1}
+                    dur="0.5s"
+                    begin={`${0.1 * i + 0.8}s`}
+                    repeatCount="1"
+                    fill="freeze"
+                  />
+                </circle>
+              </> : <>
+                <GlowBezier
+                  k={`${i}`}
+                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
+                  end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
+                  extendS={0.3 * CL.lineWidth}
+                  extendE={0.1 * CL.lineWidth}
+                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                  styleAttr={{
+                    outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
                     innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                     flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                   }}
                   startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
                   anime={Event.LINE_ANIME(i)}
                 />
-                <GlowBezier
-                  k={`${i}`}
-                  start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
-                  end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-                  extendS={0.3 * CL.lineWidth}
-                  extendE={0.1 * CL.lineWidth}
-                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
-                  styleAttr={{
-                    innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
-                    flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
-                  }}
-                  startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
-                  anime={Event.LINE_ANIME(i)}
-                />
-              </> : ''
+                {
+                  item.count ? <>
+                    <GlowBezier
+                      k={`${i}`}
+                      start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
+                      end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
+                      extendS={0.3 * CL.lineWidth}
+                      extendE={0.1 * CL.lineWidth}
+                      bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                      styleAttr={{
+                        innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
+                        flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
+                      }}
+                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                      anime={Event.LINE_ANIME(i)}
+                    />
+                    <GlowBezier
+                      k={`${i}`}
+                      start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
+                      end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
+                      extendS={0.3 * CL.lineWidth}
+                      extendE={0.1 * CL.lineWidth}
+                      bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                      styleAttr={{
+                        innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
+                        flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
+                      }}
+                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                      anime={Event.LINE_ANIME(i)}
+                    />
+                  </> : ''
+                }
+                <circle
+                  cx={CL.lineStartPosition}
+                  cy={CL.height * (i - (items.length - 1) * 0.5)}
+                  opacity="0"
+                  {...(CL.linePoint.normalAttr)}
+                >
+                  <animate
+                    attributeName="opacity"
+                    from={0}
+                    to={1}
+                    dur={CL.anime.lineStartDuration}
+                    begin={`${CL.anime.lineBegin(i)}s`}
+                    repeatCount="1"
+                    fill="freeze"
+                  />
+                </circle>
+              </>
             }
-            <circle
-              cx={CL.lineStartPosition}
-              cy={CL.height * (i - (items.length - 1) * 0.5)}
-              opacity="0"
-              {...(CL.linePoint.normalAttr)}
-            >
-              <animate
-                attributeName="opacity"
-                from={0}
-                to={1}
-                dur={CL.anime.lineStartDuration}
-                begin={`${CL.anime.lineBegin(i)}s`}
-                repeatCount="1"
-                fill="freeze"
-              />
-            </circle>
           </g>
         })
       }

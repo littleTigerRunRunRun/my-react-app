@@ -50,6 +50,22 @@ function RightComp({ props }:{ props: {
         <stop offset="0%" stopColor="#019DB3" stopOpacity="1" />
         <stop offset="100%" stopColor="#008FFF" stopOpacity="1" />
       </linearGradient>
+      <clipPath
+        id="svg_pt_rtext_cp"
+        clipPathUnits="userSpaceOnUse"
+        x="-100"
+        y="-44"
+        width="200"
+        height="80"
+      >
+        <rect 
+          x="-100"
+          y="-44"
+          width="200"
+          height="80"
+          fill="rgba(255,255,255,0.4)"
+        />
+      </clipPath>
     </defs>
     <GlowBezier
       k={'sta'}
@@ -58,6 +74,7 @@ function RightComp({ props }:{ props: {
       extendS={20}
       extendE={40}
       bezier={[50, 0, 50, 0]}
+      className="hover-thick-8"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -82,6 +99,7 @@ function RightComp({ props }:{ props: {
       extendS={20}
       extendE={40}
       bezier={[50, 0, 50, 0]}
+      className="hover-thick-8"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -105,6 +123,7 @@ function RightComp({ props }:{ props: {
       extendS={0}
       extendE={0}
       bezier={[20, 0, 20, 0]}
+      className="hover-thick-8"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -128,6 +147,7 @@ function RightComp({ props }:{ props: {
       extendS={0}
       extendE={0}
       bezier={[20, 0, 20, 0]}
+      className="hover-thick-8"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -151,6 +171,7 @@ function RightComp({ props }:{ props: {
       extendS={40}
       extendE={40}
       bezier={[40, 0, 40, 0]}
+      className="hover-thick-6"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -174,6 +195,7 @@ function RightComp({ props }:{ props: {
       extendS={40}
       extendE={40}
       bezier={[40, 0, 40, 0]}
+      className="hover-thick-6"
       styleAttr={{
         outerLine: {
           fill: 'none',
@@ -214,6 +236,7 @@ function RightComp({ props }:{ props: {
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
         transform={`translate(${CR.automatedPosition.text.x}, ${CR.automatedPosition.text.y})`}
+        clipPath="url(#svg_pt_rtext_cp)"
       />
       <Node
         keyword="automated"
@@ -238,6 +261,7 @@ function RightComp({ props }:{ props: {
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
         transform={`translate(${CR.resolvedIncidentsPosition.text.x}, ${CR.resolvedIncidentsPosition.text.y})`}
+        clipPath="url(#svg_pt_rtext_cp)"
       />
       <Node
         keyword="resolved"
@@ -262,6 +286,7 @@ function RightComp({ props }:{ props: {
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
         transform={`translate(${CR.manualPosition.text.x}, ${CR.manualPosition.text.y})`}
+        clipPath="url(#svg_pt_rtext_cp)"
       />
       <Node
         keyword="manual"
@@ -286,6 +311,7 @@ function RightComp({ props }:{ props: {
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
         transform={`translate(${CR.openIncidentsPosition.text.x}, ${CR.openIncidentsPosition.text.y})`}
+        clipPath="url(#svg_pt_rtext_cp)"
       />
       <Node
         keyword="open"

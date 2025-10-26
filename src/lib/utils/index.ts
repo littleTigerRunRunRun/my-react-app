@@ -3,7 +3,11 @@
  * @param {number} num - 需要格式化的数字
  * @returns {string} 格式化后的字符串
  */
-export function formatNumberTo4SignificantDigits(num:number) {
+export function formatNumberTo4SignificantDigits(num:number, units:Array<{ threshold: number, unit: string }> = [
+    { threshold: 1e9, unit: 'B' },
+    { threshold: 1e6, unit: 'M' },
+    { threshold: 1e3, unit: 'K' }
+  ]) {
   if (num < 10000) return `${num}`
 
   if (typeof num !== 'number' || isNaN(num)) {
@@ -21,11 +25,11 @@ export function formatNumberTo4SignificantDigits(num:number) {
     return absoluteValue.toExponential(3);
   }
   
-  const units = [
-    { threshold: 1e9, unit: 'B' },  // 十亿
-    { threshold: 1e6, unit: 'M' },   // 百万
-    { threshold: 1e3, unit: 'K' }    // 千
-  ];
+  // const units = [
+  //   { threshold: 1e9, unit: 'B' },  // 十亿
+  //   { threshold: 1e6, unit: 'M' },   // 百万
+  //   { threshold: 1e3, unit: 'K' }    // 千
+  // ];
   
   // 查找合适的单位
   for (const unitInfo of units) {
@@ -177,3 +181,90 @@ export function getFillBezier(props: {
 
   return path
 }
+
+export function textLengthLimit(text:string, fontSize:number, length:number, start = 1) {
+  const totalLength = getTextWidth(text, 'PingFang SC, Nunito', fontSize)
+  if (totalLength <= length) return text
+
+  let sliceLength = start
+  let textLength = getTextWidth(text.slice(0, sliceLength), 'PingFang SC, Nunito', fontSize)
+  while (textLength < length) {
+    sliceLength++
+    textLength = getTextWidth(text.slice(0, sliceLength), 'PingFang SC, Nunito', fontSize)
+  }
+  sliceLength--
+  return text.slice(0, sliceLength) + '...'
+}
+
+/**
+ * 根据字体和字号计算字符串的显示长度
+ * @param {string} text - 要测量的字符串
+ * @param {string} fontFamily - 字体族，如 'Arial, sans-serif'
+ * @param {number} fontSize - 字号，单位为像素(px)
+ * @param {string} [fontWeight='normal'] - 字体粗细，如 'bold'、'normal'
+ * @param {string} [fontStyle='normal'] - 字体样式，如 'italic'、'normal'
+ * @returns {number} 字符串的显示宽度，单位为像素(px)
+ */
+function calculateTextWidth(text:string, fontFamily:string, fontSize:number, fontWeight = 'normal', fontStyle = 'normal') {
+    // 参数验证
+    if (typeof text !== 'string' || !text) {
+        return 0;
+    }
+    
+    if (typeof fontSize !== 'number' || fontSize <= 0) {
+        throw new Error('字号必须为正数');
+    }
+    
+    if (typeof fontFamily !== 'string' || !fontFamily) {
+        throw new Error('字体族不能为空');
+    }
+    
+    // 创建隐藏的canvas元素用于测量
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    
+    // 构建字体样式字符串
+    const fontString = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
+    
+    // 设置canvas上下文字体
+    context.font = fontString;
+    
+    // 测量文本宽度并返回
+    return context.measureText(text).width;
+}
+
+/**
+ * 简化版本 - 只使用字体和字号
+ * @param {string} text - 要测量的字符串
+ * @param {string} fontFamily - 字体族
+ * @param {number} fontSize - 字号
+ * @returns {number} 字符串宽度(px)
+ */
+export function getTextWidth(text:string, fontFamily:string, fontSize:number) {
+    return calculateTextWidth(text, fontFamily, fontSize);
+}
+
+/**
+ * 增强版本 - 支持更多字体属性
+ * @param {string} text - 要测量的字符串
+ * @param {Object} fontOptions - 字体选项对象
+ * @param {string} fontOptions.family - 字体族
+ * @param {number} fontOptions.size - 字号
+ * @param {string} [fontOptions.weight='normal'] - 字体粗细
+ * @param {string} [fontOptions.style='normal'] - 字体样式
+ * @param {string} [fontOptions.variant='normal'] - 字体变体
+ * @param {string} [fontOptions.stretch='normal'] - 字体拉伸
+ * @returns {number} 字符串宽度(px)
+ */
+// function measureTextWithOptions(text, fontOptions) {
+//     const {
+//         family,
+//         size,
+//         weight = 'normal',
+//         style = 'normal',
+//         variant = 'normal',
+//         stretch = 'normal'
+//     } = fontOptions;
+    
+//     return calculateTextWidth(text, family, size, weight, style);
+// }

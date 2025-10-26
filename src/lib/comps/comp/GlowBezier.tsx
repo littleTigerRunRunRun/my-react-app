@@ -19,7 +19,8 @@ export function GlowBezier(props: {
     flowLine?: React.SVGProps<SVGPathElement>
   },
   startAnimeBegin: string,
-  anime?: string
+  anime?: string,
+  className?: string
 }) {
   const path = getBezier({
     start: { x: 0, y: 0 },
@@ -49,7 +50,10 @@ export function GlowBezier(props: {
     }
   }, [])
 
-  return <g className="comp-glow-bezier" key={`line_${pk}`}>
+  return <g
+    className={`comp-glow-bezier ${props.className || ''}`}
+    key={`line_${pk}`}
+  >
     <defs>
       <mask
         id={`start_anime_${pk}`}
@@ -101,6 +105,7 @@ export function GlowBezier(props: {
     <g className="bezier-content" mask={`url(#start_anime_${pk})`}>
       {
         props.styleAttr.outerLine ? <path
+          className="outer-line"
           d={path}
           transform={`translate(${props.start.x}, ${props.start.y})`}
           {...props.styleAttr.outerLine}
@@ -108,6 +113,7 @@ export function GlowBezier(props: {
       }
       {
         props.styleAttr.innerLine ? <path
+          className="inner-line"
           d={path}
           transform={`translate(${props.start.x}, ${props.start.y})`}
           {...props.styleAttr.innerLine}
@@ -115,6 +121,7 @@ export function GlowBezier(props: {
       }
       <path
         d={path}
+        className="flow-line"
         transform={`translate(${props.start.x}, ${props.start.y})`}
         mask={`url(#flowline_${pk})`}
         {...props.styleAttr.flowLine}
