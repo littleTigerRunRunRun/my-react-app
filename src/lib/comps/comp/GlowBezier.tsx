@@ -74,7 +74,7 @@ export function GlowBezier(props: {
             attributeName="width"
             from={0}
             to={props.end.x - props.start.x + sas.w * 2}
-            dur={DC.component.glowBezier.anime.createDuration}
+            dur={`${DC.component.glowBezier.anime.createDuration}s`}
             begin={props.startAnimeBegin}
             repeatCount="1"
             fill="freeze"
@@ -93,7 +93,7 @@ export function GlowBezier(props: {
           <animateMotion
             ref={animeRef}
             xlinkHref={`#move_glow_${pk}`}
-            dur={DC.component.glowBezier.anime.flowDuration}
+            dur={`${DC.component.glowBezier.anime.flowDuration}s`}
             begin={`accessKey(move_glow_${pk})`}
             fill="freeze"
             rotate="auto"

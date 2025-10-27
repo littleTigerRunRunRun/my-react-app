@@ -6,7 +6,7 @@ import ic_automated from '../../assets/ic_automated.png'
 import ic_resolved from '../../assets/ic_resolved.png'
 import ic_manual from '../../assets/ic_manual.png'
 import ic_open from '../../assets/ic_open.png'
-import { Event } from '../utils/Subscriber'
+import { Event, Value, subscriber } from '../utils/Subscriber'
 
 function RightComp({ props }:{ props: {
   automated: number,
@@ -15,6 +15,7 @@ function RightComp({ props }:{ props: {
   openIncidents: number
 } }) {
   const CR = DC.right
+  let svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   return <g className='right-comp' transform={`translate(${DC.center.size.width * 0.5 + CR.position.x}, 0)`}>
     <defs>
@@ -89,7 +90,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin1}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin1}`}
       anime={Event.LINE_ANIME('sta')}
     />
     <GlowBezier
@@ -114,7 +115,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin1}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin1}`}
     />
     <GlowBezier
       k={'atr'}
@@ -138,7 +139,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin2}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
     />
     <GlowBezier
       k={'mto'}
@@ -162,7 +163,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin2}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
     />
     <GlowBezier
       k={'ato'}
@@ -186,7 +187,7 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin2}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
     />
     <GlowBezier
       k={'mtr'}
@@ -210,26 +211,17 @@ function RightComp({ props }:{ props: {
           strokeLinecap: 'round'
         }
       }}
-      startAnimeBegin={CR.anime.lineBegin2}
+      startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
     />
     <g className="type-node" opacity="0">
       <animate
         attributeName="opacity"
         from="0"
         to="1"
-        dur={CR.anime.nodeDuration}
-        begin={CR.anime.nodeBegin1}
+        dur={`${CR.anime.nodeDuration}s`}
+        begin={`${svgTime + CR.anime.nodeBegin1}s`}
         fill="freeze"
       />
-      {/* <animateTransform
-        attributeName="transform"
-        type="translate"
-        from={'0,20'}
-        to={'0,0'}
-        dur={CR.anime.nodeDuration}
-        begin="1s"
-        fill="freeze"
-      /> */}
       <LabelCount 
         count={props.automated}
         labels={['Automated']}
@@ -251,8 +243,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur={CR.anime.nodeDuration}
-        begin={CR.anime.nodeBegin2}
+        dur={`${CR.anime.nodeDuration}s`}
+        begin={`${svgTime + CR.anime.nodeBegin2}s`}
         fill="freeze"
       />
       <LabelCount 
@@ -276,8 +268,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur={CR.anime.nodeDuration}
-        begin={CR.anime.nodeBegin1}
+        dur={`${CR.anime.nodeDuration}s`}
+        begin={`${svgTime + CR.anime.nodeBegin1}s`}
         fill="freeze"
       />
       <LabelCount 
@@ -301,8 +293,8 @@ function RightComp({ props }:{ props: {
         attributeName="opacity"
         from="0"
         to="1"
-        dur={CR.anime.nodeDuration}
-        begin={CR.anime.nodeBegin2}
+        dur={`${CR.anime.nodeDuration}s`}
+        begin={`${svgTime + CR.anime.nodeBegin2}s`}
         fill="freeze"
       />
       <LabelCount 

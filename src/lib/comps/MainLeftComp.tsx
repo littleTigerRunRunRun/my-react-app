@@ -1,5 +1,5 @@
 import DC from '../defaultConfig'
-import { Event, subscriber } from '../utils/Subscriber'
+import { Event, subscriber, Value } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
 
@@ -17,6 +17,7 @@ function LeftComp({ props }:{ props: {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
+  let svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   const items:Array<{
     pic?: string,
@@ -25,19 +26,6 @@ function LeftComp({ props }:{ props: {
     status: string,
     size: number
   }> = props.sources.map((item) => {
-    // let rate = 1
-    // let pwidth
-    // let pheight
-    // if (item.width > CL.iconMaxWidth) {
-    //   pwidth = CL.iconMaxWidth
-    //   rate = CL.iconMaxWidth / item.width
-    // } else pwidth = item.width
-
-    // if (item.height * rate > CL.iconMaxHeight) {
-    //   pheight = CL.iconMaxHeight
-    //   // rate = CL.iconMaxHeight / (item.height * rate)
-    // } else pheight = item.height * rate
-
     return {
       pic: item.pic,
       name: item.name,
@@ -101,8 +89,8 @@ function LeftComp({ props }:{ props: {
             attributeName="opacity"
             from="0"
             to="1"
-            dur={CL.anime.itemsOpacityDuration}
-            begin={`${CLAI(i)}s`}
+            dur={`${CL.anime.itemsOpacityDuration}s`}
+            begin={`${svgTime + CLAI(i)}s`}
             fill="freeze"
           />
           <animateTransform
@@ -111,8 +99,8 @@ function LeftComp({ props }:{ props: {
             type="translate"
             from={`-20,${CL.height * (i - (items.length - 1) * 0.5)}`}
             to={`0,${CL.height * (i - (items.length - 1) * 0.5)}`}
-            dur={CL.anime.itemsMoveDuration}
-            begin={`${CLAI(i)}s`}
+            dur={`${CL.anime.itemsMoveDuration}s`}
+            begin={`${svgTime + CLAI(i)}s`}
             fill="freeze"
           />
           {
@@ -189,7 +177,7 @@ function LeftComp({ props }:{ props: {
                   k={`${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-                  extendS={0.3 * CL.lineWidth}
+                  extendS={0.4 * CL.lineWidth}
                   extendE={0.1 * CL.lineWidth}
                   bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
                   styleAttr={{
@@ -202,7 +190,7 @@ function LeftComp({ props }:{ props: {
                       stroke: "#F54E4E"
                     }) as React.SVGProps<SVGPathElement>
                   }}
-                  startAnimeBegin={`${0.1 * i + 0.8}s`}
+                  startAnimeBegin={`${svgTime + 0.1 * i + 0.8}s`}
                   anime={Event.LINE_ANIME(i)}
                 />
                 <circle
@@ -217,7 +205,7 @@ function LeftComp({ props }:{ props: {
                     from={0}
                     to={1}
                     dur="0.5s"
-                    begin={`${0.1 * i + 0.8}s`}
+                    begin={`${svgTime + 0.1 * i + 0.8}s`}
                     repeatCount="1"
                     fill="freeze"
                   />
@@ -227,7 +215,7 @@ function LeftComp({ props }:{ props: {
                   k={`${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-                  extendS={0.3 * CL.lineWidth}
+                  extendS={0.4 * CL.lineWidth}
                   extendE={0.1 * CL.lineWidth}
                   bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
                   styleAttr={{
@@ -235,7 +223,7 @@ function LeftComp({ props }:{ props: {
                     innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                     flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                   }}
-                  startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                  startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
                   anime={Event.LINE_ANIME(i)}
                 />
                 {
@@ -244,28 +232,28 @@ function LeftComp({ props }:{ props: {
                       k={`${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-                      extendS={0.3 * CL.lineWidth}
+                      extendS={0.4 * CL.lineWidth}
                       extendE={0.1 * CL.lineWidth}
                       bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
                       styleAttr={{
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
-                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                      startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
                       anime={Event.LINE_ANIME(i)}
                     />
                     <GlowBezier
                       k={`${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
-                      extendS={0.3 * CL.lineWidth}
+                      extendS={0.4 * CL.lineWidth}
                       extendE={0.1 * CL.lineWidth}
                       bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
                       styleAttr={{
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
-                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
+                      startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
                       anime={Event.LINE_ANIME(i)}
                     />
                   </> : ''
@@ -280,8 +268,8 @@ function LeftComp({ props }:{ props: {
                     attributeName="opacity"
                     from={0}
                     to={1}
-                    dur={CL.anime.lineStartDuration}
-                    begin={`${CL.anime.lineBegin(i)}s`}
+                    dur={`${CL.anime.lineStartDuration}s`}
+                    begin={`${svgTime + CL.anime.lineBegin(i)}s`}
                     repeatCount="1"
                     fill="freeze"
                   />

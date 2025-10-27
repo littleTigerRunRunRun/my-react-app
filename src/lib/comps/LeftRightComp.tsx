@@ -1,4 +1,6 @@
 import DC from '../defaultConfig'
+import { Event, subscriber } from '../utils/Subscriber'
+import LabelCount from './comp/LabelCount'
 
 function LeftRightComp(props: {}) {
   const CLR = DC.leftRight
@@ -37,6 +39,18 @@ function LeftRightComp(props: {}) {
         <stop offset="68%" stopColor="#fff" stopOpacity="1" />
         <stop offset="100%" stopColor="#fff" stopOpacity="0" />
       </radialGradient>
+      <linearGradient id="svg_pt_lr_radar_lg" x1="0" y1="0.15" x2="0.85" y2="1">
+        <stop offset="40%" stopColor="#008FFF " stopOpacity="0" />
+        <stop offset="100%" stopColor="#008FFF " stopOpacity="0.3" />
+      </linearGradient>
+      <linearGradient id="svg_pt_lr_radar_start_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#008FFF " stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#008FFF " stopOpacity="0.2" />
+      </linearGradient>
+      <linearGradient id="svg_pt_lr_radar_circle_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="90%" stopColor="#008FFF " stopOpacity="0" />
+        <stop offset="100%" stopColor="#008FFF " stopOpacity="0.9" />
+      </linearGradient>
       <mask id="svg_pt_lr_radiation_mask">
         <circle
           r={CLR.outerEndRadius}
@@ -86,38 +100,161 @@ function LeftRightComp(props: {}) {
       <text
         {...CLR.textAttr.num as React.SVGProps<SVGTextElement>}
       >82 Rules</text>
+    </g>
+    <g className="anime-effect-layer">
+      <g className="radar">
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from={`0 0 0`}
+          to={`360 0 0`}
+          dur="4s"
+          begin="0s"
+          fill="freeze"
+          repeatCount="indefinite"
+        />
+        <circle
+          r={CLR.innerRadius}
+          stroke="url(#svg_pt_lr_radar_circle_lg)"
+          strokeWidth="2"
+          fill="none"
+        />
+        <path
+          fill="url(#svg_pt_lr_radar_lg)"
+          d={`
+            M0,${-CLR.innerRadius}
+            L0,${-CLR.mediumRadius}
+            A${CLR.mediumRadius},${CLR.mediumRadius} 0 0 1 ${CLR.mediumRadius},0 
+            L${CLR.innerRadius},0 
+            A${CLR.innerRadius},${CLR.innerRadius} 1 0 0 0,${-CLR.innerRadius}
+            Z
+          `}
+        >
+        </path>
+        <rect
+          fill="url(#svg_pt_lr_radar_start_lg)"
+          x={CLR.innerRadius}
+          y="-1"
+          width={CLR.mediumRadius - CLR.innerRadius}
+          height="2"
+        />
+      </g>
       {
         keywords.map((kw, index) => {
           const angle = index * Math.PI * 2 / keywords.length
           const x = Math.sin(angle) * CLR.outerStartRadius
           const y = -Math.cos(angle) * CLR.outerStartRadius
-          return <g
+          return <circle
             key={`kw_${index}`}
-            className="keyword"
-            transform={`translate(${x}, ${y})`}
-          >
-            <circle
-              r={CLR.keywordRadius}
-              fill="#000"
-              stroke="#008FFF"
-              strokeWidth="1"
-            />
-            <text
-              {...(kw.length === 1 ? CLR.textAttr.keywordOneLine : CLR.textAttr.keywordTwoLine) as React.SVGProps<SVGTextElement>}
-            >
-              {
-                kw.map((w, windex) => {
-                  return <tspan
-                    key={`word_${windex}`}
-                    {...(kw.length === 2 ? (windex === 0 ? CLR.textAttr.ktlOne : CLR.textAttr.ktlTwo) : {})}
-                  >{ w }</tspan>
-                })
-              }
-            </text>
-          </g>
+            className="keyword-glow"
+            cx={x}
+            cy={y}
+            r={CLR.keywordRadius}
+            fill="#000"
+            stroke="#008FFF"
+            strokeWidth="1"
+            style={{
+              animationDelay: `${index * 4 / keywords.length - 2.5}s`
+            }}
+          />
         })
       }
     </g>
+    {
+      keywords.map((kw, index) => {
+        const angle = index * Math.PI * 2 / keywords.length
+        const x = Math.sin(angle) * CLR.outerStartRadius
+        const y = -Math.cos(angle) * CLR.outerStartRadius
+        return <g
+          key={`kw_${index}`}
+          className="keyword"
+          transform={`translate(${x}, ${y})`}
+        >
+          <circle
+            r={CLR.keywordRadius}
+            fill="#000"
+            stroke="#008FFF"
+            strokeWidth="1"
+          />
+          <text
+            {...(kw.length === 1 ? CLR.textAttr.keywordOneLine : CLR.textAttr.keywordTwoLine) as React.SVGProps<SVGTextElement>}
+          >
+            {
+              kw.map((w, windex) => {
+                return <tspan
+                  key={`word_${windex}`}
+                  {...(kw.length === 2 ? (windex === 0 ? CLR.textAttr.ktlOne : CLR.textAttr.ktlTwo) : {})}
+                >{ w }</tspan>
+              })
+            }
+          </text>
+        </g>
+      })
+    }
+    <LabelCount 
+      count={5493}
+      labels={['Alerts']}
+      labelAttr={DC.center.label as React.SVGProps<SVGTextElement>}
+      countAttr={DC.center.count as React.SVGProps<SVGTextElement>}
+      transform={`translate(${CLR.size.width * -0.5}, 0)`}
+      // clipPath="url(#svg_pt_ctext_cp)"
+    />
+    <LabelCount 
+      count={350}
+      labels={['Incidents']}
+      labelAttr={DC.center.label as React.SVGProps<SVGTextElement>}
+      countAttr={DC.center.count as React.SVGProps<SVGTextElement>}
+      transform={`translate(${CLR.size.width * 0.5}, 0)`}
+      // clipPath="url(#svg_pt_ctext_cp)"
+    />
+    <g className="suggest">
+      <text
+        {...CLR.textAttr.suggestion1 as React.SVGProps<SVGTextElement>}
+      >
+        <tspan>20</tspan>
+        <tspan {...CLR.textAttr.suggestionSpan as React.SVGProps<SVGTextElement>}>Rules can be optimized</tspan>
+      </text>
+      <rect
+        x="0"
+        y="240"
+        width="260"
+        height="8"
+        fill="rgba(255, 255, 255, 0.15)"
+      />
+      <rect
+        x="0"
+        y="240"
+        width="0"
+        height="8"
+        fill="#F54E4E"
+      >
+        <animate
+          attributeName="width"
+          from={0}
+          to={63}
+          dur={`${CLR.anime.suggestionBarDur}s`}
+          begin={`${CLR.anime.suggestionBarDelay}s`}
+          repeatCount="1"
+          fill="freeze"
+        />
+      </rect>
+      <text
+        {...CLR.textAttr.suggestion2 as React.SVGProps<SVGTextElement>}
+      >By 11 recommendations</text>
+    </g>
+    <text
+      x="200"
+      y="-300"
+      fontSize="20"
+      fill="#fff"
+      style={{
+        cursor: 'pointer'
+      }}
+      onClick={() => {
+        subscriber.broadcast(Event.DIG, ['main'])
+      }}
+    >返回（临时）</text>
   </g>
 }
 

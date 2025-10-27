@@ -22,8 +22,8 @@ export default {
       }
     },
     anime: {
-      duration: '0.3s',
-      delay: '0s'
+      duration: 0.3,
+      delay: 0
     }
   },
   // left内容是又对齐的
@@ -80,10 +80,10 @@ export default {
     },
     anime: {
       itemsBegin: (i:number) => 0.1 * i + 0.5,
-      itemsOpacityDuration: '0.4s',
-      itemsMoveDuration: '0.2s',
+      itemsOpacityDuration: 0.4,
+      itemsMoveDuration: 0.2,
       lineBegin: (i:number) => 0.1 * i + 0.8,
-      lineStartDuration: '0.5s'
+      lineStartDuration: 0.5
     }
   },
   center: {
@@ -119,13 +119,17 @@ export default {
       textAnchor: 'middle'
     },
     anime: {
-      duration: '0.5s',
-      delay: '1.2s',
+      duration: 0.5,
+      delay: 1.2,
       videoPlayDelay: 1800
     }
   },
   // left left comp覆盖配置
   leftLeft: {
+    position: {
+      x: -60,
+      y: 0
+    },
     width: 670, // = iconMaxWidth + paddingIN + nameMaxWidth + paddingNT + trafficMaxWidth + paddingTL + lineWidth
     iconStartPosition: 0, // = 0
     nameStartPosition: 72, // = iconMaxWidth + paddingIN
@@ -197,11 +201,11 @@ export default {
       // lineBegin2: '2.2s',
       // nodeBegin1: '2.1s',
       // nodeBegin2: '2.7s',
-      lineBegin1: '2.6s',
-      lineBegin2: '3.2s',
-      nodeBegin1: '3.1s',
-      nodeBegin2: '3.7s',
-      nodeDuration: '0.3s'
+      lineBegin1: 2.6,
+      lineBegin2: 3.2,
+      nodeBegin1: 3.1,
+      nodeBegin2: 3.7,
+      nodeDuration: 0.3
     }
   },
   leftRight: {
@@ -259,7 +263,7 @@ export default {
         textAnchor: 'middle'
       },
       keywordTwoLine: {
-        y: -18,
+        y: -9,
         fill: '#ABABAC',
         fontSize: 12,
         fontFamily: fontFamilySetting,
@@ -271,7 +275,36 @@ export default {
       ktlTwo: {
         x: 0,
         dy: 18
+      },
+      suggestion1: {
+        x: 259,
+        y: 227,
+        fill: '#fff',
+        fontSize: 24,
+        fontWeight: 'bold',
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'text-after-edge',
+        textAnchor: 'end'
+      },
+      suggestionSpan: {
+        fill: '#ABABAC ',
+        fontSize: 16,
+        fontWeight: 'normal',
+        dx: 6
+      },
+      suggestion2: {
+        x: 259,
+        y: 270,
+        fill: '#ABABAC ',
+        fontSize: 14,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'end'
       }
+    },
+    anime: {
+      suggestionBarDur: 1.0,
+      suggestionBarDelay: 1.2
     }
   },
   component: {
@@ -284,8 +317,8 @@ export default {
     },
     glowBezier: {
       anime: {
-        createDuration: '0.6s',
-        flowDuration: '3s'
+        createDuration: 0.6,
+        flowDuration: 3
       }
     }
   }

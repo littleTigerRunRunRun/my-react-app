@@ -8,12 +8,14 @@ import LeftLeftComp from './comps/LeftLeftComp'
 import LeftRightComp from './comps/LeftRightComp'
 import { RandomLeftFlowline } from './animation'
 import { CSSTransition } from 'react-transition-group'
-import { subscriber, Event } from './utils/Subscriber'
+import { subscriber, Event, Value } from './utils/Subscriber'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
-  const [digTree, setDigTree] = useState(['main', 'left']) 
+  const [digTree, setDigTree] = useState(['main']) //, 'left'
   const mainRef = useRef<SVGGElement>(null)
+  const mainLeftRef = useRef<SVGGElement>(null)
+  if (!subscriber.get(Value.SVG_START_TIME)) subscriber.set(Value.SVG_START_TIME, Date.now())
 
   const dig = (dt:Array<string>) => {
     setDigTree(dt)
@@ -21,6 +23,7 @@ function Main({ data }:{ data: Record<string, any> }) {
 
   useEffect(() => {
     console.log('挂载')
+
     const rlfl = new RandomLeftFlowline({
       targetNumber: data.left.sources.length + 1,
       duration: 3000,
@@ -28,6 +31,10 @@ function Main({ data }:{ data: Record<string, any> }) {
       parallelLimit: 4
     })
     subscriber.listen(Event.DIG, dig)
+    
+    // setTimeout(() => {
+    //   dig(['main'])
+    // }, 5000)
 
     return () => {
       console.log('卸载')
@@ -44,8 +51,8 @@ function Main({ data }:{ data: Record<string, any> }) {
         viewBox={`${DCGSize.width * -0.5 - DCGSize.hp} ${DCGSize.height * -0.5 - DCGSize.vp} ${DCGSize.width + DCGSize.hp * 2} ${DCGSize.height + DCGSize.vp * 2}`}
         // viewBox="-680 150 200 150"
         style={{
-          animationDuration: DC.global.anime.duration,
-          animationDelay: DC.global.anime.delay
+          animationDuration: `${DC.global.anime.duration}s`,
+          animationDelay: `${DC.global.anime.delay}s`
         }}
       >
         <defs>
@@ -72,17 +79,39 @@ function Main({ data }:{ data: Record<string, any> }) {
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter> */}
+          <linearGradient id="svg_pt_csn_mask_lg" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stopColor="#fff " stopOpacity="0" />
+            <stop offset="16.7%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="83.3%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="100%" stopColor="#fff " stopOpacity="0" />
+          </linearGradient>
+          <mask
+            id="svg_pt_csn_mask"
+            maskUnits="userSpaceOnUse"
+            x="-13"
+            y="-33"
+            width="26"
+            height="66"
+          >
+            <rect
+              x="-13"
+              y="-33"
+              width="26"
+              height="66"
+              fill="url(#svg_pt_csn_mask_lg)"
+            />
+          </mask>
         </defs>
         {/* 首页组件 */}
         {
-          digTree.join('') === 'main' ? 
           <CSSTransition
             in={digTree.join('') === 'main'}
             timeout={1000}
             nodeRef={mainRef as any}
             classNames="fade"
-            // unmountOnExit={true}
+            unmountOnExit={true}
           >
+          {/* digTree.join('') === 'main' ? */}
             <g className="main" ref={mainRef}>
               <MainLeftComp
                 props={data.left}
@@ -94,22 +123,31 @@ function Main({ data }:{ data: Record<string, any> }) {
                 props={data.center}
               />
             </g>
-          </CSSTransition> : ''
+             {/* : '' */}
+          </CSSTransition>
         }
         {
-          digTree.join('') === 'mainleft' ? 
-          //  ref={mainRef}
-          <g className="main">
-            <LeftLeftComp
-              props={data.left}
-            />
-            <LeftRightComp
-            
-            />
-            <text>
+          <CSSTransition
+            in={digTree.join('') === 'mainleft'}
+            timeout={1000}
+            nodeRef={mainLeftRef as any}
+            classNames="fade"
+            unmountOnExit={true}
+          >
+          {/* digTree.join('') === 'mainleft' ? */}
+            <g className="main" ref={mainLeftRef}>
+              <LeftLeftComp
+                props={data.left}
+              />
+              <LeftRightComp
+              
+              />
+              <text>
 
-            </text>
-          </g> : ''
+              </text>
+            </g>
+             {/* : '' */}
+          </CSSTransition>
         }
       </svg>
     </div>

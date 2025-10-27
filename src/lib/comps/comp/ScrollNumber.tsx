@@ -4,31 +4,31 @@ function NumberUnit(props: {
   num: string,
   x: number,
   height: number,
-  mask: string,
   attr: React.SVGProps<SVGTextElement>,
   animationDelay: number
-}) {
+}) { 
   const nums = ['', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   const position = nums.indexOf(props.num)
 
-  return <g className="number-unit" transform={`translate(${props.x}, 0)`} mask={props.mask}>
-     {/* mask={props.mask} */}
-    <g className="move" style={{
-      transform: `translate(0, ${position * -props.height}px)`,
-      transitionDelay: `${props.animationDelay}s`
-    }}>
-      {
-        nums.map((num, index) => {
-          return <text
-            key={index}
-            {...props.attr}
-            x={0}
-            y={index * props.height}
-          >
-            { num }
-          </text>
-        })
-      }
+  return <g className="number-unit" transform={`translate(${props.x}, 0)`}>
+    <g mask="url(#svg_pt_csn_mask)">
+      <g className="move" style={{
+        transform: `translate(0, ${position * -props.height}px)`,
+        transitionDelay: `${props.animationDelay}s`
+      }}>
+        {
+          nums.map((num, index) => {
+            return <text
+              key={index}
+              {...props.attr}
+              x={0}
+              y={index * props.height}
+            >
+              { num }
+            </text>
+          })
+        }
+      </g>
     </g>
   </g>
 }
@@ -70,7 +70,6 @@ function ScrollNumber(props: {
       num={num1}
       x={0}
       height={height}
-      mask="url(#svg_pt_csn_mask)"
       attr={props.attr}
       animationDelay={adu * 3}
     />
@@ -78,7 +77,6 @@ function ScrollNumber(props: {
       num={num2}
       x={25}
       height={height}
-      mask="url(#svg_pt_csn_mask)"
       attr={props.attr}
       animationDelay={adu * 2}
     />
@@ -86,7 +84,6 @@ function ScrollNumber(props: {
       num={num3}
       x={50}
       height={height}
-      mask="url(#svg_pt_csn_mask)"
       attr={props.attr}
       animationDelay={adu}
     />
@@ -94,7 +91,6 @@ function ScrollNumber(props: {
       num={num4}
       x={75}
       height={height}
-      mask="url(#svg_pt_csn_mask)"
       attr={props.attr}
       animationDelay={0}
     />

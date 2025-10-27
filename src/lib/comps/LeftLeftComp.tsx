@@ -45,7 +45,7 @@ function LeftLeftComp({ props }:{ props: {
   
   return <g
     className="left-comp"
-    transform={`translate(${-CL.width}, 0)`}
+    transform={`translate(${-CL.width + CL.position.x}, 0)`}
   >
     <defs>
       <linearGradient id="svg_pt_lg_left_mask" x1="0" y1="0.5" x2="1" y2="0.5">
@@ -94,7 +94,7 @@ function LeftLeftComp({ props }:{ props: {
             attributeName="opacity"
             from="0"
             to="1"
-            dur={CL.anime.itemsOpacityDuration}
+            dur={`${CL.anime.itemsOpacityDuration}s`}
             begin={`${CLAI(i)}s`}
             repeatCount="1"
             fill="freeze"
@@ -105,7 +105,7 @@ function LeftLeftComp({ props }:{ props: {
             type="translate"
             from={`-20,${CL.height * (i - (items.length - 1) * 0.5)}`}
             to={`0,${CL.height * (i - (items.length - 1) * 0.5)}`}
-            dur={CL.anime.itemsMoveDuration}
+            dur={`${CL.anime.itemsMoveDuration}s`}
             begin={`${CLAI(i)}s`}
             fill="freeze"
           />
@@ -120,7 +120,7 @@ function LeftLeftComp({ props }:{ props: {
           }
           {
             item.count ? <text
-              x={CL.iconMaxWidth * 0.5}
+              x={CL.iconMaxWidth * 0.5 - 20}
               {...CL.nameAttr as React.SVGProps<SVGTextElement>}
               fontSize={22}
             >
@@ -131,7 +131,7 @@ function LeftLeftComp({ props }:{ props: {
             x={CL.nameStartPosition}
             {...CL.nameAttr as React.SVGProps<SVGTextElement>}
           >
-            { textLengthLimit(item.name, CL.nameAttr.fontSize, 106, 6) }
+            { textLengthLimit(item.name, CL.nameAttr.fontSize, 106, 8) }
           </text>
           <text
             x={CL.trafficStartPosition}
@@ -244,7 +244,7 @@ function LeftLeftComp({ props }:{ props: {
                     attributeName="opacity"
                     from={0}
                     to={1}
-                    dur={CL.anime.lineStartDuration}
+                    dur={`${CL.anime.lineStartDuration}s`}
                     begin={`${CL.anime.lineBegin(i)}s`}
                     repeatCount="1"
                     fill="freeze"

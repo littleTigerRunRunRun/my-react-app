@@ -22,31 +22,11 @@ function CenterComp({ props }:{
     className="center-comp"
     transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}
     style={{
-      animationDuration: DC.center.anime.duration,
-      animationDelay: DC.center.anime.delay
+      animationDuration: `${DC.center.anime.duration}s`,
+      animationDelay: `${DC.center.anime.delay}s`
     }}
   >
     <defs>
-      <linearGradient id="svg_pt_csn_mask_lg" x1="0.5" y1="0" x2="0.5" y2="1">
-        <stop offset="0%" stopColor="#fff " stopOpacity="0" />
-        <stop offset="16.7%" stopColor="#fff" stopOpacity="1" />
-        <stop offset="83.3%" stopColor="#fff" stopOpacity="1" />
-        <stop offset="100%" stopColor="#fff " stopOpacity="0" />
-      </linearGradient>
-      <mask
-        id="svg_pt_csn_mask"
-        // maskUnits="userSpaceOnUse"
-        // width="25"
-        // height="68"
-      >
-        <rect
-          x="-13"
-          y="-33"
-          width="26"
-          height="66"
-          fill="url(#svg_pt_csn_mask_lg)"
-        />
-      </mask>
       <clipPath
         id="svg_pt_ctext_cp"
         clipPathUnits="userSpaceOnUse"
