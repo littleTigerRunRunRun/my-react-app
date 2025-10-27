@@ -68,23 +68,23 @@ function LeftRightComp(props: {}) {
               y2="0"
               stroke={radia ? "#0089F5" : "#F54E4E"}
               strokeWidth="1"
-              stroke-opacity="0.5"
+              strokeOpacity="0.5"
               transform={`rotate(${index / radiationNums * 360} 0, 0)`}
             />
           })
         }
       </g>
       <text
-        {...CLR.centerText.percentNumberAttr as React.SVGProps<SVGTextElement>}
+        {...CLR.textAttr.percentNumber as React.SVGProps<SVGTextElement>}
       >98</text>
       <text
-        {...CLR.centerText.percentAttr as React.SVGProps<SVGTextElement>}
+        {...CLR.textAttr.percent as React.SVGProps<SVGTextElement>}
       >%</text>
       <text
-        {...CLR.centerText.nameAttr as React.SVGProps<SVGTextElement>}
+        {...CLR.textAttr.name as React.SVGProps<SVGTextElement>}
       >Rule Health</text>
       <text
-        {...CLR.centerText.numAttr as React.SVGProps<SVGTextElement>}
+        {...CLR.textAttr.num as React.SVGProps<SVGTextElement>}
       >82 Rules</text>
       {
         keywords.map((kw, index) => {
@@ -102,6 +102,18 @@ function LeftRightComp(props: {}) {
               stroke="#008FFF"
               strokeWidth="1"
             />
+            <text
+              {...(kw.length === 1 ? CLR.textAttr.keywordOneLine : CLR.textAttr.keywordTwoLine) as React.SVGProps<SVGTextElement>}
+            >
+              {
+                kw.map((w, windex) => {
+                  return <tspan
+                    key={`word_${windex}`}
+                    {...(kw.length === 2 ? (windex === 0 ? CLR.textAttr.ktlOne : CLR.textAttr.ktlTwo) : {})}
+                  >{ w }</tspan>
+                })
+              }
+            </text>
           </g>
         })
       }

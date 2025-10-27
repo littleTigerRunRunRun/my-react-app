@@ -214,8 +214,8 @@ export default {
     outerStartRadius: 154,
     outerEndRadius: 227,
     keywordRadius: 40,
-    centerText: {
-      percentNumberAttr: {
+    textAttr: {
+      percentNumber: {
         x: -10,
         y: -32,
         fill: '#fff',
@@ -224,7 +224,7 @@ export default {
         dominantBaseline: 'middle',
         textAnchor: 'middle'
       },
-      percentAttr: {
+      percent: {
         x: 24,
         y: -26,
         fill: '#fff',
@@ -233,23 +233,44 @@ export default {
         dominantBaseline: 'middle',
         textAnchor: 'middle'
       },
-      nameAttr: {
+      name: {
         x: 0,
         y: 12,
-        fill: '#ABABAC ',
+        fill: '#ABABAC',
         fontSize: 20,
         fontFamily: fontFamilySetting,
         dominantBaseline: 'middle',
         textAnchor: 'middle'
       },
-      numAttr: {
+      num: {
         x: 0,
         y: 44,
-        fill: '#fff ',
+        fill: '#fff',
         fontSize: 14,
         fontFamily: fontFamilySetting,
         dominantBaseline: 'middle',
         textAnchor: 'middle'
+      },
+      keywordOneLine: {
+        fill: '#ABABAC',
+        fontSize: 20,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      },
+      keywordTwoLine: {
+        y: -18,
+        fill: '#ABABAC',
+        fontSize: 12,
+        fontFamily: fontFamilySetting,
+        dominantBaseline: 'middle',
+        textAnchor: 'middle'
+      },
+      ktlOne: {
+      },
+      ktlTwo: {
+        x: 0,
+        dy: 18
       }
     }
   },
