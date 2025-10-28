@@ -17,7 +17,7 @@ function LeftComp({ props }:{ props: {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
-  let svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   const items:Array<{
     pic?: string,
@@ -83,7 +83,7 @@ function LeftComp({ props }:{ props: {
           opacity="0"
           transform={`translate(-20, ${CL.height * (i - (items.length - 1) * 0.5)})`}
           key={i}
-          onClick={() => subscriber.broadcast(Event.DIG, ['main', 'left'])}
+          onClick={() => subscriber.broadcast(Event.DIG, ['main', 'dataInventory'])}
         >
           <animate
             attributeName="opacity"
@@ -174,7 +174,7 @@ function LeftComp({ props }:{ props: {
             {
               item.status === 'danger' ? <>
                 <GlowBezier
-                  k={`${i}`}
+                  k={`ml_${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.4 * CL.lineWidth}
@@ -191,7 +191,7 @@ function LeftComp({ props }:{ props: {
                     }) as React.SVGProps<SVGPathElement>
                   }}
                   startAnimeBegin={`${svgTime + 0.1 * i + 0.8}s`}
-                  anime={Event.LINE_ANIME(i)}
+                  anime={Event.LINE_ANIME}
                 />
                 <circle
                   cx={CL.lineStartPosition}
@@ -212,7 +212,7 @@ function LeftComp({ props }:{ props: {
                 </circle>
               </> : <>
                 <GlowBezier
-                  k={`${i}`}
+                  k={`ml_${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.4 * CL.lineWidth}
@@ -224,12 +224,12 @@ function LeftComp({ props }:{ props: {
                     flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                   }}
                   startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
-                  anime={Event.LINE_ANIME(i)}
+                  anime={Event.LINE_ANIME}
                 />
                 {
                   item.count ? <>
                     <GlowBezier
-                      k={`${i}`}
+                      k={`ml_${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.4 * CL.lineWidth}
@@ -240,10 +240,10 @@ function LeftComp({ props }:{ props: {
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
                       startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
-                      anime={Event.LINE_ANIME(i)}
+                      anime={Event.LINE_ANIME}
                     />
                     <GlowBezier
-                      k={`${i}`}
+                      k={`ml_${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.4 * CL.lineWidth}
@@ -254,7 +254,7 @@ function LeftComp({ props }:{ props: {
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
                       startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
-                      anime={Event.LINE_ANIME(i)}
+                      anime={Event.LINE_ANIME}
                     />
                   </> : ''
                 }

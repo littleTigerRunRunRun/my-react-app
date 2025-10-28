@@ -38,7 +38,7 @@ export class RandomLeftFlowline {
       const inactives = this.flowlines.filter((fl) => !fl.active)
       const index = Math.floor(Math.random() * inactives.length)
       inactives[index].active = true
-      subscriber.broadcast(Event.LINE_ANIME(inactives[index].index))
+      subscriber.broadcast(Event.LINE_ANIME(`ml_${inactives[index].index}`))
       setTimeout(() => {
         inactives[index].active = false
       }, this.duration + 200)

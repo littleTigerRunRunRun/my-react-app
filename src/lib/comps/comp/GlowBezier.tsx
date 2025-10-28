@@ -19,7 +19,7 @@ export function GlowBezier(props: {
     flowLine?: React.SVGProps<SVGPathElement>
   },
   startAnimeBegin: string,
-  anime?: string,
+  anime?: (i:number|string) => string,
   className?: string
 }) {
   const path = getBezier({
@@ -43,10 +43,12 @@ export function GlowBezier(props: {
   }
 
   useEffect(() =>{
-    if (props.anime) subscriber.listen(props.anime, playAnime)
+    if (props.anime) {
+      subscriber.listen(props.anime(props.k), playAnime)
+    }
 
     return () => {
-      if (props.anime) subscriber.remove(props.anime, playAnime)
+      if (props.anime) subscriber.remove(props.anime(props.k), playAnime)
     }
   }, [])
 

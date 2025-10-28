@@ -1,7 +1,7 @@
 .diagram-container{
   width: 100%;
   height: 100%;
-  background: #000505;
+  background: #000000;
   * {
     user-select: none;
   }
@@ -12,6 +12,9 @@
     opacity: 0;
     animation: fadeIn 0.3s ease-in-out;
     animation-fill-mode: forwards;
+  }
+
+  .data-inventory {
   }
 
   .left-comp{
@@ -132,18 +135,38 @@
 /* 退出动画开始状态 */
 .fade-exit {
   opacity: 1;
-  transform: translateX(0);
+  // transform: translateX(0);
 }
 
 /* 退出动画进行中状态 */
 .fade-exit-active {
   opacity: 0;
-  transform: translateX(40%);
-  transition: opacity 0.8s, transform 1s;
+  // transform: translateX(40%);
+  transition: opacity 0.8s; //, transform 1s;
 }
 
 /* 退出动画完成状态 */
 .fade-exit-done {
   opacity: 0;
-  transform: translateX(5%);
+  // transform: translateX(5%);
+}
+
+
+/* 退出动画开始状态 */
+.fadeleft-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 退出动画进行中状态 */
+.fadeleft-exit-active {
+  opacity: 0;
+  transform: translateX(-40%);
+  transition: opacity 0.8s, transform 1s;
+}
+
+/* 退出动画完成状态 */
+.fadeleft-exit-done {
+  opacity: 0;
+  transform: translateX(-5%);
 }

@@ -1,5 +1,5 @@
 import DC from '../defaultConfig'
-import { Event, subscriber } from '../utils/Subscriber'
+import { Event, Value, subscriber } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
 
@@ -10,13 +10,15 @@ const byteUnits = [
   { threshold: 1e3, unit: 'K' }
 ]
 
-function LeftLeftComp({ props }:{ props: {
+function LeftLeftComp({ props }:{ props: { 
   extraSource: number,
   sources: Array<{ pic?: string, name: string, status: string, size: number }>
 } }) {
   const CL = Object.assign({}, DC.left, DC.leftLeft)
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
+  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  console.log('cl', CL)
 
   const items:Array<{
     pic?: string,
@@ -66,7 +68,7 @@ function LeftLeftComp({ props }:{ props: {
         <stop offset="66%" stopColor="#F54E4E" stopOpacity="0.2" />
         <stop offset="100%" stopColor="#F54E4E" stopOpacity="0.2" />
       </radialGradient>
-      <mask id="svg_pt_mask_left_line">
+      <mask id="svg_pt_mask_ll_line">
         <rect
           width={CL.lineWidth + 12}
           height={height + 40}
@@ -95,7 +97,7 @@ function LeftLeftComp({ props }:{ props: {
             from="0"
             to="1"
             dur={`${CL.anime.itemsOpacityDuration}s`}
-            begin={`${CLAI(i)}s`}
+            begin={`${svgTime + CLAI(i)}s`}
             repeatCount="1"
             fill="freeze"
           />
@@ -106,7 +108,7 @@ function LeftLeftComp({ props }:{ props: {
             from={`-20,${CL.height * (i - (items.length - 1) * 0.5)}`}
             to={`0,${CL.height * (i - (items.length - 1) * 0.5)}`}
             dur={`${CL.anime.itemsMoveDuration}s`}
-            begin={`${CLAI(i)}s`}
+            begin={`${svgTime + CLAI(i)}s`}
             fill="freeze"
           />
           {
@@ -143,14 +145,14 @@ function LeftLeftComp({ props }:{ props: {
         </g>
       })
     }
-    <g className="line-group" mask="url(#svg_pt_mask_left_line)">
+    <g className="line-group" mask="url(#svg_pt_mask_ll_line)">
       {
         items.map((item, i) => {
           return <g className="left-line" key={`line_${i}`}>
             {
               item.status === 'danger' ? <>
                 <GlowBezier
-                  k={`${i}`}
+                  k={`ll_${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.3 * CL.lineWidth}
@@ -166,8 +168,8 @@ function LeftLeftComp({ props }:{ props: {
                       stroke: "#F54E4E"
                     }) as React.SVGProps<SVGPathElement>
                   }}
-                  startAnimeBegin={`${0.1 * i + 0.8}s`}
-                  anime={Event.LINE_ANIME(i)}
+                  startAnimeBegin={`${svgTime + 0.1 * i + 0.8}s`}
+                  anime={Event.LINE_ANIME}
                 />
                 <circle
                   cx={CL.lineStartPosition}
@@ -181,14 +183,14 @@ function LeftLeftComp({ props }:{ props: {
                     from={0}
                     to={1}
                     dur="0.5s"
-                    begin={`${0.1 * i + 0.8}s`}
+                    begin={`${svgTime + 0.1 * i + 0.8}s`}
                     repeatCount="1"
                     fill="freeze"
                   />
                 </circle>
               </> : <>
                 <GlowBezier
-                  k={`${i}`}
+                  k={`ll_${i}`}
                   start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) }}
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.3 * CL.lineWidth}
@@ -199,13 +201,13 @@ function LeftLeftComp({ props }:{ props: {
                     innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                     flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                   }}
-                  startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
-                  anime={Event.LINE_ANIME(i)}
+                  startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
+                  anime={Event.LINE_ANIME}
                 />
                 {
                   item.count ? <>
                     <GlowBezier
-                      k={`${i}`}
+                      k={`ll_${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.3 * CL.lineWidth}
@@ -215,11 +217,11 @@ function LeftLeftComp({ props }:{ props: {
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
-                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
-                      anime={Event.LINE_ANIME(i)}
+                      startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
+                      anime={Event.LINE_ANIME}
                     />
                     <GlowBezier
-                      k={`${i}`}
+                      k={`ll_${i}`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.3 * CL.lineWidth}
@@ -229,8 +231,8 @@ function LeftLeftComp({ props }:{ props: {
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                       }}
-                      startAnimeBegin={`${CL.anime.lineBegin(i)}s`}
-                      anime={Event.LINE_ANIME(i)}
+                      startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
+                      anime={Event.LINE_ANIME}
                     />
                   </> : ''
                 }
@@ -245,7 +247,7 @@ function LeftLeftComp({ props }:{ props: {
                     from={0}
                     to={1}
                     dur={`${CL.anime.lineStartDuration}s`}
-                    begin={`${CL.anime.lineBegin(i)}s`}
+                    begin={`${svgTime + CL.anime.lineBegin(i)}s`}
                     repeatCount="1"
                     fill="freeze"
                   />

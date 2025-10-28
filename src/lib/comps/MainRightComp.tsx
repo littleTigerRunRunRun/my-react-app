@@ -15,7 +15,7 @@ function RightComp({ props }:{ props: {
   openIncidents: number
 } }) {
   const CR = DC.right
-  let svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   return <g className='right-comp' transform={`translate(${DC.center.size.width * 0.5 + CR.position.x}, 0)`}>
     <defs>
@@ -91,7 +91,7 @@ function RightComp({ props }:{ props: {
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin1}`}
-      anime={Event.LINE_ANIME('sta')}
+      anime={Event.LINE_ANIME}
     />
     <GlowBezier
       k={'stm'}

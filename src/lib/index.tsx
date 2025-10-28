@@ -12,7 +12,7 @@ import { subscriber, Event, Value } from './utils/Subscriber'
  
 function Main({ data }:{ data: Record<string, any> }) {
   const DCGSize = DC.global.size
-  const [digTree, setDigTree] = useState(['main']) //, 'left'
+  const [digTree, setDigTree] = useState(['main']) //, 'dataInventory'
   const mainRef = useRef<SVGGElement>(null)
   const mainLeftRef = useRef<SVGGElement>(null)
   if (!subscriber.get(Value.SVG_START_TIME)) subscriber.set(Value.SVG_START_TIME, Date.now())
@@ -89,15 +89,15 @@ function Main({ data }:{ data: Record<string, any> }) {
             id="svg_pt_csn_mask"
             maskUnits="userSpaceOnUse"
             x="-13"
-            y="-33"
+            y="-30"
             width="26"
-            height="66"
+            height="60"
           >
             <rect
               x="-13"
-              y="-33"
-              width="26"
-              height="66"
+            y="-30"
+            width="26"
+            height="60"
               fill="url(#svg_pt_csn_mask_lg)"
             />
           </mask>
@@ -105,7 +105,7 @@ function Main({ data }:{ data: Record<string, any> }) {
         {/* 首页组件 */}
         {
           <CSSTransition
-            in={digTree.join('') === 'main'}
+            in={digTree.join('-') === 'main'}
             timeout={1000}
             nodeRef={mainRef as any}
             classNames="fade"
@@ -128,23 +128,19 @@ function Main({ data }:{ data: Record<string, any> }) {
         }
         {
           <CSSTransition
-            in={digTree.join('') === 'mainleft'}
+            in={digTree.join('-') === 'main-dataInventory'}
             timeout={1000}
             nodeRef={mainLeftRef as any}
-            classNames="fade"
+            classNames="fadeleft"
             unmountOnExit={true}
           >
           {/* digTree.join('') === 'mainleft' ? */}
-            <g className="main" ref={mainLeftRef}>
+            <g className="data-inventory" ref={mainLeftRef}>
+              <LeftRightComp
+              />
               <LeftLeftComp
                 props={data.left}
               />
-              <LeftRightComp
-              
-              />
-              <text>
-
-              </text>
             </g>
              {/* : '' */}
           </CSSTransition>

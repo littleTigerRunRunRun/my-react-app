@@ -4,9 +4,9 @@ export default {
   global: {
     size: {
       width: 1548, // 410 + 688 + 450, 480 = leftWidth 560 = centerWidth 680 = rightWidth
-      height: 480, // 只有center有高度
-      hp: 50, // 水平方向padding
-      vp: 80, // 竖直方向padding
+      height: 480 + 186 * 2, // 只有center有高度
+      hp: 40, // 水平方向padding
+      vp: 40, // 竖直方向padding
     },
     color: {
       safe: '#01FEF7',
@@ -24,6 +24,25 @@ export default {
     anime: {
       duration: 0.3,
       delay: 0
+    },
+    textAttr: {
+      mainTitle: {
+        x: -750,
+        y: -398,
+        fill: '#fff',
+        fontSize: 40,
+        fontWeight: 'bold',
+        dominantBaseline: 'middle',
+        textAnchor: 'start'
+      },
+      mainSubtitle: {
+        x: -750,
+        y: -345,
+        fill: '#fff',
+        fontSize: 20,
+        dominantBaseline: 'middle',
+        textAnchor: 'start'
+      }
     }
   },
   // left内容是又对齐的
@@ -303,8 +322,10 @@ export default {
       }
     },
     anime: {
+      fadeInDuration: 1.0,
+      fadeInDelay: 1.0,
       suggestionBarDur: 1.0,
-      suggestionBarDelay: 1.2
+      suggestionBarDelay: 1.8
     }
   },
   component: {

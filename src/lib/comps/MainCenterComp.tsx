@@ -20,7 +20,6 @@ function CenterComp({ props }:{
 
   return <g
     className="center-comp"
-    transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}
     style={{
       animationDuration: `${DC.center.anime.duration}s`,
       animationDelay: `${DC.center.anime.delay}s`
@@ -43,59 +42,71 @@ function CenterComp({ props }:{
         />
       </clipPath>
     </defs>
-    <foreignObject
-      x={CC.size.width * 0.5 - 270}
-      y={CC.size.height * 0.5 - 270}
-      width="540"
-      height="540"
-      >
-        <video
-          ref={videoRef}
-          width="100%"
-          height="100%"
-          muted
-          loop
+    <g transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}>
+      <foreignObject
+        x={CC.size.width * 0.5 - 270}
+        y={CC.size.height * 0.5 - 270}
+        width="540"
+        height="540"
         >
-        <source src={video_cm} type="video/mp4" />
-      </video>
-    </foreignObject>
-    <image
-      href={pic_cl}
-      x={0}
-      y={CC.size.height * 0.5 - 70}
-      width="216"
-      height="140"
-    />
-    <image
-      href={pic_cr}
-      x={CC.size.width - 176}
-      y={CC.size.height * 0.5 - 70}
-      width="176"
-      height="140"
-    />
-    {/* <rect 
-      x="-80"
-      y="-50"
-      width="160"
-      height="100"
-      fill="rgba(255, 255, 255, 0.4)"
-    /> */}
-    <LabelCount 
-      count={props.alerts}
-      labels={['Alerts']}
-      labelAttr={CC.label as React.SVGProps<SVGTextElement>}
-      countAttr={CC.count as React.SVGProps<SVGTextElement>}
-      transform={`translate(${CC.alertsPosition}, ${CC.size.height * 0.5})`}
-      clipPath="url(#svg_pt_ctext_cp)"
-    />
-    <LabelCount 
-      count={props.incidents}
-      labels={['Incidents']}
-      labelAttr={CC.label as React.SVGProps<SVGTextElement>}
-      countAttr={CC.count as React.SVGProps<SVGTextElement>}
-      transform={`translate(${CC.incidentsPosition}, ${CC.size.height * 0.5})`}
-      clipPath="url(#svg_pt_ctext_cp)"
-    />
+          <video
+            ref={videoRef}
+            width="100%"
+            height="100%"
+            muted
+            loop
+          >
+          <source src={video_cm} type="video/mp4" />
+        </video>
+      </foreignObject>
+      <image
+        href={pic_cl}
+        x={0}
+        y={CC.size.height * 0.5 - 70}
+        width="216"
+        height="140"
+      />
+      <image
+        href={pic_cr}
+        x={CC.size.width - 176}
+        y={CC.size.height * 0.5 - 70}
+        width="176"
+        height="140"
+      />
+      {/* <rect 
+        x="-80"
+        y="-50"
+        width="160"
+        height="100"
+        fill="rgba(255, 255, 255, 0.4)"
+      /> */}
+      <LabelCount 
+        count={props.alerts}
+        labels={['Alerts']}
+        labelAttr={CC.label as React.SVGProps<SVGTextElement>}
+        countAttr={CC.count as React.SVGProps<SVGTextElement>}
+        transform={`translate(${CC.alertsPosition}, ${CC.size.height * 0.5})`}
+        clipPath="url(#svg_pt_ctext_cp)"
+      />
+      <LabelCount 
+        count={props.incidents}
+        labels={['Incidents']}
+        labelAttr={CC.label as React.SVGProps<SVGTextElement>}
+        countAttr={CC.count as React.SVGProps<SVGTextElement>}
+        transform={`translate(${CC.incidentsPosition}, ${CC.size.height * 0.5})`}
+        clipPath="url(#svg_pt_ctext_cp)"
+      />
+    </g>
+    <text
+      {...DC.global.textAttr.mainTitle as React.SVGProps<SVGTextElement>}
+    >
+      Good Morning, Stella!
+    </text>
+    <text
+      {...DC.global.textAttr.mainSubtitle as React.SVGProps<SVGTextElement>}
+    >
+      At your service for 180 days.
+    </text>
   </g>
 }
 
