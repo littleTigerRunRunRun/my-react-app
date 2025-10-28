@@ -5,16 +5,21 @@ import video_fl from '../../assets/flowlines.mp4'
 import pic_back from '../../assets/back.png'
 import { useRef } from 'react'
 
-function LeftRightComp(props: {}) {
+function LeftRightComp({ props, center }: { props: {
+  keywords: Array<Array<string>>,
+  ruleHealthPercent: number,
+  dangerRate: number,
+  optimized: number,
+  optimizedRate: number,
+  recommendations: number
+}, center: {
+  alerts: number,
+  rules: number,
+  incidents: number,
+  userName: string,
+  day: number
+}}) {
   const CLR = DC.leftRight
-  const keywords = [
-    ['AI'],
-    ['Correlation', 'Analysis'],
-    ['IOC'],
-    ['Threat', 'Intelligence'],
-    ['Machine', 'Learning'],
-  ]
-  const dangerRate = 0.25
   const radiationNums = 200
   const radiations = []
   const videoRef1 = useRef<HTMLVideoElement>(null);
@@ -22,7 +27,7 @@ function LeftRightComp(props: {}) {
   const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   for (let i = 0; i < radiationNums; i++) {
-    if (i / radiationNums < dangerRate) radiations.push(0)
+    if (i / radiationNums < props.dangerRate) radiations.push(0)
     else radiations.push(1)
   }
   
@@ -144,7 +149,7 @@ function LeftRightComp(props: {}) {
         </g>
         <text
           {...CLR.textAttr.percentNumber as React.SVGProps<SVGTextElement>}
-        >98</text>
+        >{props.ruleHealthPercent}</text>
         <text
           {...CLR.textAttr.percent as React.SVGProps<SVGTextElement>}
         >%</text>
@@ -153,7 +158,7 @@ function LeftRightComp(props: {}) {
         >Rule Health</text>
         <text
           {...CLR.textAttr.num as React.SVGProps<SVGTextElement>}
-        >82 Rules</text>
+        >{center.rules} Rules</text>
       </g>
       <g className="anime-effect-layer">
         <g className="radar">
@@ -195,8 +200,8 @@ function LeftRightComp(props: {}) {
           />
         </g>
         {
-          keywords.map((kw, index) => {
-            const angle = index * Math.PI * 2 / keywords.length
+          props.keywords.map((_kw, index) => {
+            const angle = index * Math.PI * 2 / props.keywords.length
             const x = Math.sin(angle) * CLR.outerStartRadius
             const y = -Math.cos(angle) * CLR.outerStartRadius
             return <circle
@@ -209,15 +214,15 @@ function LeftRightComp(props: {}) {
               stroke="#008FFF"
               strokeWidth="1"
               style={{
-                animationDelay: `${index * 4 / keywords.length - 2.5}s`
+                animationDelay: `${index * 4 / props.keywords.length - 2.5}s`
               }}
             />
           })
         }
       </g>
       {
-        keywords.map((kw, index) => {
-          const angle = index * Math.PI * 2 / keywords.length
+        props.keywords.map((kw, index) => {
+          const angle = index * Math.PI * 2 / props.keywords.length
           const x = Math.sin(angle) * CLR.outerStartRadius
           const y = -Math.cos(angle) * CLR.outerStartRadius
           return <g
@@ -247,7 +252,7 @@ function LeftRightComp(props: {}) {
         })
       }
       <LabelCount 
-        count={5493}
+        count={center.alerts}
         labels={['Alerts']}
         labelAttr={DC.center.label as React.SVGProps<SVGTextElement>}
         countAttr={DC.center.count as React.SVGProps<SVGTextElement>}
@@ -255,7 +260,7 @@ function LeftRightComp(props: {}) {
         // clipPath="url(#svg_pt_ctext_cp)"
       />
       <LabelCount 
-        count={350}
+        count={center.incidents}
         labels={['Incidents']}
         labelAttr={DC.center.label as React.SVGProps<SVGTextElement>}
         countAttr={DC.center.count as React.SVGProps<SVGTextElement>}
@@ -266,7 +271,7 @@ function LeftRightComp(props: {}) {
         <text
           {...CLR.textAttr.suggestion1 as React.SVGProps<SVGTextElement>}
         >
-          <tspan>20</tspan>
+          <tspan>{props.optimized}</tspan>
           <tspan {...CLR.textAttr.suggestionSpan as React.SVGProps<SVGTextElement>}>Rules can be optimized</tspan>
         </text>
         <rect
@@ -286,7 +291,7 @@ function LeftRightComp(props: {}) {
           <animate
             attributeName="width"
             from={0}
-            to={63}
+            to={260 * props.optimizedRate}
             dur={`${CLR.anime.suggestionBarDur}s`}
             begin={`${svgTime + CLR.anime.suggestionBarDelay}s`}
             repeatCount="1"
@@ -295,7 +300,7 @@ function LeftRightComp(props: {}) {
         </rect>
         <text
           {...CLR.textAttr.suggestion2 as React.SVGProps<SVGTextElement>}
-        >By 11 recommendations</text>
+        >By {props.recommendations} recommendations</text>
       </g>
     </g>
     

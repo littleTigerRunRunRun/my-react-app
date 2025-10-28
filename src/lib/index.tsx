@@ -10,15 +10,44 @@ import { RandomLeftFlowline } from './animation'
 import { CSSTransition } from 'react-transition-group'
 import { subscriber, Event, Value } from './utils/Subscriber'
  
-function Main({ data }:{ data: Record<string, any> }) {
+function Main({
+  data,
+  onDig
+}:{
+  data: Record<string, any>,
+  onDig?: (digArray: Array<string>) => any
+}) {
   const DCGSize = DC.global.size
-  const [digTree, setDigTree] = useState(['main']) //, 'dataInventory'
+  const [digArray, setDigArray] = useState(['main']) //, 'dataInventory'
   const mainRef = useRef<SVGGElement>(null)
   const mainLeftRef = useRef<SVGGElement>(null)
   if (!subscriber.get(Value.SVG_START_TIME)) subscriber.set(Value.SVG_START_TIME, Date.now())
 
-  const dig = (dt:Array<string>) => {
-    setDigTree(dt)
+  const [dataInventory, setDataInventory] = useState({
+    keywords: [
+      ['AI'],
+      ['Correlation', 'Analysis'],
+      ['IOC'],
+      ['Threat', 'Intelligence'],
+      ['Machine', 'Learning'],
+    ],
+    ruleHealthPercent: 98,
+    dangerRate: 0.25,
+    optimized: 20,
+    optimizedRate: 0.2,
+    recommendations: 11
+  })
+
+  const dig = async (dt:Array<string>) => {
+    if (onDig) {
+      const data = await onDig(dt)
+      switch (dt.join('-')) {
+        case 'main-dataInventory':
+          setDataInventory(data)
+          break
+      }
+    }
+    setDigArray(dt)
   }
 
   useEffect(() => {
@@ -105,13 +134,12 @@ function Main({ data }:{ data: Record<string, any> }) {
         {/* 首页组件 */}
         {
           <CSSTransition
-            in={digTree.join('-') === 'main'}
+            in={digArray.join('-') === 'main'}
             timeout={1000}
             nodeRef={mainRef as any}
             classNames="fade"
             unmountOnExit={true}
           >
-          {/* digTree.join('') === 'main' ? */}
             <g className="main" ref={mainRef}>
               <MainLeftComp
                 props={data.left}
@@ -123,26 +151,25 @@ function Main({ data }:{ data: Record<string, any> }) {
                 props={data.center}
               />
             </g>
-             {/* : '' */}
           </CSSTransition>
         }
         {
           <CSSTransition
-            in={digTree.join('-') === 'main-dataInventory'}
+            in={digArray.join('-') === 'main-dataInventory'}
             timeout={1000}
             nodeRef={mainLeftRef as any}
             classNames="fadeleft"
             unmountOnExit={true}
           >
-          {/* digTree.join('') === 'mainleft' ? */}
             <g className="data-inventory" ref={mainLeftRef}>
               <LeftRightComp
+                center={data.center}
+                props={dataInventory}
               />
               <LeftLeftComp
                 props={data.left}
               />
             </g>
-             {/* : '' */}
           </CSSTransition>
         }
       </svg>

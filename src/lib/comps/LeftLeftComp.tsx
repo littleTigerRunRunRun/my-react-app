@@ -18,7 +18,6 @@ function LeftLeftComp({ props }:{ props: {
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
   const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
-  console.log('cl', CL)
 
   const items:Array<{
     pic?: string,

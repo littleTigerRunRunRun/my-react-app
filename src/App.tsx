@@ -39,7 +39,10 @@ function App() {
     },
     center: {
       alerts: 5493,
-      incidents: 350
+      incidents: 350,
+      rules: 82,
+      userName: 'Stellaa', // 首屏显示用户名
+      day: 181 // 服务天数
     },
     right: {
       // 数据展示
@@ -84,9 +87,36 @@ function App() {
   //   })
   // }, 2000)
 
+  const onDig = async (digArray:Array<string>) => {
+    console.log('下钻层级发生变化', digArray)
+    if (digArray.join('-') === 'main-dataInventory') {
+      // 从main下钻到的dataInventory一级的请求数据 {
+      // 异步操作获取数据
+      return {
+        // 圆形关键词，有几行就会等分成几个
+        // 逗号分隔用于控制换行
+        keywords: [
+          ['AII'],
+          ['Correlation', 'Analysis'],
+          ['IOC'],
+          ['Threat', 'Intelligence'],
+          // ['Machine', 'Learning'],
+        ],
+        ruleHealthPercent: 96, // 中间的rule health百分比数值
+        dangerRate: 0.35, // 背后放射状细线中红色占比多少，0.35就是35%，设计师的默认值是0.25，如果没有数据含义就固定设置一个0.25
+        optimized: 41, // 可优化rules数值
+        optimizedRate: 0.6, // 下方进度条百分比
+        recommendations: 21 // 推荐数值
+      }
+    }
+  }
+
   return (
     <>
-      <DiagramMain data={data} />
+      <DiagramMain
+        data={data}
+        onDig={onDig}
+      />
     </>
   )
 }

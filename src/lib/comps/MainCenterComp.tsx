@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
+import { getGreeting } from '../utils'
 import pic_cl from '../../assets/center_left.png'
 import pic_cm from '../../assets/center_main.png'
 import pic_cr from '../../assets/center_right.png'
@@ -9,7 +10,10 @@ import video_cm from '../../assets/center.mp4'
 function CenterComp({ props }:{
   props: {
     alerts: number,
-    incidents: number
+    rules: number,
+    incidents: number,
+    userName: string,
+    day: number
   }
 }) {
   const CC = DC.center
@@ -88,6 +92,15 @@ function CenterComp({ props }:{
         transform={`translate(${CC.alertsPosition}, ${CC.size.height * 0.5})`}
         clipPath="url(#svg_pt_ctext_cp)"
       />
+      <text
+        fill="#FFFFFF"
+        fontSize="16"
+        x="55"
+        y="400"
+      >
+        <tspan>{props.rules}</tspan>
+        <tspan dx="5" fill="#929293">Rules</tspan>
+      </text>
       <LabelCount 
         count={props.incidents}
         labels={['Incidents']}
@@ -100,12 +113,12 @@ function CenterComp({ props }:{
     <text
       {...DC.global.textAttr.mainTitle as React.SVGProps<SVGTextElement>}
     >
-      Good Morning, Stella!
+      {getGreeting()}, {props.userName}!
     </text>
     <text
       {...DC.global.textAttr.mainSubtitle as React.SVGProps<SVGTextElement>}
     >
-      At your service for 180 days.
+      At your service for {props.day} days.
     </text>
   </g>
 }
