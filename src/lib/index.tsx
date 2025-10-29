@@ -116,16 +116,16 @@ function Main({
           <mask
             id="svg_pt_csn_mask"
             maskUnits="userSpaceOnUse"
-            x="-13"
+            x="-20"
             y="-30"
-            width="26"
+            width="40"
             height="60"
           >
             <rect
-              x="-13"
-            y="-30"
-            width="26"
-            height="60"
+              x="-20"
+              y="-30"
+              width="40"
+              height="60"
               fill="url(#svg_pt_csn_mask_lg)"
             />
           </mask>

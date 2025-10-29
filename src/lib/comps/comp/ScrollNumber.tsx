@@ -5,9 +5,10 @@ function NumberUnit(props: {
   x: number,
   height: number,
   attr: React.SVGProps<SVGTextElement>,
-  animationDelay: number
-}) { 
-  const nums = ['', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  animationDelay: number,
+  nums?: Array<string>
+}) {
+  const nums = props.nums || ['', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   const position = nums.indexOf(props.num)
 
   return <g className="number-unit" transform={`translate(${props.x}, 0)`}>
@@ -33,6 +34,8 @@ function NumberUnit(props: {
   </g>
 }
 
+const integerRegex = /^\d+$/
+
 // 4位数以内的带千分符和单位的数字滚动动画
 function ScrollNumber(props: {
   count: string,
@@ -48,11 +51,24 @@ function ScrollNumber(props: {
   const [num2, setNum2] = useState('')
   const [num3, setNum3] = useState('')
   const [num4, setNum4] = useState('')
+  const [num5, setNum5] = useState('')
 
   useEffect(() => {
     const nums = `${props.count}`.split('').reverse()
-    setLength(nums.length)
-    nums.forEach((num, index) => {
+    console.log(props.count)
+    const pureNums = nums.filter((str) => integerRegex.test(str))
+    if (integerRegex.test(nums[0])) {
+      setLength(pureNums.length)
+      setNum5('')
+    } else {
+      setLength(pureNums.length - 1)
+      setNum5(nums[0])
+    }
+    setNum1('')
+    setNum2('')
+    setNum3('')
+    setNum4('')
+    pureNums.forEach((num, index) => {
       if (index === 0) setNum4(num)
       else if (index === 1) setNum3(num)
       else if (index === 2) setNum2(num)
@@ -93,6 +109,14 @@ function ScrollNumber(props: {
       height={height}
       attr={props.attr}
       animationDelay={0}
+    />
+    <NumberUnit
+      num={num5}
+      x={100}
+      height={height}
+      attr={props.attr}
+      animationDelay={0}
+      nums={['', 'K', 'M', 'B']}
     />
   </g>
 }

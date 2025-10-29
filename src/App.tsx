@@ -38,7 +38,7 @@ function App() {
       ]
     },
     center: {
-      alerts: 5493,
+      alerts: 54932,
       incidents: 350,
       rules: 82,
       userName: 'Stellaa', // 首屏显示用户名
@@ -57,39 +57,46 @@ function App() {
     }
   })
 
-  // setTimeout(() => {
-  //   setData({
-  //     left: {
-  //       extraSource: 12, // 总数据源数量
-  //       // 权重前9的数据源
-  //       sources: [
-  //         { pic: amazon, name: 'Amazon', status: 'safe' },
-  //         { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
-  //         { pic: microsoft, name: 'Microsort', status: 'danger' },
-  //         { pic: office, name: 'Microsort 365', status: 'safe' },
-  //         { pic: amazon, name: 'Amazon', status: 'safe' },
-  //         { pic: google_cloud, name: 'Google Cloud', status: 'safe' },
-  //         { pic: microsoft, name: 'Microsort', status: 'safe' },
-  //         { pic: office, name: 'Microsort 365', status: 'danger' },
-  //         // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
-  //         // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
-  //         // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
-  //         // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
-  //       ]
-  //     },
-  //     center: {
-  //       alerts: 5493,
-  //       incidents: 350
-  //     },
-  //     right: {
-  //       // 数据展示
-  //       automated: 252,
-  //       resolvedIncidents: 258,
-  //       manual: 98,
-  //       openIncidents: 92
-  //     }
-  //   })
-  // }, 2000)
+  const updateData = () => {
+    setData({
+      left: {
+        extraSource: 24, // 总数据源数量
+        // 权重前9的数据源
+        sources: [
+          { pic: amazon, name: 'Amazon2', status: 'safe', size: 121321 },
+          { pic: google_cloud, name: 'Google Cloud2', status: 'safe', size: 231 },
+          { pic: microsoft, name: 'Microsort2', status: 'danger', size: 1321321321 },
+          { pic: microsoft, name: 'Microsort 3652', status: 'safe', size: 1313 },
+          { pic: amazon, name: 'Amazon2', status: 'safe', size: 44444 },
+          { pic: google_cloud, name: 'Google Cloud2', status: 'safe', size: 123 },
+          { pic: office, name: '标题长度测试2测试测试测试测试xxxxxxxxxxxxxxxxxxxxxxxxx', status: 'safe', size: 1 },
+          { pic: office, name: 'Microsort2', status: 'danger', size: 11111111111111 },
+          // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+          // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+          // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+          // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
+        ]
+      },
+      center: {
+        alerts: 5493,
+        incidents: 3502,
+        rules: 822,
+        userName: 'Stellaa', // 首屏显示用户名
+        day: 1821, // 服务天数
+        dataIngestion: 662,
+        eventIngestion: 66662,
+        alertAnalysis: 982,
+        preventedEvents: 2861132
+      },
+      right: {
+        // 数据展示
+        automated: 2522,
+        resolvedIncidents: 2258,
+        manual: 982,
+        openIncidents: 922
+      }
+    })
+  }
 
   const onDig = async (digArray:Array<string>) => {
     console.log('下钻层级发生变化', digArray)
@@ -121,6 +128,13 @@ function App() {
         data={data}
         onDig={onDig}
       />
+      {/* <div style={{
+        position: 'absolute',
+        right: '100px',
+        top: '50px',
+        color: '#fff',
+        cursor: 'pointer'
+      }} onClick={() => updateData()}>数据更新测试(临时）</div> */}
     </>
   )
 }

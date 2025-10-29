@@ -10,7 +10,6 @@ function LabelCount(props: {
   countAttr: React.SVGProps<SVGTextElement>,
   clipPath?: string
 }) {
-
   return <g
     className="infoShow right"
     clipPath={props.clipPath}

@@ -3,13 +3,20 @@
  * @param {number} num - 需要格式化的数字
  * @returns {string} 格式化后的字符串
  */
-export function limit4(num:number, units:Array<{ threshold: number, unit: string }> = [
-    { threshold: 1e9, unit: 'B' },
-    { threshold: 1e6, unit: 'M' },
-    { threshold: 1e3, unit: 'K' }
-  ]) {
-  if (num < 10000) return `${num}`
-  return formatNumberTo4SignificantDigits(num, units)
+/**
+ * 将数字格式化为最多4位整数部分加K/M/B单位
+ * @param {number} num - 要格式化的数字
+ * @returns {string} 格式化后的字符串
+ */
+export function limit4(num:number) {
+    if (typeof num !== 'number' || isNaN(num)) {
+        return '0';
+    }
+    
+    if (num < 10000) return `${num}`
+    else if (num <10000000) return `${Math.round(num / 1000)}K`
+    else if (num <10000000000) return `${Math.round(num / 1000000)}M`
+    else return `${Math.round(num / 1000000000)}B`
 }
 
 export function formatNumberTo4SignificantDigits(num:number, units:Array<{ threshold: number, unit: string }> = [
