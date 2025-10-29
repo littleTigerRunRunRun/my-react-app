@@ -3,12 +3,20 @@
  * @param {number} num - 需要格式化的数字
  * @returns {string} 格式化后的字符串
  */
-export function formatNumberTo4SignificantDigits(num:number, units:Array<{ threshold: number, unit: string }> = [
+export function limit4(num:number, units:Array<{ threshold: number, unit: string }> = [
     { threshold: 1e9, unit: 'B' },
     { threshold: 1e6, unit: 'M' },
     { threshold: 1e3, unit: 'K' }
   ]) {
   if (num < 10000) return `${num}`
+  return formatNumberTo4SignificantDigits(num, units)
+}
+
+export function formatNumberTo4SignificantDigits(num:number, units:Array<{ threshold: number, unit: string }> = [
+    { threshold: 1e9, unit: 'B' },
+    { threshold: 1e6, unit: 'M' },
+    { threshold: 1e3, unit: 'K' }
+  ]) {
 
   if (typeof num !== 'number' || isNaN(num)) {
     return '无效输入';

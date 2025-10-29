@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
-import { getGreeting } from '../utils'
+import { getGreeting, formatNumberTo4SignificantDigits } from '../utils'
 import pic_cl from '../../assets/center_left.png'
 // import pic_cm from '../../assets/center_main.png'
 import pic_cr from '../../assets/center_right.png'
@@ -11,6 +11,13 @@ import pic_event from '../../assets/event.png'
 import pic_alert from '../../assets/alert.png'
 import pic_prevented from '../../assets/prevented.png'
 
+const byteUnits = [
+  { threshold: 1e12, unit: 'T' },
+  { threshold: 1e9, unit: 'G' },
+  { threshold: 1e6, unit: 'M' },
+  { threshold: 1e3, unit: 'K' }
+]
+
 function CenterComp({ props }:{
   props: {
     alerts: number,
@@ -18,10 +25,10 @@ function CenterComp({ props }:{
     incidents: number,
     userName: string,
     day: number,
-    dataIngestion: 60,
-    eventIngestion: 43,
-    alertAnalysis: 98,
-    preventedEvents: 286113
+    dataIngestion: number,
+    eventIngestion: number,
+    alertAnalysis: number,
+    preventedEvents: number
   }
 }) {
   const CC = DC.center
@@ -29,6 +36,18 @@ function CenterComp({ props }:{
   setTimeout(() => {
     if (videoRef.current) videoRef.current.play()
   }, CC.anime.videoPlayDelay)
+
+  const formatedData = formatNumberTo4SignificantDigits(props.dataIngestion, byteUnits)
+  const dataNum = parseFloat(formatedData)
+  const dataUnit = formatedData.replace(`${dataNum}`, '') + 'B/24H'
+
+  const formatedEvent = formatNumberTo4SignificantDigits(props.eventIngestion, byteUnits)
+  const eventNum = parseFloat(formatedEvent)
+  const eventUnit = formatedEvent.replace(`${eventNum}`, '') + 'B/24H'
+
+  const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedEvents)
+  const preventedNum = parseFloat(formatedPrevented)
+  const preventedUnit = formatedPrevented.replace(`${preventedNum}`, '')
 
   return <g
     className="center-comp"
@@ -169,8 +188,8 @@ function CenterComp({ props }:{
         x="60"
         y="86"
       >
-        <tspan>60</tspan>
-        <tspan fill="#C5C5C5" fontSize="16" dx="6">B/24H</tspan>
+        <tspan>{dataNum}</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">{dataUnit}</tspan>
       </text>
     </g>
     <rect x="-404" y="344" width="2" height="91" fill="url(#svg_pt_mc_interval_bg_lg)" />
@@ -206,8 +225,8 @@ function CenterComp({ props }:{
         x="60"
         y="86"
       >
-        <tspan>43</tspan>
-        <tspan fill="#C5C5C5" fontSize="16" dx="6">B/24H</tspan>
+        <tspan>{eventNum}</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">{eventUnit}</tspan>
       </text>
     </g>
     <rect x="-10" y="344" width="2" height="91" fill="url(#svg_pt_mc_interval_bg_lg)" />
@@ -280,8 +299,8 @@ function CenterComp({ props }:{
         x="60"
         y="86"
       >
-        <tspan>286.1</tspan>
-        <tspan fill="#C5C5C5" fontSize="16" dx="6">K</tspan>
+        <tspan>{preventedNum}</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">{preventedUnit}</tspan>
       </text>
     </g>
   </g>

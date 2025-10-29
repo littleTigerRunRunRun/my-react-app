@@ -42,7 +42,11 @@ function App() {
       incidents: 350,
       rules: 82,
       userName: 'Stellaa', // 首屏显示用户名
-      day: 181 // 服务天数
+      day: 181, // 服务天数
+      dataIngestion: 66,
+      eventIngestion: 6666,
+      alertAnalysis: 98,
+      preventedEvents: 286113
     },
     right: {
       // 数据展示

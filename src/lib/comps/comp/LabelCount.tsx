@@ -1,5 +1,5 @@
 // import DC from '../../defaultConfig'
-import { formatNumberTo4SignificantDigits } from '../../utils/index'
+import { limit4 } from '../../utils/index'
 import ScrollNumber from './ScrollNumber'
 
 function LabelCount(props: {
@@ -18,7 +18,7 @@ function LabelCount(props: {
   >
     <g className="hover-g">
       <ScrollNumber
-        count={formatNumberTo4SignificantDigits(props.count)}
+        count={limit4(props.count)}
         attr={props.labelAttr}
       />
       {
