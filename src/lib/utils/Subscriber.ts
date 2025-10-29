@@ -244,6 +244,7 @@ export const subscriber = new Subscriber()
 // 按钮的指令也和这里的定义相关，你可以用subscriber绑定一个触发函数，并定义一个Event.YOUR_EVENT_NAME: eventName, 这时将按钮的command设置为eventName就可以触发这个事件绑定的对应触发函数
 // 而不需要在command中使用的事件，则建议设置为一个小数字，来减小缓存
 export const Event = {
+  UPDATE_LINE_TARGET: 'updateLineTarget',
   LINE_ANIME: (i:number|string) => `line_anime_${i}`,
   DIG: 'dig'
 }

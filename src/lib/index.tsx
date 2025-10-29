@@ -10,6 +10,12 @@ import { RandomLeftFlowline } from './animation'
 import { CSSTransition } from 'react-transition-group'
 import { subscriber, Event, Value } from './utils/Subscriber'
  
+const rlfl = new RandomLeftFlowline({
+  duration: 3000,
+  frequency: 0.6,
+  parallelLimit: 4
+})
+
 function Main({
   data,
   onDig
@@ -52,13 +58,6 @@ function Main({
 
   useEffect(() => {
     console.log('挂载')
-
-    const rlfl = new RandomLeftFlowline({
-      targetNumber: data.left.sources.length + 1,
-      duration: 3000,
-      frequency: 0.8,
-      parallelLimit: 4
-    })
     subscriber.listen(Event.DIG, dig)
     
     // setTimeout(() => {

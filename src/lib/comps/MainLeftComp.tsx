@@ -42,6 +42,8 @@ function LeftComp({ props }:{ props: {
       size: 0
     })
   }
+  
+  subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ml_${index}`))
 
   return <g
     className="left-comp"

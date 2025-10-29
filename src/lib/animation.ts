@@ -6,30 +6,40 @@ import { Event, subscriber } from './utils/Subscriber'
 const tick = new Tick()
 
 export class RandomLeftFlowline {
-  flowlines:Array<{ index: number, active: boolean }> = []
+  tickNum:number
+  flowlines:Array<{ index: string, active: boolean }> = []
   duration:number
   frequency:number
   parallelLimit: number
   constructor(props:{
-    targetNumber:number,
     duration:number, // ms
     frequency:number, // 平均1秒触发多少次
     parallelLimit: number // 并行上限，最低为1，最高不得高于targetNumber
   }) {
-    for (let i = 0; i < props.targetNumber; i++) {
-      this.flowlines.push({
-        index: i,
-        active: false
-      })
-    }
+    // this.flowlines.push({
+    //   index: i,
+    //   active: false
+    // })
     this.duration = props.duration
     this.frequency = props.frequency
     this.parallelLimit = props.parallelLimit
 
-    tick.add(this.randomAnime, true)
+    // this.starttime = Date.now()
+    this.tickNum = tick.add(this.randomAnime, true)
+
+    subscriber.listen(Event.UPDATE_LINE_TARGET, this.updateLineTarget)
   }
 
+  public updateLineTarget = (targets: Array<string>) => {
+    this.flowlines.splice(0, this.flowlines.length, ...(targets.map((str) => ({
+      index: str,
+      active: false
+    }))))
+  }
+  // starttime = 0
+  // count = 0
   randomAnime = (delt:number) => {
+    if (this.flowlines.length === 0) return
     // 比如frequency = 2000ms，意味着每秒平均出现0.5(1000 / frequency)次动画，也就是说当前帧出现的概率是delt / 1000 * (1000 / frequency)
     if (Math.random() < (delt / 1000 * this.frequency)) {
       const actives = this.flowlines.filter((fl) => fl.active)
@@ -37,15 +47,19 @@ export class RandomLeftFlowline {
 
       const inactives = this.flowlines.filter((fl) => !fl.active)
       const index = Math.floor(Math.random() * inactives.length)
-      inactives[index].active = true
-      subscriber.broadcast(Event.LINE_ANIME(`ml_${inactives[index].index}`))
+      const inactive = inactives[index]
+      inactive.active = true
+      // this.count++
+      // console.log((Date.now() - this.starttime) / this.count)
+      subscriber.broadcast(Event.LINE_ANIME(inactive.index))
       setTimeout(() => {
-        inactives[index].active = false
+        inactive.active = false
       }, this.duration + 200)
     }
   }
 
   destroy() {
-
+    tick.delete(this.tickNum)
+    subscriber.remove(Event.UPDATE_LINE_TARGET, this.updateLineTarget)
   }
 }
