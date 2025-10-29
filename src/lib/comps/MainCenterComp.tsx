@@ -3,9 +3,13 @@ import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
 import { getGreeting } from '../utils'
 import pic_cl from '../../assets/center_left.png'
-import pic_cm from '../../assets/center_main.png'
+// import pic_cm from '../../assets/center_main.png'
 import pic_cr from '../../assets/center_right.png'
 import video_cm from '../../assets/center.mp4'
+import pic_data from '../../assets/data.png'
+import pic_event from '../../assets/event.png'
+import pic_alert from '../../assets/alert.png'
+import pic_prevented from '../../assets/prevented.png'
 
 function CenterComp({ props }:{
   props: {
@@ -13,7 +17,11 @@ function CenterComp({ props }:{
     rules: number,
     incidents: number,
     userName: string,
-    day: number
+    day: number,
+    dataIngestion: 60,
+    eventIngestion: 43,
+    alertAnalysis: 98,
+    preventedEvents: 286113
   }
 }) {
   const CC = DC.center
@@ -30,6 +38,15 @@ function CenterComp({ props }:{
     }}
   >
     <defs>
+      <linearGradient id="svg_pt_mc_icon_bg_lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#17171A " stopOpacity="1" />
+        <stop offset="100%" stopColor="#2E2E30 " stopOpacity="1" />
+      </linearGradient>
+      <linearGradient id="svg_pt_mc_interval_bg_lg" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stopColor="#fff " stopOpacity="0" />
+        <stop offset="50%" stopColor="#fff " stopOpacity="1" />
+        <stop offset="100%" stopColor="#fff " stopOpacity="0" />
+      </linearGradient>
       <clipPath
         id="svg_pt_ctext_cp"
         clipPathUnits="userSpaceOnUse"
@@ -68,7 +85,7 @@ function CenterComp({ props }:{
         x={0}
         y={CC.size.height * 0.5 - 70}
         width="216"
-        height="140"
+        height="220"
       />
       <image
         href={pic_cr}
@@ -95,8 +112,8 @@ function CenterComp({ props }:{
       <text
         fill="#FFFFFF"
         fontSize="16"
-        x="55"
-        y="400"
+        x="63"
+        y="426"
       >
         <tspan>{props.rules}</tspan>
         <tspan dx="5" fill="#929293">Rules</tspan>
@@ -120,6 +137,153 @@ function CenterComp({ props }:{
     >
       At your service for {props.day} days.
     </text>
+    <g className="bottom-info" transform="translate(-757, 344)">
+      <rect
+        width="40"
+        height="40"
+        rx="4"
+        stroke="#484849"
+        strokeWidth="1"
+        fill="svg_pt_mc_icon_bg_lg"
+      />
+      <image
+        href={pic_data}
+        width="22.5"
+        height="24"
+        x="9"
+        y="8"
+      />
+      <text
+        fill="#C5C5C5"
+        fontSize="20"
+        dominantBaseline="middle"
+        textAnchor="start"
+        x="60"
+        y="20"
+      >Data Ingestion</text>
+      <text
+        fill="#ffffff"
+        fontSize="36"
+        dominantBaseline="alphabetic"
+        textAnchor="start"
+        x="60"
+        y="86"
+      >
+        <tspan>60</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">B/24H</tspan>
+      </text>
+    </g>
+    <rect x="-404" y="344" width="2" height="91" fill="url(#svg_pt_mc_interval_bg_lg)" />
+    <g className="bottom-info" transform="translate(-364, 344)">
+      <rect
+        width="40"
+        height="40"
+        rx="4"
+        stroke="#484849"
+        strokeWidth="1"
+        fill="svg_pt_mc_icon_bg_lg"
+      />
+      <image
+        href={pic_event}
+        width="22.5"
+        height="24"
+        x="9"
+        y="8"
+      />
+      <text
+        fill="#C5C5C5"
+        fontSize="20"
+        dominantBaseline="middle"
+        textAnchor="start"
+        x="60"
+        y="20"
+      >Event Ingestion</text>
+      <text
+        fill="#ffffff"
+        fontSize="36"
+        dominantBaseline="alphabetic"
+        textAnchor="start"
+        x="60"
+        y="86"
+      >
+        <tspan>43</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">B/24H</tspan>
+      </text>
+    </g>
+    <rect x="-10" y="344" width="2" height="91" fill="url(#svg_pt_mc_interval_bg_lg)" />
+    <g className="bottom-info" transform="translate(30, 344)">
+      <rect
+        width="40"
+        height="40"
+        rx="4"
+        stroke="#484849"
+        strokeWidth="1"
+        fill="svg_pt_mc_icon_bg_lg"
+      />
+      <image
+        href={pic_alert}
+        width="22.5"
+        height="24"
+        x="9"
+        y="8"
+      />
+      <text
+        fill="#C5C5C5"
+        fontSize="20"
+        dominantBaseline="middle"
+        textAnchor="start"
+        x="60"
+        y="20"
+      >Alert Analysis Coverage</text>
+      <text
+        fill="#ffffff"
+        fontSize="36"
+        dominantBaseline="alphabetic"
+        textAnchor="start"
+        x="60"
+        y="86"
+      >
+        <tspan>98</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">%</tspan>
+      </text>
+    </g>
+    <rect x="383" y="344" width="2" height="91" fill="url(#svg_pt_mc_interval_bg_lg)" />
+    <g className="bottom-info" transform="translate(423, 344)">
+      <rect
+        width="40"
+        height="40"
+        rx="4"
+        stroke="#484849"
+        strokeWidth="1"
+        fill="svg_pt_mc_icon_bg_lg"
+      />
+      <image
+        href={pic_prevented}
+        width="22.5"
+        height="24"
+        x="9"
+        y="8"
+      />
+      <text
+        fill="#C5C5C5"
+        fontSize="20"
+        dominantBaseline="middle"
+        textAnchor="start"
+        x="60"
+        y="20"
+      >Prevented Events</text>
+      <text
+        fill="#ffffff"
+        fontSize="36"
+        dominantBaseline="alphabetic"
+        textAnchor="start"
+        x="60"
+        y="86"
+      >
+        <tspan>286.1</tspan>
+        <tspan fill="#C5C5C5" fontSize="16" dx="6">K</tspan>
+      </text>
+    </g>
   </g>
 }
 
