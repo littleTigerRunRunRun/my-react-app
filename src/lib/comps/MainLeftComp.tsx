@@ -2,6 +2,7 @@ import DC from '../defaultConfig'
 import { Event, subscriber, Value } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
+import { useEffect } from 'react'
 
 const byteUnits = [
   { threshold: 1e12, unit: 'T' },
@@ -17,7 +18,15 @@ function LeftComp({ props }:{ props: {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = props.sources.length * CL.height + CL.iconMaxHeight
-  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  const svgTime = subscriber.get(Value.MAIN_LEFT_ANIME) ? -10000 : (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  
+  useEffect(() => {
+    subscriber.set(Value.MAIN_LEFT_ANIME, true)
+    
+    return () => {
+      subscriber.set(Value.MAIN_LEFT_ANIME, false)
+    }
+  }, [])
 
   const items:Array<{
     pic?: string,

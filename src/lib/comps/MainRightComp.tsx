@@ -7,6 +7,7 @@ import ic_resolved from '../../assets/ic_resolved.png'
 import ic_manual from '../../assets/ic_manual.png'
 import ic_open from '../../assets/ic_open.png'
 import { Event, Value, subscriber } from '../utils/Subscriber'
+import { useEffect } from 'react'
 
 function RightComp({ props }:{ props: {
   automated: number,
@@ -15,7 +16,15 @@ function RightComp({ props }:{ props: {
   openIncidents: number
 } }) {
   const CR = DC.right
-  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+  const svgTime = subscriber.get(Value.MAIN_RIGHT_ANIME) ? -10000 : (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
+    
+  useEffect(() => {
+    subscriber.set(Value.MAIN_RIGHT_ANIME, true)
+    
+    return () => {
+      subscriber.set(Value.MAIN_RIGHT_ANIME, false)
+    }
+  }, [])
 
   return <g className='right-comp' transform={`translate(${DC.center.size.width * 0.5 + CR.position.x}, 0)`}>
     <defs>

@@ -128,13 +128,13 @@ function App() {
         data={data}
         onDig={onDig}
       />
-      {/* <div style={{
+      <div style={{
         position: 'absolute',
         right: '100px',
         top: '50px',
         color: '#fff',
         cursor: 'pointer'
-      }} onClick={() => updateData()}>数据更新测试(临时）</div> */}
+      }} onClick={() => updateData()}>数据更新测试(临时）</div>
     </>
   )
 }

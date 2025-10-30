@@ -55,7 +55,7 @@ function ScrollNumber(props: {
 
   useEffect(() => {
     const nums = `${props.count}`.split('').reverse()
-    console.log(props.count)
+    // console.log(props.count)
     const pureNums = nums.filter((str) => integerRegex.test(str))
     if (integerRegex.test(nums[0])) {
       setLength(pureNums.length)

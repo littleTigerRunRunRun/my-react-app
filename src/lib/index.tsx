@@ -27,7 +27,9 @@ function Main({
   const [digArray, setDigArray] = useState(['main']) //, 'dataInventory'
   const mainRef = useRef<SVGGElement>(null)
   const mainLeftRef = useRef<SVGGElement>(null)
-  if (!subscriber.get(Value.SVG_START_TIME)) subscriber.set(Value.SVG_START_TIME, Date.now())
+  if (!subscriber.get(Value.SVG_START_TIME)) {
+    subscriber.set(Value.SVG_START_TIME, Date.now())
+  }
 
   const [dataInventory, setDataInventory] = useState({
     keywords: [
