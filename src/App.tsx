@@ -46,7 +46,7 @@ function App() {
       dataIngestion: 66,
       eventIngestion: 6666,
       alertAnalysis: 49,
-      preventedEvents: 286113
+      preventedAlerts: 286113
     },
     right: {
       // 数据展示
@@ -86,7 +86,7 @@ function App() {
         dataIngestion: 662,
         eventIngestion: 66662,
         alertAnalysis: 982,
-        preventedEvents: 2861132
+        preventedAlerts: 2861132
       },
       right: {
         // 数据展示

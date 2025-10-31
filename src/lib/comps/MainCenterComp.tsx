@@ -28,7 +28,7 @@ function CenterComp({ props }:{
     dataIngestion: number,
     eventIngestion: number,
     alertAnalysis: number,
-    preventedEvents: number
+    preventedAlerts: number
   }
 }) {
   const CC = DC.center
@@ -45,7 +45,7 @@ function CenterComp({ props }:{
   const eventNum = parseFloat(formatedEvent)
   const eventUnit = formatedEvent.replace(`${eventNum}`, '') + 'B/24H'
 
-  const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedEvents)
+  const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedAlerts)
   const preventedNum = parseFloat(formatedPrevented)
   const preventedUnit = formatedPrevented.replace(`${preventedNum}`, '')
 
@@ -290,7 +290,7 @@ function CenterComp({ props }:{
         textAnchor="start"
         x="60"
         y="20"
-      >Prevented Events</text>
+      >Prevented Alerts</text>
       <text
         fill="#ffffff"
         fontSize="36"
