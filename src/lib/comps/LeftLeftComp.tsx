@@ -4,10 +4,10 @@ import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
 
 const byteUnits = [
-  { threshold: 1e12, unit: 'T' },
-  { threshold: 1e9, unit: 'G' },
-  { threshold: 1e6, unit: 'M' },
-  { threshold: 1e3, unit: 'K' }
+  { threshold: 1024 * 1024 * 1024 * 1024, unit: 'T' },
+  { threshold: 1024 * 1024 * 1024, unit: 'G' },
+  { threshold: 1024 * 1024, unit: 'M' },
+  { threshold: 1024, unit: 'K' }
 ]
 
 function LeftLeftComp({ props }:{ props: { 

@@ -4,6 +4,7 @@ import LabelCount from './comp/LabelCount'
 import video_fl from '../../assets/flowlines.mp4'
 import pic_back from '../../assets/back.png'
 import { useRef } from 'react'
+import { getTextWidth } from '../utils'
 
 function LeftRightComp({ props, center }: { props: {
   keywords: Array<Array<string>>,
@@ -225,6 +226,12 @@ function LeftRightComp({ props, center }: { props: {
           const angle = index * Math.PI * 2 / props.keywords.length
           const x = Math.sin(angle) * CLR.outerStartRadius
           const y = -Math.cos(angle) * CLR.outerStartRadius
+
+          // 最大size是64
+          const size = kw.length === 1 ? CLR.textAttr.keywordOneLine.fontSize : CLR.textAttr.keywordTwoLine.fontSize
+          const kwMaxLength = kw.map((w) => getTextWidth(w, CLR.textAttr.keywordOneLine.fontFamily, size)).sort((a, b) => b - a)[0]
+          const kwSize = kwMaxLength > 64 ? size * 64 / kwMaxLength : size
+
           return <g
             key={`kw_${index}`}
             className="keyword"
@@ -244,6 +251,7 @@ function LeftRightComp({ props, center }: { props: {
                   return <tspan
                     key={`word_${windex}`}
                     {...(kw.length === 2 ? (windex === 0 ? CLR.textAttr.ktlOne : CLR.textAttr.ktlTwo) : {})}
+                    fontSize={kwSize}
                   >{ w }</tspan>
                 })
               }

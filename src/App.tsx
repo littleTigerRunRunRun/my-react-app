@@ -107,11 +107,11 @@ function App() {
         // 圆形关键词，有几行就会等分成几个
         // 逗号分隔用于控制换行
         keywords: [
-          ['AII'],
+          ['Threshold'],
           ['Correlation', 'Analysis'],
           ['IOC'],
           ['Threat', 'Intelligence'],
-          // ['Machine', 'Learning'],
+          ['Machine', 'Learning'],
         ],
         ruleHealthPercent: 96, // 中间的rule health百分比数值
         dangerRate: 0.35, // 背后放射状细线中红色占比多少，0.35就是35%，设计师的默认值是0.25，如果没有数据含义就固定设置一个0.25
