@@ -45,7 +45,7 @@ function App() {
       day: 181, // 服务天数
       dataIngestion: 66,
       eventIngestion: 6666,
-      alertAnalysis: 98,
+      alertAnalysis: 49,
       preventedEvents: 286113
     },
     right: {

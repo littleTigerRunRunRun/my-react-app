@@ -262,7 +262,7 @@ function CenterComp({ props }:{
         x="60"
         y="86"
       >
-        <tspan>98</tspan>
+        <tspan>{props.alertAnalysis}</tspan>
         <tspan fill="#C5C5C5" fontSize="16" dx="6">%</tspan>
       </text>
     </g>
