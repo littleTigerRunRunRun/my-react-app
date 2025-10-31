@@ -12,7 +12,7 @@ import { subscriber, Event, Value } from './utils/Subscriber'
  
 const rlfl = new RandomLeftFlowline({
   duration: 3000,
-  frequency: 0.6,
+  frequency: 2,
   parallelLimit: 4
 })
 
