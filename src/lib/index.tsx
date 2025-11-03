@@ -9,12 +9,7 @@ import LeftRightComp from './comps/LeftRightComp'
 import { RandomLeftFlowline } from './animation'
 import { CSSTransition } from 'react-transition-group'
 import { subscriber, Event, Value } from './utils/Subscriber'
- 
-const rlfl = new RandomLeftFlowline({
-  duration: 3000,
-  frequency: 2,
-  parallelLimit: 4
-})
+// import { useNavigate } from 'react-router-dom'
 
 function Main({
   data,
@@ -30,6 +25,7 @@ function Main({
   if (!subscriber.get(Value.SVG_START_TIME)) {
     subscriber.set(Value.SVG_START_TIME, Date.now())
   }
+  // const navigate = useNavigate()
 
   const [dataInventory, setDataInventory] = useState({
     keywords: [
@@ -59,15 +55,21 @@ function Main({
   }
 
   useEffect(() => {
-    console.log('挂载')
+    // console.log('挂载')
     subscriber.listen(Event.DIG, dig)
+ 
+    const rlfl = new RandomLeftFlowline({
+      duration: 3000,
+      frequency: 2,
+      parallelLimit: 4
+    })
     
     // setTimeout(() => {
     //   dig(['main'])
     // }, 5000)
 
     return () => {
-      console.log('卸载')
+      // console.log('卸载')
       subscriber.clear()
       rlfl.destroy()
     }
@@ -174,6 +176,13 @@ function Main({
           </CSSTransition>
         }
       </svg>
+      {/* <div style={{
+        position: 'absolute',
+        right: '100px',
+        top: '50px',
+        color: '#fff',
+        cursor: 'pointer'
+      }} onClick={() => navigate('./home')}>跳转测试(临时）</div> */}
     </div>
   </>
 }

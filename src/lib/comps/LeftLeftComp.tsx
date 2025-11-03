@@ -2,6 +2,7 @@ import DC from '../defaultConfig'
 import { Event, Value, subscriber } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
+import { useEffect } from 'react'
 
 const byteUnits = [
   { threshold: 1024 * 1024 * 1024 * 1024, unit: 'T' },
@@ -44,7 +45,12 @@ function LeftLeftComp({ props }:{ props: {
     })
   }
 
-  subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ll_${index}`))
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ll_${index}`))
+    })
+    return () => {}
+  }, [])
   
   return <g
     className="left-comp"

@@ -5,6 +5,8 @@ import google_cloud from './assets/google_cloud.svg'
 import microsoft from './assets/microsoft.png'
 import office from './assets/office.png'
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './Home.tsx'
 
 function App() {
   // const [centerAlerts, updateCenterAlert] = useState(0)
@@ -123,19 +125,17 @@ function App() {
   }
 
   return (
-    <>
-      <DiagramMain
-        data={data}
-        onDig={onDig}
-      />
-      {/* <div style={{
-        position: 'absolute',
-        right: '100px',
-        top: '50px',
-        color: '#fff',
-        cursor: 'pointer'
-      }} onClick={() => updateData()}>数据更新测试(临时）</div> */}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={
+          <DiagramMain
+            data={data}
+            onDig={onDig}
+          />
+        } />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -95,11 +95,16 @@ export class Tick {
   }
 
   public setActivate(id: number, activate: boolean): void {
-    const process = this.hash[id]
-    if (activate === process.activate) return
-    process.activate = activate
-    if (activate) this.activates.push(process.callback)
-    else this.activates.splice(this.activates.indexOf(process.callback), 1)
+    try {
+      const process = this.hash[id]
+      if (activate === process.activate) return
+      process.activate = activate
+      if (activate) this.activates.push(process.callback)
+      else this.activates.splice(this.activates.indexOf(process.callback), 1)
+    } catch (e) {
+      console.log(e)
+      console.log(id, this.hash[id], activate)
+    }
   }
 
   public delete(tickId: number): void {

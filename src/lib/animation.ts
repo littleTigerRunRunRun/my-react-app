@@ -4,6 +4,7 @@ import { Event, subscriber } from './utils/Subscriber'
 
 // 整个系统复杂动画的控制系统
 const tick = new Tick()
+// console.log('tick', tick)
 
 export class RandomLeftFlowline {
   tickNum:number
@@ -59,6 +60,7 @@ export class RandomLeftFlowline {
   }
 
   destroy() {
+    // console.log('delete', this.tickNum)
     tick.delete(this.tickNum)
     subscriber.remove(Event.UPDATE_LINE_TARGET, this.updateLineTarget)
   }
