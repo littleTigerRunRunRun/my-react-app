@@ -245,6 +245,7 @@ function RightComp({ props }:{ props: {
         icon={ic_automated}
         x={CR.automatedPosition.icon.x}
         y={CR.automatedPosition.icon.y}
+        onClick={() => subscriber.broadcast(Event.DIG, ['main', 'incident'])}
       />
     </g>
     <g className="type-node" opacity="0">
@@ -270,6 +271,7 @@ function RightComp({ props }:{ props: {
         icon={ic_resolved}
         x={CR.resolvedIncidentsPosition.icon.x}
         y={CR.resolvedIncidentsPosition.icon.y}
+        onClick={() => subscriber.broadcast(Event.DIG, ['main', 'incident'])}
       />
     </g>
     <g className="type-node" opacity="0">
@@ -295,6 +297,7 @@ function RightComp({ props }:{ props: {
         icon={ic_manual}
         x={CR.manualPosition.icon.x}
         y={CR.manualPosition.icon.y}
+        onClick={() => subscriber.broadcast(Event.DIG, ['main', 'incident'])}
       />
     </g>
     <g className="type-node" opacity="0">
@@ -320,6 +323,7 @@ function RightComp({ props }:{ props: {
         icon={ic_open}
         x={CR.openIncidentsPosition.icon.x}
         y={CR.openIncidentsPosition.icon.y}
+        onClick={() => subscriber.broadcast(Event.DIG, ['main', 'incident'])}
       />
     </g>
   </g>

@@ -1,12 +1,11 @@
 import DC from '../defaultConfig'
-import { Event, Value, subscriber } from '../utils/Subscriber'
+import { Value, subscriber } from '../utils/Subscriber'
 import LabelCount from './comp/LabelCount'
 import video_fl from '../../assets/flowlines.mp4'
-import pic_back from '../../assets/back.png'
-import { useRef } from 'react'
+import { useRef, type JSX } from 'react'
 import { getTextWidth } from '../utils'
 
-function LeftRightComp({ props, center }: { props: {
+function LeftRightComp({ props, center, Back }: { props: {
   keywords: Array<Array<string>>,
   ruleHealthPercent: number,
   dangerRate: number,
@@ -19,7 +18,7 @@ function LeftRightComp({ props, center }: { props: {
   incidents: number,
   userName: string,
   day: number
-}}) {
+}, Back:() => JSX.Element}) {
   const CLR = DC.leftRight
   const radiationNums = 200
   const radiations = []
@@ -311,36 +310,7 @@ function LeftRightComp({ props, center }: { props: {
         >By {props.recommendations} recommendations</text>
       </g>
     </g>
-    
-    <g className="inventory-back">
-      <image
-        x="-730"
-        y="-368"
-        href={pic_back}
-        width="11"
-        height="18"
-      />
-      <text
-        x="-706"
-        y="-355"
-        fontSize="28"
-        fill="#fff"
-        dominantBaseline="middle"
-        textAnchor="start"
-        onClick={() => {
-          subscriber.broadcast(Event.DIG, ['main'])
-        }}
-      >Data Inventory</text>
-      <rect
-        fill="rgba(0, 0, 0, 0)"
-        x="-738"
-        y="-377"
-        width="246"
-        height="41"
-        style={{ cursor: 'pointer' }}
-        onClick={() => subscriber.broadcast(Event.DIG, ['main'])}
-      />
-    </g>
+    <Back />
     {/* innerRadius: 90,
     mediumRadius: 140,
     outerStartRadius: 154,

@@ -67,7 +67,8 @@ function Node(props: {
   style: 'blue' | 'cyan',
   icon: string,
   x: number,
-  y: number
+  y: number,
+  onClick?: React.MouseEventHandler<SVGGElement>
 }) {
   const innerPath = getNodePath(CN.r)
   const outerPath = getNodePath(CN.r + 2)
@@ -78,6 +79,7 @@ function Node(props: {
     className="comp-interact-node"
     transform={`translate(${props.x}, ${props.y})`}
     filter={style.glow}
+    onClick={props.onClick}
   >
     <defs>
       <mask id={`svg_pt_mask_node_${props.keyword}`}>

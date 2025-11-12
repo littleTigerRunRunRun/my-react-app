@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import './index.scss'
 import DC from './defaultConfig'
+import BackComp from './comps/BackComp'
 import MainLeftComp from './comps/MainLeftComp'
 import MainCenterComp from './comps/MainCenterComp'
 import MainRightComp from './comps/MainRightComp'
@@ -21,7 +22,8 @@ function Main({
   const DCGSize = DC.global.size
   const [digArray, setDigArray] = useState(['main']) //, 'dataInventory'
   const mainRef = useRef<SVGGElement>(null)
-  const mainLeftRef = useRef<SVGGElement>(null)
+  const dataInventoryRef = useRef<SVGGElement>(null)
+  const incidentRef = useRef<SVGGElement>(null)
   if (!subscriber.get(Value.SVG_START_TIME)) {
     subscriber.set(Value.SVG_START_TIME, Date.now())
   }
@@ -160,18 +162,32 @@ function Main({
           <CSSTransition
             in={digArray.join('-') === 'main-dataInventory'}
             timeout={1000}
-            nodeRef={mainLeftRef as any}
+            nodeRef={dataInventoryRef as any}
             classNames="fadeleft"
             unmountOnExit={true}
           >
-            <g className="data-inventory" ref={mainLeftRef}>
+            <g className="data-inventory" ref={dataInventoryRef}>
               <LeftRightComp
                 center={data.center}
                 props={dataInventory}
+                Back={BackComp}
               />
               <LeftLeftComp
                 props={data.left}
               />
+            </g>
+          </CSSTransition>
+        }
+        {
+          <CSSTransition
+            in={digArray.join('-') === 'main-incident'}
+            timeout={1000}
+            nodeRef={incidentRef as any}
+            classNames="fadeleft"
+            unmountOnExit={true}
+          >
+            <g className="incident" ref={incidentRef}>
+              incident
             </g>
           </CSSTransition>
         }
