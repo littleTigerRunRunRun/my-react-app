@@ -1,7 +1,7 @@
 import { Event, Value, subscriber } from '../utils/Subscriber'
 import pic_back from '../../assets/back.png'
 
-function BackComp() {
+function BackComp({ text }:{ text: string }) {
   return  <g className="inventory-back">
     <image
       x="-730"
@@ -20,7 +20,7 @@ function BackComp() {
       onClick={() => {
         subscriber.broadcast(Event.DIG, ['main'])
       }}
-    >Data Inventory</text>
+    >{text}</text>
     <rect
       fill="rgba(0, 0, 0, 0)"
       x="-738"

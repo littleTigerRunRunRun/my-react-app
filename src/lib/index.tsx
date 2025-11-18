@@ -7,6 +7,7 @@ import MainCenterComp from './comps/MainCenterComp'
 import MainRightComp from './comps/MainRightComp'
 import LeftLeftComp from './comps/LeftLeftComp'
 import LeftRightComp from './comps/LeftRightComp'
+import IncidentComp from './comps/IncidentComp'
 import { RandomLeftFlowline } from './animation'
 import { CSSTransition } from 'react-transition-group'
 import { subscriber, Event, Value } from './utils/Subscriber'
@@ -20,7 +21,7 @@ function Main({
   onDig?: (digArray: Array<string>) => any
 }) {
   const DCGSize = DC.global.size
-  const [digArray, setDigArray] = useState(['main']) //, 'dataInventory'
+  const [digArray, setDigArray] = useState(['main-dataInventory']) //, 'dataInventory' 'incident'
   const mainRef = useRef<SVGGElement>(null)
   const dataInventoryRef = useRef<SVGGElement>(null)
   const incidentRef = useRef<SVGGElement>(null)
@@ -187,7 +188,10 @@ function Main({
             unmountOnExit={true}
           >
             <g className="incident" ref={incidentRef}>
-              incident
+              <IncidentComp
+                props={{}}
+                Back={BackComp}
+              />
             </g>
           </CSSTransition>
         }

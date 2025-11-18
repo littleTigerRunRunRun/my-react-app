@@ -18,7 +18,7 @@ function LeftRightComp({ props, center, Back }: { props: {
   incidents: number,
   userName: string,
   day: number
-}, Back:() => JSX.Element}) {
+}, Back:(props:{text:string}) => JSX.Element}) {
   const CLR = DC.leftRight
   const radiationNums = 200
   const radiations = []
@@ -310,7 +310,7 @@ function LeftRightComp({ props, center, Back }: { props: {
         >By {props.recommendations} recommendations</text>
       </g>
     </g>
-    <Back />
+    <Back text="Data Inventory" />
     {/* innerRadius: 90,
     mediumRadius: 140,
     outerStartRadius: 154,
