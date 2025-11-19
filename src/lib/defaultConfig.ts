@@ -328,6 +328,13 @@ export default {
       suggestionBarDelay: 1.8
     }
   },
+  incident: {
+    size: {
+      // 420 460 380 209 129（160）
+      width: 1629, 
+      height: 0
+    }
+  },
   component: {
     node: {
       r: 28,

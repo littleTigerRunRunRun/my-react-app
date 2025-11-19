@@ -21,7 +21,7 @@ function Main({
   onDig?: (digArray: Array<string>) => any
 }) {
   const DCGSize = DC.global.size
-  const [digArray, setDigArray] = useState(['main-dataInventory']) //, 'dataInventory' 'incident'
+  const [digArray, setDigArray] = useState(['main-incident']) //, 'dataInventory' 'incident'
   const mainRef = useRef<SVGGElement>(null)
   const dataInventoryRef = useRef<SVGGElement>(null)
   const incidentRef = useRef<SVGGElement>(null)
