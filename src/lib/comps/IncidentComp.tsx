@@ -6,7 +6,7 @@ function Incident({ props, Back }: {
   Back: (props:{text:string}) => JSX.Element
 }) {
   const CI = DC.incident
-  // const radiations = 
+  const CIT = CI.total
 
   return <g
     className="incident-comp"
@@ -39,7 +39,7 @@ function Incident({ props, Back }: {
     <g className="incident-main" transform={`scale(${DC.global.size.width / CI.size.width}) translate(${CI.size.width * -0.5}, 0)`}>
       <g className="total-incident" transform={`translate(210, 0)`} mask="url(#svg_pt_ic_radiation_mask)">
         {
-          new Array(200).fill(1).map((_item, index) => {
+          new Array(CIT.radiation.num).fill(1).map((_item, index) => {
             return <line
               key={`line_${index}`}
               x1={134}
@@ -49,7 +49,7 @@ function Incident({ props, Back }: {
               stroke={"#0089F5"}
               strokeWidth="1"
               strokeOpacity="0.5"
-              transform={`rotate(${index / 200 * 360} 0, 0)`}
+              transform={`rotate(${index / CIT.radiation.num * 360} 0, 0)`}
             />
           })
         }

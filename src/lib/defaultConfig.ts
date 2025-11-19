@@ -333,6 +333,17 @@ export default {
       // 420 460 380 209 129（160）
       width: 1629, 
       height: 0
+    },
+    total: {
+      radiation: {
+        num: 200,
+        r: 210,
+        rLength: 76
+      },
+      inner: {
+        r: 110,
+        width: 4
+      }
     }
   },
   component: {
