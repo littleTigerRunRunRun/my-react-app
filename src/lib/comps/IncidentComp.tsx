@@ -1,5 +1,6 @@
 import DC from '../defaultConfig'
 import { type JSX } from 'react'
+import { createSmoothLine } from '../utils/createCurve'
 
 function Incident({ props, Back }: {
   props: {},
@@ -7,6 +8,31 @@ function Incident({ props, Back }: {
 }) {
   const CI = DC.incident
   const CIT = CI.total
+
+  const totalRate = 0.22
+  const interval = CIT.inner.interval * Math.PI * 2
+  const totalStart = [
+    CIT.inner.r * Math.cos(interval * 0.5),
+    CIT.inner.r * Math.sin(interval * 0.5)
+  ]
+  const P1angle = (1 - CIT.inner.interval * 2) * Math.PI * 2 * totalRate + interval * 0.5
+  const totalP1 = [
+    CIT.inner.r * Math.cos(P1angle),
+    CIT.inner.r * Math.sin(P1angle)
+  ]
+  const P2angle = P1angle + interval
+  const totalP2 = [
+    CIT.inner.r * Math.cos(P2angle),
+    CIT.inner.r * Math.sin(P2angle)
+  ]
+  const totalEnd = [totalStart[0], -totalStart[1]]
+
+  console.log(createSmoothLine([
+    { x: 0, y: 100 },
+    { x: 100, y: 20 },
+    { x: 200, y: 40 },
+    { x: 300, y: 80 },
+  ]))
 
   return <g
     className="incident-comp"
@@ -19,7 +45,7 @@ function Incident({ props, Back }: {
       </radialGradient>
       <mask id="svg_pt_ic_radiation_mask">
         <circle
-          r={210}
+          r={CIT.radiation.r}
           fill="url(#svg_pt_ic_rm_rg)"
         />
       </mask>
@@ -37,14 +63,14 @@ function Incident({ props, Back }: {
     />
     <Back text="Incident" />
     <g className="incident-main" transform={`scale(${DC.global.size.width / CI.size.width}) translate(${CI.size.width * -0.5}, 0)`}>
-      <g className="total-incident" transform={`translate(210, 0)`} mask="url(#svg_pt_ic_radiation_mask)">
+      <g className="total-incident" transform={`translate(${CIT.radiation.r}, 0)`} mask="url(#svg_pt_ic_radiation_mask)">
         {
           new Array(CIT.radiation.num).fill(1).map((_item, index) => {
             return <line
               key={`line_${index}`}
-              x1={134}
+              x1={CIT.radiation.r - CIT.radiation.rLength}
               y1="0"
-              x2={210}
+              x2={CIT.radiation.r}
               y2="0"
               stroke={"#0089F5"}
               strokeWidth="1"
@@ -53,7 +79,42 @@ function Incident({ props, Back }: {
             />
           })
         }
+        <path
+          d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 0 1 ${totalP1[0]},${totalP1[1]}`}
+          strokeWidth={CIT.inner.width}
+          stroke="#00DEFE"
+          fill="none"
+          style={{
+            filter: `drop-shadow(0px 0px 20px #00DEFE)`
+          }}
+        />
+        <path
+          d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 1 1 ${totalEnd[0]},${totalEnd[1]}`}
+          strokeWidth={CIT.inner.width}
+          stroke="#008FFF "
+          fill="none"
+          style={{
+            filter: `drop-shadow(0px 0px 20px #008FFF)`
+          }}
+        />
+        <text
+          {...CIT.mainText as React.SVGProps<SVGTextElement>}
+        >350</text>
+        <text
+          {...CIT.subText as React.SVGProps<SVGTextElement>}
+        >Total Incidents</text>
       </g>
+        {/* <path
+          d={`${createSmoothLine([
+            { x: 0, y: 100 },
+            { x: 100, y: 20 },
+            { x: 200, y: 40 },
+            { x: 300, y: 80 },
+          ], 0)}`}
+          fill="none"
+          stroke="#fff"
+          strokeWidth="6"
+        /> */}
     </g>
   </g>
 }

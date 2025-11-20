@@ -342,7 +342,26 @@ export default {
       },
       inner: {
         r: 110,
-        width: 4
+        width: 4,
+        interval: 0.026 // 圆弧间间隙占整个圆周的比例
+      },
+      mainText: {
+        fontSize: 36,
+        fontFamily: 'fontFamilySetting',
+        fill: '#D8D8D8',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: -52
+      },
+      subText: {
+        fontSize: 22,
+        fontFamily: 'fontFamilySetting',
+        fill: '#ABABAC ',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: -8
       }
     }
   },
