@@ -348,6 +348,7 @@ export default {
       mainText: {
         fontSize: 36,
         fontFamily: 'fontFamilySetting',
+        fontWeight: 'bold',
         fill: '#D8D8D8',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -363,6 +364,74 @@ export default {
         x: 0,
         y: -8
       }
+    },
+    curve: {
+      start: {
+        x: 344, // total.radiation.r * 2 - total.radiation.rLength
+        span: 16,
+      },
+      nodeLabelYSpan: 79,
+      automated: {
+        x: 588,
+        y: -214
+      },
+      manual: {
+        x: 588,
+        y: 214
+      },
+      resolveIncidents: {
+        x: 825,
+        y: -214,
+      },
+      openIncidents: {
+        x: 1070,
+        y: 0
+      }
+    },
+    resolveIncidents: {
+      // 中心xy位置
+      x: 825,
+      y: -194,
+      r: 75,
+      radiationSpan: 15,
+      radiationLength: 35,
+      num: 120,
+      percent: {
+        fontSize: 28,
+        fontFamily: 'fontFamilySetting',
+        fontWeight: 'bold',
+        fill: '#FFFFFF',
+        dominantBaseline: 'middle',
+        textAnchor: 'start',
+        x: -10 - 16,
+        y: -34,
+      },
+      subtext: {
+        fontSize: 14,
+        fontFamily: 'fontFamilySetting',
+        fill: '#ABABAC',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: 8 - 10,
+      },
+      number: {
+        fontSize: 14,
+        fontFamily: 'fontFamilySetting',
+        fill: '#FFFFFF',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: 42,
+      }
+    },
+    openIncidents: {
+      x: 1070,
+      y: 0,
+      r: 130,
+      innerR: 220,
+      radiationSpan: 20,
+      radiationLength: 65,
     }
   },
   component: {

@@ -91,6 +91,40 @@ function Main({
         }}
       >
         <defs>
+          {/* 屏1和屏3共用的线条渐变色 */}
+          <linearGradient id="svg_pt_lg_lc_sta">
+            <stop offset="0%" stopColor="#0167B6" stopOpacity="0" />
+            <stop offset="100%" stopColor="#0167B6" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_stm">
+            <stop offset="0%" stopColor="#019DB3" stopOpacity="0" />
+            <stop offset="100%" stopColor="#019DB3" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_atr">
+            <stop offset="0%" stopColor="#0167B6" stopOpacity="1" />
+            <stop offset="100%" stopColor="#008FFF" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_mto">
+            <stop offset="0%" stopColor="#019DB3" stopOpacity="1" />
+            <stop offset="100%" stopColor="#00DEFE" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_ato_p5">
+            <stop offset="0%" stopColor="#0167B6" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#00DEFE" stopOpacity="0.5" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_ato">
+            <stop offset="0%" stopColor="#0167B6" stopOpacity="1" />
+            <stop offset="100%" stopColor="#00DEFE" stopOpacity="1" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_mtr_p5">
+            <stop offset="0%" stopColor="#019DB3" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#008FFF" stopOpacity="0.5" />
+          </linearGradient>
+          <linearGradient id="svg_pt_lg_lc_mtr">
+            <stop offset="0%" stopColor="#019DB3" stopOpacity="1" />
+            <stop offset="100%" stopColor="#008FFF" stopOpacity="1" />
+          </linearGradient>
+          {/* 屏1和屏3共用的线条渐变色 */}
           <linearGradient id="svg_pt_comp_node_lg_1" x1="0.5" y1="0" x2="0.5" y2="1">
             <stop offset="0%" stopColor="#008FFF " stopOpacity="1" />
             <stop offset="25%" stopColor="#FFFFFF" stopOpacity="1" />
@@ -189,7 +223,10 @@ function Main({
           >
             <g className="incident" ref={incidentRef}>
               <IncidentComp
-                props={{}}
+                props={{
+                  automated: 252,
+                  manual: 98
+                }}
                 Back={BackComp}
               />
             </g>

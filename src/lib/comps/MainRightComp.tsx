@@ -28,38 +28,6 @@ function RightComp({ props }:{ props: {
 
   return <g className='right-comp' transform={`translate(${DC.center.size.width * 0.5 + CR.position.x}, 0)`}>
     <defs>
-      <linearGradient id="svg_pt_lg_lc_sta">
-        <stop offset="0%" stopColor="#0167B6" stopOpacity="0" />
-        <stop offset="100%" stopColor="#0167B6" stopOpacity="1" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_stm">
-        <stop offset="0%" stopColor="#019DB3" stopOpacity="0" />
-        <stop offset="100%" stopColor="#019DB3" stopOpacity="1" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_atr">
-        <stop offset="0%" stopColor="#0167B6" stopOpacity="1" />
-        <stop offset="100%" stopColor="#008FFF" stopOpacity="1" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_mto">
-        <stop offset="0%" stopColor="#019DB3" stopOpacity="1" />
-        <stop offset="100%" stopColor="#00DEFE" stopOpacity="1" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_ato_p5">
-        <stop offset="0%" stopColor="#0167B6" stopOpacity="0.5" />
-        <stop offset="100%" stopColor="#00DEFE" stopOpacity="0.5" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_ato">
-        <stop offset="0%" stopColor="#0167B6" stopOpacity="1" />
-        <stop offset="100%" stopColor="#00DEFE" stopOpacity="1" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_mtr_p5">
-        <stop offset="0%" stopColor="#019DB3" stopOpacity="0.5" />
-        <stop offset="100%" stopColor="#008FFF" stopOpacity="0.5" />
-      </linearGradient>
-      <linearGradient id="svg_pt_lg_lc_mtr">
-        <stop offset="0%" stopColor="#019DB3" stopOpacity="1" />
-        <stop offset="100%" stopColor="#008FFF" stopOpacity="1" />
-      </linearGradient>
       <clipPath
         id="svg_pt_rtext_cp"
         clipPathUnits="userSpaceOnUse"

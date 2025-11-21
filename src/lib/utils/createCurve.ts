@@ -270,7 +270,7 @@ export function createSmoothLine(points: Point[], ratio: number = 0.3) {
     if (i === 0) {
       points1 = create2PBezier(points[i], control1, points[i + 1], 50);
     } else {
-      console.log(controlPoints);
+      // console.log(controlPoints);
       points1 = create3PBezier(
         points[i],
         controlPoints[2 * i - 1],
