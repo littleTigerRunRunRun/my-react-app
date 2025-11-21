@@ -21,7 +21,7 @@ function Main({
   onDig?: (digArray: Array<string>) => any
 }) {
   const DCGSize = DC.global.size
-  const [digArray, setDigArray] = useState(['main-incident']) //, 'dataInventory' 'incident'
+  const [digArray, setDigArray] = useState(['main']) //, 'dataInventory' 'incident'
   const mainRef = useRef<SVGGElement>(null)
   const dataInventoryRef = useRef<SVGGElement>(null)
   const incidentRef = useRef<SVGGElement>(null)
@@ -225,7 +225,29 @@ function Main({
               <IncidentComp
                 props={{
                   automated: 252,
-                  manual: 98
+                  manual: 98,
+                  openIncidents: {
+                    low: 21,
+                    middle: 36,
+                    high: 32,
+                    critical: 3,
+                  },
+                  attackList: [
+                    { num: 3, name: 'Collection', type: 'critical' },
+                    { num: 1, name: 'Command and Control', type: 'normal' },
+                    { num: 11, name: 'Credential Access', type: 'high' },
+                    { num: 1, name: 'Defense Evasion', type: 'middle' },
+                    { num: 2, name: 'Discovery', type: 'normal' },
+                    { num: 1, name: 'Exeution', type: 'middle' },
+                    { num: 0, name: 'Exfiltration', type: 'normal' },
+                    { num: 0, name: 'Impact', type: 'normal' },
+                    { num: 2, name: 'Initial Access', type: 'high' },
+                    { num: 4, name: 'Lateral Movement', type: 'high' },
+                    { num: 2, name: 'Persistence', type: 'middle' },
+                    { num: 2, name: 'Privilege Escalation', type: 'normal' },
+                    { num: 2, name: 'Reconnaissance', type: 'middle' },
+                    { num: 4, name: 'Resouce Development', type: 'normal' },
+                  ]
                 }}
                 Back={BackComp}
               />

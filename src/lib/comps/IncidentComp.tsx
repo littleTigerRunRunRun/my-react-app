@@ -4,6 +4,7 @@ import { createSmoothLine } from '../utils/createCurve'
 import { GlowBezier } from './comp/GlowBezier'
 import LabelCount from './comp/LabelCount'
 import Node from './comp/Node'
+import { getBezier } from '../utils'
 import { Event, Value, subscriber } from '../utils/Subscriber'
 import ic_automated from '../../assets/ic_automated.png'
 import ic_manual from '../../assets/ic_manual.png'
@@ -11,7 +12,14 @@ import ic_manual from '../../assets/ic_manual.png'
 function Incident({ props, Back }: {
   props: {
     automated: number,
-    manual: number
+    manual: number,
+    openIncidents: {
+      low: number,
+      middle: number,
+      high: number,
+      critical: number,
+    },
+    attackList: Array<{ num: number, name: string, type: 'low' | 'middle' | 'high' | 'critical' | 'normal' }>
   },
   Back: (props:{text:string}) => JSX.Element
 }) {
@@ -44,7 +52,7 @@ function Incident({ props, Back }: {
   })
   const px = points.map((p) => p.x).sort((a, b) => a - b)
   const py = points.map((p) => p.y).sort((a, b) => a - b)
-  console.log(px, py)
+  // console.log(px, py)
   // [
   //   { x: 0, y: 100 },
   //   { x: 100, y: 20 },
@@ -64,20 +72,51 @@ function Incident({ props, Back }: {
   const borderR = CI.resolveIncidents.r + 2
   const riRadius = CI.resolveIncidents.r + CI.resolveIncidents.radiationSpan + CI.resolveIncidents.radiationLength
 
+  const total = props.openIncidents.low + props.openIncidents.middle + props.openIncidents.high + props.openIncidents.critical
+  const oiRadiationVisual = [
+    props.openIncidents.low / total,
+    (props.openIncidents.low + props.openIncidents.middle) / total,
+    (props.openIncidents.low + props.openIncidents.middle + props.openIncidents.high) / total
+  ]
+
   return <g
     className="incident-comp"
-    opacity="0"
+    opacity="1"
   >
     <defs>
       <radialGradient id="svg_pt_ic_rm_rg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
         <stop offset="68%" stopColor="#fff" stopOpacity="1" />
         <stop offset="100%" stopColor="#fff" stopOpacity="0" />
       </radialGradient>
+      <radialGradient id="svg_pt_icoi_rm_rg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="74%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="svg_pt_ici_rm_rg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="81%" stopColor="#fff" stopOpacity="0" />
+        <stop offset="100%" stopColor="#fff" stopOpacity="1" />
+      </radialGradient>
       <linearGradient id="svg_pt_ic_oi_lg" x1="0" y1="0.5" x2="1" y2="0.5">
         <stop offset="0%" stopColor="#00D5F5" stopOpacity="1" />
         <stop offset="18%" stopColor="#00D5F5" stopOpacity="0" />
         <stop offset="82%" stopColor="#00D5F5" stopOpacity="0" />
         <stop offset="100%" stopColor="#00D5F5" stopOpacity="1" />
+      </linearGradient>
+      <linearGradient id="svg_pt_ic_L_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#00D5F5" stopOpacity="1" />
+        <stop offset="100%" stopColor="#1DB440" stopOpacity="1" />
+      </linearGradient>
+      <linearGradient id="svg_pt_ic_M_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#00D5F5" stopOpacity="1" />
+        <stop offset="100%" stopColor="#F7C034" stopOpacity="1" />
+      </linearGradient>
+      <linearGradient id="svg_pt_ic_H_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#00D5F5" stopOpacity="1" />
+        <stop offset="100%" stopColor="#F77E45" stopOpacity="1" />
+      </linearGradient>
+      <linearGradient id="svg_pt_ic_C_lg" x1="0" y1="0.5" x2="1" y2="0.5">
+        <stop offset="0%" stopColor="#00D5F5" stopOpacity="1" />
+        <stop offset="100%" stopColor="#F54E4E" stopOpacity="1" />
       </linearGradient>
       <mask id="svg_pt_ic_radiation_mask">
         <circle
@@ -91,6 +130,18 @@ function Incident({ props, Back }: {
           fill="url(#svg_pt_ic_rm_rg)"
         />
       </mask>
+      <mask id="svg_pt_ic_oi_radiation_mask">
+        <circle
+          r={CI.openIncidents.r + CI.openIncidents.radiationLength}
+          fill="url(#svg_pt_icoi_rm_rg)"
+        />
+      </mask>
+      <mask id="svg_pt_ic_oii_radiation_mask">
+        <circle
+          r={CI.openIncidents.innerR}
+          fill="url(#svg_pt_ici_rm_rg)"
+        />
+      </mask>
       <mask id="svg_pt_ic_curve_mask">
         <circle
           r={CIT.inner.r - CIT.inner.width * 0.5}
@@ -98,7 +149,7 @@ function Incident({ props, Back }: {
         />
       </mask>
     </defs>
-    <animate
+    {/* <animate
       attributeName="opacity"
       from="0"
       to="1"
@@ -108,7 +159,7 @@ function Incident({ props, Back }: {
       begin={`${1}s`}
       repeatCount="1"
       fill="freeze"
-    />
+    /> */}
     <Back text="Incident" />
     <g className="incident-main" transform={`scale(${DC.global.size.width / CI.size.width}) translate(${CI.size.width * -0.5}, 0)`}>
       <GlowBezier
@@ -412,14 +463,204 @@ function Incident({ props, Back }: {
           {...CI.resolveIncidents.number as React.SVGProps<SVGTextElement>}
         >258</text>
       </g>
-      {/* mask="url(#svg_pt_ic_radiation_mask)" */}
-      <g className="oepn-incidents" transform={`translate(${CI.openIncidents.x}, ${CI.openIncidents.y})`}>
+      <g className="oepn-incidents" transform={`translate(${CI.openIncidents.x}, ${CI.openIncidents.y})`} mask="url(#svg_pt_ic_oi_radiation_mask)">
+        {
+          new Array(CI.openIncidents.num).fill(1).map((_item, index) => {
+            return <line
+              key={`line_${index}`}
+              x1={CI.openIncidents.r}
+              y1="0"
+              x2={CI.openIncidents.r + CI.openIncidents.radiationLength}
+              y2="0"
+              stroke={"#00D5F5"}
+              strokeWidth="1"
+              strokeOpacity="0.4"
+              transform={`rotate(${index / CI.openIncidents.num * 360} 0, 0)`}
+            />
+          })
+        }
         <circle
           r={CI.openIncidents.r}
           stroke="url(#svg_pt_ic_oi_lg)"
           strokeWidth="4"
           fill="#000"
         />
+        <g mask="url(#svg_pt_ic_oii_radiation_mask)">
+          {
+            new Array(CI.openIncidents.innerNum).fill(1).map((_item, index) => {
+              return <line
+                key={`line_${index}`}
+                x1={CI.openIncidents.innerR - CI.openIncidents.innerWidth}
+                y1="0"
+                x2={CI.openIncidents.innerR}
+                y2="0"
+                stroke={
+                  (() => {
+                    let d = 1 - index / CI.openIncidents.innerNum - 0.25
+                    if(d < 0) d = 1 + d
+                    if (d > oiRadiationVisual[2]) return '#F54E4E'
+                    if (d > oiRadiationVisual[1]) return '#F77E45'
+                    if (d > oiRadiationVisual[0]) return '#F7C034'
+                    return '#1DB440'
+                  })()
+                }
+                strokeWidth="1"
+                strokeOpacity="0.8"
+                transform={`rotate(${index / CI.openIncidents.innerNum * 360} 0, 0)`}
+              />
+            })
+          }
+        </g>
+        <text
+          {...CI.openIncidents.percent as React.SVGProps<SVGTextElement>}
+        >
+          <tspan>{ Math.round(props.openIncidents.low / total * 100) }</tspan>
+          <tspan fontWeight="normal" fontSize="14" dx="4" dy="6">%</tspan>
+        </text>
+        <text
+          {...CI.openIncidents.subtext as React.SVGProps<SVGTextElement>}
+        >
+          Open Incidents
+        </text>
+        <text
+          {...CI.openIncidents.number as React.SVGProps<SVGTextElement>}
+        >{ total } Incidents</text>
+      </g>
+      <g className="safe-level">
+        {
+          [
+            { text: 'C', color: '#F54E4E', number: props.openIncidents.critical },
+            { text: 'H', color: '#F77E45', number: props.openIncidents.high },
+            { text: 'M', color: '#F7C034', number: props.openIncidents.middle },
+            { text: 'L', color: '#1DB440', number: props.openIncidents.low },
+          ].map(({ text, color, number }, index) => {
+            return <g className="safe-level-item" key={`linel${index}`}>
+              <path
+                d={
+                  getBezier({
+                    start: { x: CI.details.startX, y: (index - 1.5) * CI.details.lineStartSpan },
+                    end: { x: CI.details.startX + CI.details.lineLength, y: (index - 1.5) * CI.details.lineEndSpan },
+                    extendS: 15,
+                    extendE: 15,
+                    bezier: [10, 0, 10, 0]
+                  })
+                }
+                stroke={`url(#svg_pt_ic_${text}_lg)`}
+                strokeWidth="1"
+                fill="none"
+              />
+              <circle
+                cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
+                cy={(index - 1.5) * CI.details.lineEndSpan}
+                fill="none"
+                stroke={color}
+                strokeWidth={CI.details.outerWidth}
+                r={CI.details.outerCR}
+              />
+              <circle
+                cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
+                cy={(index - 1.5) * CI.details.lineEndSpan}
+                fill={color}
+                r={CI.details.innerCR}
+              />
+              <text
+                {...CI.details.text as React.SVGProps<SVGTextElement>}
+                y={(index - 1.5) * CI.details.lineEndSpan + 1}
+              >{text}</text>
+              <text
+                {...CI.details.number as React.SVGProps<SVGTextElement>}
+                y={(index - 1.5) * CI.details.lineEndSpan + 1}
+              >{number}</text>
+            </g>
+          })
+        }
+        <text
+          {...CI.details.attackList as React.SVGProps<SVGTextElement>}
+          x={CI.details.attackListX}
+          y={(-1 - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight}
+          fontSize="14"
+          fill="#fff"
+        >MITRE ATT&CK®</text>
+        {
+          props.attackList.map(({ type, num, name }, index) => {
+            return <g key={`linel${index}`}>
+              <text
+                {...CI.details.attackList as React.SVGProps<SVGTextElement>}
+                x={CI.details.attackListX}
+                y={(index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight}
+              >{ num }</text>
+              <text
+                {...CI.details.attackList as React.SVGProps<SVGTextElement>}
+                x={CI.details.attackListNameX}
+                y={(index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight}
+              >{ name }</text>
+              {
+                type === 'critical' ? <path
+                  d={
+                    getBezier({
+                      start: { x: CI.details.rlineStartX, y: -54 },
+                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                      extendS: 15,
+                      extendE: 15,
+                      bezier: [10, 0, 10, 0]
+                    })
+                  }
+                  stroke="#F54E4E"
+                  strokeWidth="1"
+                  fill="none"
+                /> : ''
+              }
+              {
+                type === 'high' ? <path
+                  d={
+                    getBezier({
+                      start: { x: CI.details.rlineStartX, y: -18 },
+                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                      extendS: 15,
+                      extendE: 15,
+                      bezier: [10, 0, 10, 0]
+                    })
+                  }
+                  stroke="#F77E45"
+                  strokeWidth="1"
+                  fill="none"
+                /> : ''
+              }
+              {
+                type === 'middle' ? <path
+                  d={
+                    getBezier({
+                      start: { x: CI.details.rlineStartX, y: 18 },
+                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                      extendS: 15,
+                      extendE: 15,
+                      bezier: [10, 0, 10, 0]
+                    })
+                  }
+                  stroke="#F7C034"
+                  strokeWidth="1"
+                  fill="none"
+                /> : ''
+              }
+              {
+                type === 'low' ? <path
+                  d={
+                    getBezier({
+                      start: { x: CI.details.rlineStartX, y: 54 },
+                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                      extendS: 15,
+                      extendE: 15,
+                      bezier: [10, 0, 10, 0]
+                    })
+                  }
+                  stroke="#1DB440"
+                  strokeWidth="1"
+                  fill="none"
+                /> : ''
+              }
+            </g>
+          })
+        }
       </g>
     </g>
   </g>

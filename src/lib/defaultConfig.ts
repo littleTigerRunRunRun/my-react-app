@@ -9,11 +9,11 @@ export default {
       vp: 40, // 竖直方向padding
     },
     color: {
-      safe: '#01FEF7',
-      low: '#0F8CF0',
-      middle: '#EB9600',
-      high: '#CD3737',
-      critical: '#8A0207'
+      safe: '#00D5F5',
+      low: '#1DB440',
+      middle: '#F7C034',
+      high: '#F77E45',
+      critical: '#F54E4E'
     },
     comp: {
       LabelCount: {
@@ -429,9 +429,79 @@ export default {
       x: 1070,
       y: 0,
       r: 130,
-      innerR: 220,
+      num: 220,
+      innerR: 110,
+      innerNum: 120,
+      innerWidth: 20,
       radiationSpan: 20,
-      radiationLength: 65,
+      radiationLength: 60,
+      percent: {
+        fontSize: 36,
+        fontFamily: 'fontFamilySetting',
+        fontWeight: 'bold',
+        fill: '#FFFFFF',
+        dominantBaseline: 'middle',
+        textAnchor: 'start',
+        x: -10 - 16,
+        y: -34,
+      },
+      subtext: {
+        fontSize: 20,
+        fontFamily: 'fontFamilySetting',
+        fill: '#ABABAC',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: 11,
+      },
+      number: {
+        fontSize: 14,
+        fontFamily: 'fontFamilySetting',
+        fill: '#FFFFFF',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 0,
+        y: 43,
+      }
+    },
+    details: {
+      lineStartSpan: 8,
+      lineEndSpan: 36,
+      startX: 1200,
+      lineLength: 60,
+      innerCR: 10,
+      outerCR: 14,
+      outerWidth: 1,
+      rlineStartX: 1322,
+      text: {
+        fontSize: 14,
+        fontFamily: 'fontFamilySetting',
+        fontWeight: 'bold',
+        fill: '#090D1E ',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 1274,
+        y: 0
+      },
+      number: {
+        fontSize: 14,
+        fontFamily: 'fontFamilySetting',
+        fill: '#ffffff ',
+        dominantBaseline: 'middle',
+        textAnchor: 'middle',
+        x: 1306,
+        y: 0
+      },
+      attackListX: 1391,
+      attackListNameX: 1409,
+      attackListHeight: 24,
+      attackList: {
+        fontSize: 12,
+        fontFamily: 'fontFamilySetting',
+        fill: '#ABABAC ',
+        dominantBaseline: 'middle',
+        textAnchor: 'start'
+      }
     }
   },
   component: {
