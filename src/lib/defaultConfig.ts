@@ -402,8 +402,8 @@ export default {
         fontWeight: 'bold',
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
-        textAnchor: 'start',
-        x: -10 - 16,
+        textAnchor: 'middle',
+        x: 0,
         y: -34,
       },
       subtext: {
@@ -441,8 +441,8 @@ export default {
         fontWeight: 'bold',
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
-        textAnchor: 'start',
-        x: -10 - 16,
+        textAnchor: 'middle',
+        x: 0,
         y: -34,
       },
       subtext: {
@@ -502,6 +502,10 @@ export default {
         dominantBaseline: 'middle',
         textAnchor: 'start'
       }
+    },
+    anime: {
+      fadeInDuration: 1.0,
+      fadeInDelay: 1.0
     }
   },
   component: {

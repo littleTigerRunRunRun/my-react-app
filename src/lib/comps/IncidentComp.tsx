@@ -11,8 +11,14 @@ import ic_manual from '../../assets/ic_manual.png'
 
 function Incident({ props, Back }: {
   props: {
+    total: number,
+    trend: Array<number>
     automated: number,
     manual: number,
+    resolveIncidents: {
+      value: number,
+      total: number
+    },
     openIncidents: {
       low: number,
       middle: number,
@@ -25,6 +31,7 @@ function Incident({ props, Back }: {
 }) {
   const CI = DC.incident
   const CIT = CI.total
+  const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
   const totalRate = 0.22
   const interval = CIT.inner.interval * Math.PI * 2
@@ -44,10 +51,13 @@ function Incident({ props, Back }: {
   ]
   const totalEnd = [totalStart[0], -totalStart[1]]
 
-  const points = new Array(11).fill(0).map((_item, index) => {
+  const trendSortArray = [...props.trend].sort((a, b) => a - b)
+  const max = trendSortArray[trendSortArray.length - 1]
+  const min = trendSortArray[0]
+  const points = props.trend.map((value, index) => {
     return {
       x: -CIT.inner.r + CIT.inner.r * 2 / 10 * index,
-      y: 4 * index + Math.round(Math.random() * 30)
+      y: 4 * index + (value - min) * (30 / (max - min))
     }
   })
   const px = points.map((p) => p.x).sort((a, b) => a - b)
@@ -81,7 +91,7 @@ function Incident({ props, Back }: {
 
   return <g
     className="incident-comp"
-    opacity="1"
+    opacity="0"
   >
     <defs>
       <radialGradient id="svg_pt_ic_rm_rg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
@@ -149,17 +159,15 @@ function Incident({ props, Back }: {
         />
       </mask>
     </defs>
-    {/* <animate
+    <animate
       attributeName="opacity"
       from="0"
       to="1"
-      // dur={`${CLR.anime.fadeInDuration}s`}
-      // begin={`${svgTime + CLR.anime.fadeInDelay}s`}
-      dur={`${1}s`}
-      begin={`${1}s`}
+      dur={`${CI.anime.fadeInDuration}s`}
+      begin={`${svgTime + CI.anime.fadeInDelay}s`}
       repeatCount="1"
       fill="freeze"
-    /> */}
+    />
     <Back text="Incident" />
     <g className="incident-main" transform={`scale(${DC.global.size.width / CI.size.width}) translate(${CI.size.width * -0.5}, 0)`}>
       <GlowBezier
@@ -400,7 +408,7 @@ function Incident({ props, Back }: {
         />
         <text
           {...CIT.mainText as React.SVGProps<SVGTextElement>}
-        >350</text>
+        >{ props.total }</text>
         <text
           {...CIT.subText as React.SVGProps<SVGTextElement>}
         >Total Incidents</text>
@@ -450,7 +458,7 @@ function Incident({ props, Back }: {
         <text
           {...CI.resolveIncidents.percent as React.SVGProps<SVGTextElement>}
         >
-          <tspan>74</tspan>
+          <tspan>{ Math.round(props.resolveIncidents.value / props.resolveIncidents.total * 100) }</tspan>
           <tspan fontWeight="normal" fontSize="14" dx="4" dy="3">%</tspan>
         </text>
         <text
@@ -461,7 +469,7 @@ function Incident({ props, Back }: {
         </text>
         <text
           {...CI.resolveIncidents.number as React.SVGProps<SVGTextElement>}
-        >258</text>
+        >{ props.resolveIncidents.total }</text>
       </g>
       <g className="oepn-incidents" transform={`translate(${CI.openIncidents.x}, ${CI.openIncidents.y})`} mask="url(#svg_pt_ic_oi_radiation_mask)">
         {

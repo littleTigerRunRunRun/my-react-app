@@ -121,6 +121,40 @@ function App() {
         optimizedRate: 0.6, // 下方进度条百分比
         recommendations: 21 // 推荐数值
       }
+    } else if (digArray.join('-') === 'main-incident') {
+      // 请求数据，异步操作
+      return {
+        total: 640,
+        trend: new Array(11).fill(0).map(() => Math.round(Math.random())),
+        automated: 251,
+        manual: 96,
+        resolveIncidents: {
+          value: 112, // 百分比数字 = value / total
+          total: 251
+        },
+        openIncidents: {
+          low: 21,
+          middle: 36,
+          high: 32,
+          critical: 3,
+        },
+        attackList: [
+          { num: 3, name: 'Collection', type: 'critical' },
+          { num: 1, name: 'Command and Control', type: 'normal' },
+          { num: 11, name: 'Credential Access', type: 'high' },
+          { num: 1, name: 'Defense Evasion', type: 'middle' },
+          { num: 2, name: 'Discovery', type: 'normal' },
+          { num: 1, name: 'Exeution', type: 'middle' },
+          { num: 0, name: 'Exfiltration', type: 'normal' },
+          { num: 0, name: 'Impact', type: 'normal' },
+          { num: 2, name: 'Initial Access', type: 'high' },
+          { num: 4, name: 'Lateral Movement', type: 'high' },
+          { num: 2, name: 'Persistence', type: 'middle' },
+          { num: 2, name: 'Privilege Escalation', type: 'normal' },
+          { num: 2, name: 'Reconnaissance', type: 'middle' },
+          { num: 4, name: 'Resouce Development', type: 'normal' },
+        ]
+      }
     }
   }
 
