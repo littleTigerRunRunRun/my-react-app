@@ -15,17 +15,14 @@ function Incident({ props, Back }: {
     trend: Array<number>
     automated: number,
     manual: number,
-    resolveIncidents: {
-      value: number,
-      total: number
-    },
+    resolvedIncidents: number,
     openIncidents: {
       low: number,
       middle: number,
       high: number,
       critical: number,
     },
-    attackList: Array<{ num: number, name: string, type: 'low' | 'middle' | 'high' | 'critical' | 'normal' }>
+    attackList: Array<{ num: number, name: string, type: Array<'low' | 'middle' | 'high' | 'critical' | 'normal'> }>
   },
   Back: (props:{text:string}) => JSX.Element
 }) {
@@ -79,8 +76,8 @@ function Incident({ props, Back }: {
     }).join(' ') + 
     `L${CIT.inner.r},${CIT.inner.r} Z`
 
-  const borderR = CI.resolveIncidents.r + 2
-  const riRadius = CI.resolveIncidents.r + CI.resolveIncidents.radiationSpan + CI.resolveIncidents.radiationLength
+  const borderR = CI.resolvedIncidents.r + 2
+  const riRadius = CI.resolvedIncidents.r + CI.resolvedIncidents.radiationSpan + CI.resolvedIncidents.radiationLength
 
   const total = props.openIncidents.low + props.openIncidents.middle + props.openIncidents.high + props.openIncidents.critical
   const oiRadiationVisual = [
@@ -223,7 +220,7 @@ function Incident({ props, Back }: {
       <GlowBezier
         k={'atr'}
         start={CI.curve.automated}
-        end={{ x: CI.curve.resolveIncidents.x, y: CI.curve.resolveIncidents.y - 1 }}
+        end={{ x: CI.curve.resolvedIncidents.x, y: CI.curve.resolvedIncidents.y - 1 }}
         extendS={0}
         extendE={0}
         bezier={[20, 0, 20, 0]}
@@ -298,7 +295,7 @@ function Incident({ props, Back }: {
       <GlowBezier
         k={'mtr'}
         start={{ x: CI.curve.manual.x, y: CI.curve.manual.y - 12 }}
-        end={{ x: CI.curve.resolveIncidents.x, y: CI.curve.resolveIncidents.y + 20 }}
+        end={{ x: CI.curve.resolvedIncidents.x, y: CI.curve.resolvedIncidents.y + 20 }}
         extendS={80}
         extendE={0}
         bezier={[50, 0, 0, 0]}
@@ -420,19 +417,19 @@ function Incident({ props, Back }: {
           mask="url(#svg_pt_ic_curve_mask)"
         />
       </g>
-      <g className="resolve-incidents" transform={`translate(${CI.resolveIncidents.x}, ${CI.resolveIncidents.y})`} mask="url(#svg_pt_ic_ri_radiation_mask)">
+      <g className="resolve-incidents" transform={`translate(${CI.resolvedIncidents.x}, ${CI.resolvedIncidents.y})`} mask="url(#svg_pt_ic_ri_radiation_mask)">
         {
-          new Array(CI.resolveIncidents.num).fill(1).map((_item, index) => {
+          new Array(CI.resolvedIncidents.num).fill(1).map((_item, index) => {
             return <line
               key={`line_${index}`}
-              x1={CI.resolveIncidents.r + CI.resolveIncidents.radiationSpan}
+              x1={CI.resolvedIncidents.r + CI.resolvedIncidents.radiationSpan}
               y1="0"
-              x2={CI.resolveIncidents.r + CI.resolveIncidents.radiationSpan + CI.resolveIncidents.radiationLength}
+              x2={CI.resolvedIncidents.r + CI.resolvedIncidents.radiationSpan + CI.resolvedIncidents.radiationLength}
               y2="0"
               stroke={"#0089F5"}
               strokeWidth="1"
               strokeOpacity="0.4"
-              transform={`rotate(${index / CI.resolveIncidents.num * 360} 0, 0)`}
+              transform={`rotate(${index / CI.resolvedIncidents.num * 360} 0, 0)`}
             />
           })
         }
@@ -446,7 +443,7 @@ function Incident({ props, Back }: {
           fill="#008FFF"
         />
         <circle
-          r={CI.resolveIncidents.r}
+          r={CI.resolvedIncidents.r}
           cx={0}
           cy={0}
           fill="#000"
@@ -456,20 +453,20 @@ function Incident({ props, Back }: {
           }}
         />
         <text
-          {...CI.resolveIncidents.percent as React.SVGProps<SVGTextElement>}
+          {...CI.resolvedIncidents.percent as React.SVGProps<SVGTextElement>}
         >
-          <tspan>{ Math.round(props.resolveIncidents.value / props.resolveIncidents.total * 100) }</tspan>
+          <tspan>{ Math.round(props.resolvedIncidents / props.total * 100) }</tspan>
           <tspan fontWeight="normal" fontSize="14" dx="4" dy="3">%</tspan>
         </text>
         <text
-          {...CI.resolveIncidents.subtext as React.SVGProps<SVGTextElement>}
+          {...CI.resolvedIncidents.subtext as React.SVGProps<SVGTextElement>}
         >
           <tspan x="0">Resolved</tspan>
           <tspan x="0" dy="20">Incidents</tspan>
         </text>
         <text
-          {...CI.resolveIncidents.number as React.SVGProps<SVGTextElement>}
-        >{ props.resolveIncidents.total }</text>
+          {...CI.resolvedIncidents.number as React.SVGProps<SVGTextElement>}
+        >{ props.resolvedIncidents }</text>
       </g>
       <g className="oepn-incidents" transform={`translate(${CI.openIncidents.x}, ${CI.openIncidents.y})`} mask="url(#svg_pt_ic_oi_radiation_mask)">
         {
@@ -522,7 +519,7 @@ function Incident({ props, Back }: {
         <text
           {...CI.openIncidents.percent as React.SVGProps<SVGTextElement>}
         >
-          <tspan>{ Math.round(props.openIncidents.low / total * 100) }</tspan>
+          <tspan>{ Math.round(total / props.total * 100) }</tspan>
           <tspan fontWeight="normal" fontSize="14" dx="4" dy="6">%</tspan>
         </text>
         <text
@@ -603,68 +600,68 @@ function Incident({ props, Back }: {
                 y={(index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight}
               >{ name }</text>
               {
-                type === 'critical' ? <path
-                  d={
-                    getBezier({
-                      start: { x: CI.details.rlineStartX, y: -54 },
-                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
-                      extendS: 15,
-                      extendE: 15,
-                      bezier: [10, 0, 10, 0]
-                    })
-                  }
-                  stroke="#F54E4E"
-                  strokeWidth="1"
-                  fill="none"
-                /> : ''
-              }
-              {
-                type === 'high' ? <path
-                  d={
-                    getBezier({
-                      start: { x: CI.details.rlineStartX, y: -18 },
-                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
-                      extendS: 15,
-                      extendE: 15,
-                      bezier: [10, 0, 10, 0]
-                    })
-                  }
-                  stroke="#F77E45"
-                  strokeWidth="1"
-                  fill="none"
-                /> : ''
-              }
-              {
-                type === 'middle' ? <path
-                  d={
-                    getBezier({
-                      start: { x: CI.details.rlineStartX, y: 18 },
-                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
-                      extendS: 15,
-                      extendE: 15,
-                      bezier: [10, 0, 10, 0]
-                    })
-                  }
-                  stroke="#F7C034"
-                  strokeWidth="1"
-                  fill="none"
-                /> : ''
-              }
-              {
-                type === 'low' ? <path
-                  d={
-                    getBezier({
-                      start: { x: CI.details.rlineStartX, y: 54 },
-                      end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
-                      extendS: 15,
-                      extendE: 15,
-                      bezier: [10, 0, 10, 0]
-                    })
-                  }
-                  stroke="#1DB440"
-                  strokeWidth="1"
-                  fill="none"
-                /> : ''
+                type.map((t, tIndex) => {
+                  if (t === 'critical') return <path
+                    key={`linel_${index}_${tIndex}`}
+                    d={
+                      getBezier({
+                        start: { x: CI.details.rlineStartX, y: -54 },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        extendS: 15,
+                        extendE: 15,
+                        bezier: [10, 0, 10, 0]
+                      })
+                    }
+                    stroke="#F54E4E"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                  if (t === 'high') return <path
+                    key={`linel_${index}_${tIndex}`}
+                    d={
+                      getBezier({
+                        start: { x: CI.details.rlineStartX, y: -18 },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        extendS: 15,
+                        extendE: 15,
+                        bezier: [10, 0, 10, 0]
+                      })
+                    }
+                    stroke="#F77E45"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                  if (t === 'middle') return <path
+                    key={`linel_${index}_${tIndex}`}
+                    d={
+                      getBezier({
+                        start: { x: CI.details.rlineStartX, y: 18 },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        extendS: 15,
+                        extendE: 15,
+                        bezier: [10, 0, 10, 0]
+                      })
+                    }
+                    stroke="#F7C034"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                  if (t === 'low') return <path
+                    key={`linel_${index}_${tIndex}`}
+                    d={
+                      getBezier({
+                        start: { x: CI.details.rlineStartX, y: 54 },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        extendS: 15,
+                        extendE: 15,
+                        bezier: [10, 0, 10, 0]
+                      })
+                    }
+                    stroke="#1DB440"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                })
               }
             </g>
           })

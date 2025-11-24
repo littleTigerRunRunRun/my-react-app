@@ -379,7 +379,7 @@ export default {
         x: 588,
         y: 214
       },
-      resolveIncidents: {
+      resolvedIncidents: {
         x: 825,
         y: -214,
       },
@@ -388,7 +388,7 @@ export default {
         y: 0
       }
     },
-    resolveIncidents: {
+    resolvedIncidents: {
       // 中心xy位置
       x: 825,
       y: -194,

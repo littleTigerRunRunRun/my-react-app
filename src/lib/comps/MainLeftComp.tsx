@@ -48,7 +48,7 @@ function LeftComp({ props }:{ props: {
   
   if (props.extraSource > 0) {
     items.push({
-      name: 'Date Sources',
+      name: 'Data Sources',
       count: props.extraSource,
       status: 'normal',
       size: 0
