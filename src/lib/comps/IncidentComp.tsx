@@ -53,8 +53,8 @@ function Incident({ props, Back }: {
   const min = trendSortArray[0]
   const points = props.trend.map((value, index) => {
     return {
-      x: -CIT.inner.r + CIT.inner.r * 2 / 10 * index,
-      y: 4 * index + (value - min) * (30 / (max - min))
+      x: -CIT.inner.r + CIT.inner.r * 2 / (props.trend.length - 1) * index,
+      y: 60 - (value - min) * (35 / (max - min))
     }
   })
   const px = points.map((p) => p.x).sort((a, b) => a - b)

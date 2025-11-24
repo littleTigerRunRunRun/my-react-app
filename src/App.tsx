@@ -125,7 +125,7 @@ function App() {
       // 请求数据，异步操作
       return {
         total: 640,
-        trend: new Array(11).fill(0).map(() => Math.round(Math.random())),
+        trend: [0, 2, 12, 0, 1, 0, 4, 0, 11], // new Array(11).fill(0).map(() => Math.round(Math.random())),
         automated: 251,
         manual: 96,
         resolvedIncidents: 548,
