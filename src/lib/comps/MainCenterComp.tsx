@@ -43,7 +43,7 @@ function CenterComp({ props }:{
 
   const formatedEvent = formatNumberTo4SignificantDigits(props.eventIngestion, byteUnits)
   const eventNum = parseFloat(formatedEvent)
-  const eventUnit = formatedEvent.replace(`${eventNum}`, '') + 'B/24H'
+  const eventUnit = formatedEvent.replace(`${eventNum}`, '') + '/24H'
 
   const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedAlerts)
   const preventedNum = parseFloat(formatedPrevented)
