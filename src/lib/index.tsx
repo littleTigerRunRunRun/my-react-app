@@ -217,12 +217,12 @@ function Main({
               <MainLeftComp
                 props={data.left}
               />
-              <MainRightComp
+              {/* <MainRightComp
                 props={data.right}
               />
               <MainCenterComp
                 props={data.center}
-              />
+              /> */}
             </g>
           </CSSTransition>
         }

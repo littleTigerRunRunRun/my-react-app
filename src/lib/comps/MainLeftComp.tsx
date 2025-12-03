@@ -17,7 +17,7 @@ function LeftComp({ props }:{ props: {
 } }) {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
-  const height = props.sources.length * CL.height + CL.iconMaxHeight
+  const height = (props ? props.sources.length : 8) * CL.height + CL.iconMaxHeight
   const svgTime = subscriber.get(Value.MAIN_LEFT_ANIME) ? -10000 : (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
   
   useEffect(() => {
@@ -37,7 +37,12 @@ function LeftComp({ props }:{ props: {
     name: string,
     status: string,
     size: number
-  }> = props.sources.map((item) => {
+  }> = (props ? props.sources : new Array(8).fill({
+    pic: '',
+    name: '',
+    status: 'nodata',
+    size: 0
+  })).map((item) => {
     return {
       pic: item.pic,
       name: item.name,
@@ -46,7 +51,7 @@ function LeftComp({ props }:{ props: {
     }
   })
   
-  if (props.extraSource > 0) {
+  if (props && props.extraSource > 0) {
     items.push({
       name: 'Data Sources',
       count: props.extraSource,
@@ -184,6 +189,14 @@ function LeftComp({ props }:{ props: {
               />
             </g>
             {
+              item.status === 'nodata' ? <g className="nodata-info">
+                <text>No data sources yet</text>
+                <text>Connect yout data</text>
+                <text>source to start</text>
+                <text>collecting alerts</text>
+              </g> : ''
+            }
+            {
               item.status === 'danger' ? <>
                 <GlowBezier
                   k={`ml_${i}`}
@@ -236,12 +249,12 @@ function LeftComp({ props }:{ props: {
                     flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
                   }}
                   startAnimeBegin={`${svgTime + CL.anime.lineBegin(i)}s`}
-                  anime={Event.LINE_ANIME}
+                  anime={item.status === 'nodata' ? undefined : Event.LINE_ANIME}
                 />
                 {
                   item.count ? <>
                     <GlowBezier
-                      k={`ml_${i}`}
+                      k={`ml_${i}_e1`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) - 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.4 * CL.lineWidth}
@@ -255,7 +268,7 @@ function LeftComp({ props }:{ props: {
                       anime={Event.LINE_ANIME}
                     />
                     <GlowBezier
-                      k={`ml_${i}`}
+                      k={`ml_${i}_e2`}
                       start={{ x: CL.lineStartPosition, y: CL.height * (i - (items.length - 1) * 0.5) + 2 }}
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.4 * CL.lineWidth}
@@ -274,7 +287,7 @@ function LeftComp({ props }:{ props: {
                   cx={CL.lineStartPosition}
                   cy={CL.height * (i - (items.length - 1) * 0.5)}
                   opacity="0"
-                  {...(CL.linePoint.normalAttr)}
+                  {...(Object.assign({}, CL.linePoint.normalAttr, item.status === 'nodata' ? { fill: '#4E5969 '} : {}))}
                 >
                   <animate
                     attributeName="opacity"

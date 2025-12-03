@@ -9,6 +9,11 @@ import { Event, Value, subscriber } from '../utils/Subscriber'
 import ic_automated from '../../assets/ic_automated.png'
 import ic_manual from '../../assets/ic_manual.png'
 
+function customSort(arr:Array<'low' | 'middle' | 'high' | 'critical' | 'normal'>) {
+  const order = ['normal', 'low', 'middle', 'high', 'critical'];
+  return arr.sort((a, b) => order.indexOf(b) - order.indexOf(a));
+}
+
 function Incident({ props, Back }: {
   props: {
     total: number,
@@ -600,13 +605,14 @@ function Incident({ props, Back }: {
                 y={(index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight}
               >{ name }</text>
               {
-                type.map((t, tIndex) => {
+                customSort(type).map((t, tIndex) => {
+                  // tIndex - (type.length - 1) * 0.5
                   if (t === 'critical') return <path
                     key={`linel_${index}_${tIndex}`}
                     d={
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: -54 },
-                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
                         extendS: 15,
                         extendE: 15,
                         bezier: [10, 0, 10, 0]
@@ -621,7 +627,7 @@ function Incident({ props, Back }: {
                     d={
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: -18 },
-                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
                         extendS: 15,
                         extendE: 15,
                         bezier: [10, 0, 10, 0]
@@ -636,7 +642,7 @@ function Incident({ props, Back }: {
                     d={
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: 18 },
-                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
                         extendS: 15,
                         extendE: 15,
                         bezier: [10, 0, 10, 0]
@@ -651,7 +657,7 @@ function Incident({ props, Back }: {
                     d={
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: 54 },
-                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight },
+                        end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
                         extendS: 15,
                         extendE: 15,
                         bezier: [10, 0, 10, 0]

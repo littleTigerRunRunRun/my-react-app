@@ -467,6 +467,7 @@ export default {
     details: {
       lineStartSpan: 8,
       lineEndSpan: 36,
+      lineEndTypeSpan: 2,
       startX: 1200,
       lineLength: 60,
       innerCR: 10,
