@@ -15,10 +15,12 @@ import { subscriber, Event, Value } from './utils/Subscriber'
 
 function Main({
   data,
-  onDig
+  onDig,
+  addDataSource
 }:{
   data: Record<string, any>,
-  onDig?: (digArray: Array<string>) => any
+  onDig?: (digArray: Array<string>) => any,
+  addDataSource: () => void
 }) {
   const DCGSize = DC.global.size
   const [digArray, setDigArray] = useState(['main']) //, 'dataInventory' 'incident'
@@ -216,6 +218,7 @@ function Main({
             <g className="main" ref={mainRef}>
               <MainLeftComp
                 props={data.left}
+                addDataSource={addDataSource}
               />
               {/* <MainRightComp
                 props={data.right}

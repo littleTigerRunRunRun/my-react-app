@@ -11,10 +11,10 @@ const byteUnits = [
   { threshold: 1024, unit: 'K' }
 ]
 
-function LeftComp({ props }:{ props: {
+function LeftComp({ props, addDataSource }:{ props: {
   extraSource: number,
   sources: Array<{ pic?: string, name: string, status: string, size: number }>
-} }) {
+}, addDataSource: () => void }) {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = (props ? props.sources.length : 8) * CL.height + CL.iconMaxHeight
@@ -147,6 +147,49 @@ function LeftComp({ props }:{ props: {
         </g>
       })
     }
+    {
+      !props ? <g className="nodata-info">
+        <text
+          fontSize={16}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#F6F6F6'}
+          dominantBaseline={'middle'}
+          x={0}
+          y={-52}
+        >No data sources yet</text>
+        <text
+          fontSize={16}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#929293'}
+          dominantBaseline={'middle'}
+          x={0}
+          y={-24}>Connect yout data</text>
+        <text
+          fontSize={16}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#929293'}
+          dominantBaseline={'middle'}
+          x={0}
+          y={0}>source to start</text>
+        <text
+          fontSize={16}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#929293'}
+          dominantBaseline={'middle'}
+          x={0}
+          y={24}>collecting alerts</text>
+        <text
+          fontSize={14}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#3C7EFF'}
+          dominantBaseline={'middle'}
+          x={0}
+          y={55}
+          className="nodata-add"
+          onClick={addDataSource}
+        >+ Add Data Source</text>
+      </g> : ''
+    }
     <g className="line-group" mask="url(#svg_pt_mask_left_line)">
       {
         items.map((item, i) => {
@@ -154,46 +197,40 @@ function LeftComp({ props }:{ props: {
           const sizeNum = parseFloat(size)
           const sizeUnit = size.replace(`${sizeNum}`, '') + 'B/24H'
           return <g className="left-line" key={`line_${i}`}>
-            <g className="traffic" transform={`translate(${CL.lineStartPosition}, ${CL.height * (i - (items.length - 1) * 0.5)})`}>
-              <text
-                fontSize="12"
-                x={20}
-                y={-30}
-                dominantBaseline="middle"
-                textAnchor="start"
-              >
-                <tspan fill="#fff">{ sizeNum }</tspan>
-                <tspan dx="3" fill="#C5C5C5">{ sizeUnit }</tspan>
-              </text>
-              <circle
-                cx={28}
-                cy={0}
-                r="2"
-                fill="#fff"
-              />
-              <circle
-                cx={28}
-                cy={0}
-                r="4"
-                stroke="#fff"
-                strokeWidth="0.8"
-                fill="none"
-              />
-              <line
-                x1={28}
-                y1={-4}
-                x2={28}
-                y2={-20}
-                stroke="#fff"
-                strokeWidth="2"
-              />
-            </g>
             {
-              item.status === 'nodata' ? <g className="nodata-info">
-                <text>No data sources yet</text>
-                <text>Connect yout data</text>
-                <text>source to start</text>
-                <text>collecting alerts</text>
+              item.status !== 'nodata' ? <g className="traffic" transform={`translate(${CL.lineStartPosition}, ${CL.height * (i - (items.length - 1) * 0.5)})`}>
+                <text
+                  fontSize="12"
+                  x={20}
+                  y={-30}
+                  dominantBaseline="middle"
+                  textAnchor="start"
+                >
+                  <tspan fill="#fff">{ sizeNum }</tspan>
+                  <tspan dx="3" fill="#C5C5C5">{ sizeUnit }</tspan>
+                </text>
+                <circle
+                  cx={28} 
+                  cy={0}
+                  r="2"
+                  fill="#fff"
+                />
+                <circle
+                  cx={28}
+                  cy={0}
+                  r="4"
+                  stroke="#fff"
+                  strokeWidth="0.8"
+                  fill="none"
+                />
+                <line
+                  x1={28}
+                  y1={-4}
+                  x2={28}
+                  y2={-20}
+                  stroke="#fff"
+                  strokeWidth="2"
+                />
               </g> : ''
             }
             {

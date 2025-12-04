@@ -155,6 +155,11 @@ function App() {
     }
   }
 
+  const addDataSource = () => {
+    // 空数据时左侧的添加按钮点击事件
+    console.log ('add data source')
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -163,6 +168,7 @@ function App() {
           <DiagramMain
             data={data}
             onDig={onDig}
+            addDataSource={addDataSource}
           />
         } />
       </Routes>

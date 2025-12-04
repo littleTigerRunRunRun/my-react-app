@@ -21,6 +21,13 @@
     .left-item{
       cursor: pointer;
     }
+    .nodata-add{
+      cursor: pointer;
+      transition: fill 0.2s;
+      &:hover {
+        fill: #70a0ff;
+      }
+    }
     .left-line{
       opacity: 0.8;
       cursor: pointer;

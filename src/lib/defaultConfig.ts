@@ -347,7 +347,7 @@ export default {
       },
       mainText: {
         fontSize: 36,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fontWeight: 'bold',
         fill: '#D8D8D8',
         dominantBaseline: 'middle',
@@ -357,7 +357,7 @@ export default {
       },
       subText: {
         fontSize: 22,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#ABABAC ',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -398,7 +398,7 @@ export default {
       num: 120,
       percent: {
         fontSize: 28,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fontWeight: 'bold',
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
@@ -408,7 +408,7 @@ export default {
       },
       subtext: {
         fontSize: 14,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#ABABAC',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -417,7 +417,7 @@ export default {
       },
       number: {
         fontSize: 14,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -437,7 +437,7 @@ export default {
       radiationLength: 60,
       percent: {
         fontSize: 36,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fontWeight: 'bold',
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
@@ -447,7 +447,7 @@ export default {
       },
       subtext: {
         fontSize: 20,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#ABABAC',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -456,7 +456,7 @@ export default {
       },
       number: {
         fontSize: 14,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#FFFFFF',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -476,7 +476,7 @@ export default {
       rlineStartX: 1322,
       text: {
         fontSize: 14,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fontWeight: 'bold',
         fill: '#090D1E ',
         dominantBaseline: 'middle',
@@ -486,7 +486,7 @@ export default {
       },
       number: {
         fontSize: 14,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#ffffff ',
         dominantBaseline: 'middle',
         textAnchor: 'middle',
@@ -498,7 +498,7 @@ export default {
       attackListHeight: 24,
       attackList: {
         fontSize: 12,
-        fontFamily: 'fontFamilySetting',
+        fontFamily: fontFamilySetting,
         fill: '#ABABAC ',
         dominantBaseline: 'middle',
         textAnchor: 'start'
