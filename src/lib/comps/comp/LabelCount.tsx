@@ -3,7 +3,7 @@ import { limit4 } from '../../utils/index'
 import ScrollNumber from './ScrollNumber'
 
 function LabelCount(props: {
-  count:number,
+  count?:number,
   labels: Array<string>,
   transform?: string,
   labelAttr: React.SVGProps<SVGTextElement>,
@@ -16,10 +16,20 @@ function LabelCount(props: {
     transform={props.transform}
   >
     <g className="hover-g">
-      <ScrollNumber
-        count={limit4(props.count)}
-        attr={props.labelAttr}
-      />
+      {
+        props.count === undefined ? <text
+          fontSize={32}
+          fontFamily={'PingFang SC, Nunito'}
+          fill={'#FFFFFF'}
+          dominantBaseline={'middle'}
+          textAnchor={'middle'}
+          x={0}
+          y={-16}
+        >--</text> : <ScrollNumber
+          count={limit4(props.count)}
+          attr={props.labelAttr}
+        />
+      }
       {
         props.labels.map((label, index) => {
           return <text

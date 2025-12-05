@@ -200,7 +200,7 @@ function RightComp({ props }:{ props: {
         fill="freeze"
       />
       <LabelCount 
-        count={props.automated}
+        count={props ? props.automated : undefined}
         labels={['Automated']}
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
@@ -226,7 +226,7 @@ function RightComp({ props }:{ props: {
         fill="freeze"
       />
       <LabelCount 
-        count={props.resolvedIncidents}
+        count={props ? props.resolvedIncidents : undefined}
         labels={['Resolved Incidents']}
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
@@ -252,7 +252,7 @@ function RightComp({ props }:{ props: {
         fill="freeze"
       />
       <LabelCount 
-        count={props.manual}
+        count={props ? props.manual : undefined}
         labels={['Manual']}
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}
@@ -278,7 +278,7 @@ function RightComp({ props }:{ props: {
         fill="freeze"
       />
       <LabelCount 
-        count={props.openIncidents}
+        count={props ? props.openIncidents : undefined}
         labels={['Open Incidents']}
         labelAttr={CR.label as React.SVGProps<SVGTextElement>}
         countAttr={CR.count as React.SVGProps<SVGTextElement>}

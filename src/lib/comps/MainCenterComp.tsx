@@ -37,17 +37,38 @@ function CenterComp({ props }:{
     if (videoRef.current) videoRef.current.play()
   }, CC.anime.videoPlayDelay)
 
-  const formatedData = formatNumberTo4SignificantDigits(props.dataIngestion, byteUnits)
-  const dataNum = parseFloat(formatedData)
-  const dataUnit = formatedData.replace(`${dataNum}`, '') + 'B/24H'
+  let dataNum
+  let dataUnit
+  if (props) {
+    const formatedData = formatNumberTo4SignificantDigits(props.dataIngestion, byteUnits)
+    dataNum = parseFloat(formatedData)
+    dataUnit = formatedData.replace(`${dataNum}`, '') + 'B/24H'
+  } else {
+    dataNum = '--'
+    dataUnit = 'B/24H'
+  }
 
-  const formatedEvent = formatNumberTo4SignificantDigits(props.eventIngestion, byteUnits)
-  const eventNum = parseFloat(formatedEvent)
-  const eventUnit = formatedEvent.replace(`${eventNum}`, '') + '/24H'
+  let eventNum
+  let eventUnit
+  if (props) {
+    const formatedEvent = formatNumberTo4SignificantDigits(props.eventIngestion, byteUnits)
+    eventNum = parseFloat(formatedEvent)
+    eventUnit = formatedEvent.replace(`${eventNum}`, '') + '/24H'
+  } else {
+    eventNum = '--'
+    eventUnit = '/24H'
+  }
 
-  const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedAlerts)
-  const preventedNum = parseFloat(formatedPrevented)
-  const preventedUnit = formatedPrevented.replace(`${preventedNum}`, '')
+  let preventedNum
+  let preventedUnit
+  if (props) {
+    const formatedPrevented = formatNumberTo4SignificantDigits(props.preventedAlerts)
+    preventedNum = parseFloat(formatedPrevented)
+    preventedUnit = formatedPrevented.replace(`${preventedNum}`, '')
+  } else {
+    preventedNum = '--'
+    preventedUnit = ''
+  }
 
   return <g
     className="center-comp"
@@ -121,7 +142,7 @@ function CenterComp({ props }:{
         fill="rgba(255, 255, 255, 0.4)"
       /> */}
       <LabelCount 
-        count={props.alerts}
+        count={props ? props.alerts : undefined}
         labels={['Alerts']}
         labelAttr={CC.label as React.SVGProps<SVGTextElement>}
         countAttr={CC.count as React.SVGProps<SVGTextElement>}
@@ -134,11 +155,11 @@ function CenterComp({ props }:{
         x="63"
         y="426"
       >
-        <tspan>{props.rules}</tspan>
+        <tspan>{props ? props.rules : '--'}</tspan>
         <tspan dx="5" fill="#929293">Rules</tspan>
       </text>
       <LabelCount 
-        count={props.incidents}
+        count={props ? props.incidents : undefined}
         labels={['Incidents']}
         labelAttr={CC.label as React.SVGProps<SVGTextElement>}
         countAttr={CC.count as React.SVGProps<SVGTextElement>}
@@ -149,12 +170,12 @@ function CenterComp({ props }:{
     <text
       {...DC.global.textAttr.mainTitle as React.SVGProps<SVGTextElement>}
     >
-      {getGreeting()}, {props.userName}!
+      {getGreeting()}{props ? (', ' + props.userName) : ''}!
     </text>
     <text
       {...DC.global.textAttr.mainSubtitle as React.SVGProps<SVGTextElement>}
     >
-      At your service for {props.day} days.
+      At your service for {props ? props.day : '--'} days.
     </text>
     <g className="bottom-info" transform="translate(-757, 344)">
       <rect
@@ -262,7 +283,7 @@ function CenterComp({ props }:{
         x="60"
         y="86"
       >
-        <tspan>{props.alertAnalysis}</tspan>
+        <tspan>{props ? props.alertAnalysis : '--'}</tspan>
         <tspan fill="#C5C5C5" fontSize="16" dx="6">%</tspan>
       </text>
     </g>

@@ -220,12 +220,12 @@ function Main({
                 props={data.left}
                 addDataSource={addDataSource}
               />
-              {/* <MainRightComp
+              <MainRightComp
                 props={data.right}
               />
               <MainCenterComp
                 props={data.center}
-              /> */}
+              />
             </g>
           </CSSTransition>
         }
