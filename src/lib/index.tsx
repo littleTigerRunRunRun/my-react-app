@@ -49,7 +49,10 @@ function Main({
 
   const [incident, setIncident] = useState<any>({
     total: 204,
-    trend: new Array(11).fill(0).map(() => Math.round(Math.random())),
+    trend: new Array(11).fill(0).map(() => ({
+      value: Math.round(Math.random()),
+      time: '2025-09-25 00:00:00'
+    })),
     automated: 251,
     manual: 96,
     resolvedIncidents: 112,
@@ -119,7 +122,7 @@ function Main({
         width="100%"
         height="100%"
         viewBox={`${DCGSize.width * -0.5 - DCGSize.hp} ${DCGSize.height * -0.5 - DCGSize.vp} ${DCGSize.width + DCGSize.hp * 2} ${DCGSize.height + DCGSize.vp * 2}`}
-        // viewBox="-680 150 200 150"
+        // viewBox="-720 -170 400 350"
         style={{
           animationDuration: `${DC.global.anime.duration}s`,
           animationDelay: `${DC.global.anime.delay}s`

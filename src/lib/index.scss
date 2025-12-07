@@ -74,6 +74,19 @@
     }
   }
 
+  .trend-hover-group{
+    .hover-area {
+      cursor: pointer;
+      &:hover ~ .hover-info {
+        opacity: 1;
+      }
+    }
+    .hover-info{
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+  }
+
   .comp-interact-node{
     cursor: pointer;
     .inner-path, .outer-path{

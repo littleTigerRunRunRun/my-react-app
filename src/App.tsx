@@ -126,7 +126,17 @@ function App() {
       // 请求数据，异步操作
       return {
         total: 640,
-        trend: [0, 2, 12, 0, 1, 0, 4, 0, 11], // new Array(11).fill(0).map(() => Math.round(Math.random())),
+        trend: [
+          { value: 0, time: '2025-09-25 00:00:00'}, 
+          { value: 2, time: '2025-09-25 00:00:00'}, 
+          { value: 12, time: '2025-09-25 00:00:00'}, 
+          { value: 0, time: '2025-09-25 00:00:00'}, 
+          { value: 1, time: '2025-09-25 00:00:00'}, 
+          { value: 0, time: '2025-09-25 00:00:00'}, 
+          { value: 4, time: '2025-09-25 00:00:00'}, 
+          { value: 0, time: '2025-09-25 00:00:00'}, 
+          { value: 11, time: '2025-09-25 00:00:00'},
+        ], // new Array(11).fill(0).map(() => Math.round(Math.random())),
         automated: 251,
         manual: 96,
         resolvedIncidents: 548,

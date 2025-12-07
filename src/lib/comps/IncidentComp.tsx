@@ -17,7 +17,7 @@ function customSort(arr:Array<'low' | 'middle' | 'high' | 'critical' | 'normal'>
 function Incident({ props, Back }: {
   props: {
     total: number,
-    trend: Array<number>
+    trend: Array<{ value: number, time: string }>
     automated: number,
     manual: number,
     resolvedIncidents: number,
@@ -53,27 +53,22 @@ function Incident({ props, Back }: {
   ]
   const totalEnd = [totalStart[0], -totalStart[1]]
 
-  const trendSortArray = [...props.trend].sort((a, b) => a - b)
-  const max = trendSortArray[trendSortArray.length - 1]
-  const min = trendSortArray[0]
-  const points = props.trend.map((value, index) => {
+  const trendSortArray = [...props.trend].sort((a, b) => a.value - b.value)
+  const max = trendSortArray[trendSortArray.length - 1].value
+  const min = trendSortArray[0].value
+  const pointWidth = CIT.inner.r * 2 / (props.trend.length - 1)
+  const points = props.trend.map(({ value, time }, index) => {
     return {
-      x: -CIT.inner.r + CIT.inner.r * 2 / (props.trend.length - 1) * index,
-      y: 60 - (value - min) * (35 / (max - min))
+      x: -CIT.inner.r + pointWidth * index,
+      y: 60 - (value - min) * (35 / (max - min)),
+      time,
+      value
     }
   })
-  const px = points.map((p) => p.x).sort((a, b) => a - b)
-  const py = points.map((p) => p.y).sort((a, b) => a - b)
-  // console.log(px, py)
-  // [
-  //   { x: 0, y: 100 },
-  //   { x: 100, y: 20 },
-  //   { x: 200, y: 40 },
-  //   { x: 300, y: 80 },
-  // ]
-  const originPath = points.map((point, index) => {
-    return `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`
-  }).join(' ')
+  // const originPath = points.map((point, index) => {
+  //   return `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`
+  // }).join(' ')
+  // console.log(points)
   const smoothPath = 
     `M${-CIT.inner.r},${CIT.inner.r}` +
     createSmoothLine(points)?.map((point) => {
@@ -395,7 +390,7 @@ function Incident({ props, Back }: {
           strokeLinecap="round"
           fill="none"
           style={{
-            filter: `drop-shadow(0px 0px 20px #00DEFE)`
+            filter: `drop-shadow(0px 0px 8px #00DEFE)`
           }}
         />
         <path
@@ -405,7 +400,7 @@ function Incident({ props, Back }: {
           strokeLinecap="round"
           fill="none"
           style={{
-            filter: `drop-shadow(0px 0px 20px #008FFF)`
+            filter: `drop-shadow(0px 0px 8px #008FFF)`
           }}
         />
         <text
@@ -416,11 +411,79 @@ function Incident({ props, Back }: {
         >Total Incidents</text>
         <path
           d={smoothPath}
-          fill="none"
+          fill="#008FFF"
+          fillOpacity="0.1"
           stroke="#008FFF"
           strokeWidth="2"
           mask="url(#svg_pt_ic_curve_mask)"
         />
+        {
+          points.map((point, index) => {
+            return <g className="trend-hover-group" key={`point_${index}`}>
+              <rect
+                className="hover-area"
+                x={point.x}
+                y={0}
+                width={pointWidth}
+                height={CIT.inner.r}
+                fill="#fff"
+                fillOpacity={0}
+                mask="url(#svg_pt_ic_curve_mask)"
+              />
+              <g className="hover-info">
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r="2"
+                  fill="#008FFF"
+                />
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r="4"
+                  fill="none"
+                  stroke="#008FFF"
+                />
+                <rect
+                  x={point.x - 0.5}
+                  y={point.y - 24}
+                  width={1}
+                  height={20}
+                  fill="#008FFF"
+                />
+                <rect
+                  x={point.x - 68}
+                  y={point.y - 74}
+                  width={136}
+                  height={50}
+                  fill="#1D2129"
+                />
+                <text
+                  fontSize={12}
+                  fontFamily={'PingFang SC, Nunito'}
+                  fill={'#C5C5C5'}
+                  dominantBaseline={'middle'}
+                  textAnchor={'middle'}
+                  x={point.x}
+                  y={point.y - 60}
+                >
+                  { point.time }
+                </text>
+                <text
+                  fontSize={14}
+                  fontFamily={'PingFang SC, Nunito'}
+                  fill={'#ffffff'}
+                  dominantBaseline={'middle'}
+                  textAnchor={'middle'}
+                  x={point.x}
+                  y={point.y - 39}
+                >
+                  { point.value }
+                </text>
+              </g>
+            </g>
+          })
+        }
       </g>
       <g className="resolve-incidents" transform={`translate(${CI.resolvedIncidents.x}, ${CI.resolvedIncidents.y})`} mask="url(#svg_pt_ic_ri_radiation_mask)">
         {

@@ -154,6 +154,7 @@ function CenterComp({ props }:{
         fontSize="16"
         x="63"
         y="426"
+        style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.8)' }}
       >
         <tspan>{props ? props.rules : '--'}</tspan>
         <tspan dx="5" fill="#929293">Rules</tspan>
