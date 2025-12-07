@@ -164,7 +164,7 @@ function LeftLeftComp({ props }:{ props: {
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.3 * CL.lineWidth}
                   extendE={0.1 * CL.lineWidth}
-                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                  bezier={[0.1 * CL.lineWidth, 0, 0.1 * CL.lineWidth, 0]}
                   styleAttr={{
                     innerLine: Object.assign({}, CL.innerLineAttr, {
                       stroke: "#F54E4E",
@@ -202,7 +202,7 @@ function LeftLeftComp({ props }:{ props: {
                   end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                   extendS={0.3 * CL.lineWidth}
                   extendE={0.1 * CL.lineWidth}
-                  bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                  bezier={[0.1 * CL.lineWidth, 0, 0.1 * CL.lineWidth, 0]}
                   styleAttr={{
                     outerLine: CL.outerLineAttr as React.SVGProps<SVGPathElement>,
                     innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
@@ -219,7 +219,7 @@ function LeftLeftComp({ props }:{ props: {
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.3 * CL.lineWidth}
                       extendE={0.1 * CL.lineWidth}
-                      bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                      bezier={[0.1 * CL.lineWidth, 0, 0.1 * CL.lineWidth, 0]}
                       styleAttr={{
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>
@@ -233,7 +233,7 @@ function LeftLeftComp({ props }:{ props: {
                       end={{ x: CL.lineStartPosition + CL.lineWidth, y: CL.lineEndHeight * (i - (items.length - 1) * 0.5) }}
                       extendS={0.3 * CL.lineWidth}
                       extendE={0.1 * CL.lineWidth}
-                      bezier={[0.2 * CL.lineWidth, 0, 0.2 * CL.lineWidth, 0]}
+                      bezier={[0.1 * CL.lineWidth, 0, 0.1 * CL.lineWidth, 0]}
                       styleAttr={{
                         innerLine: Object.assign({}, CL.innerLineAttr)  as React.SVGProps<SVGPathElement>,
                         flowLine: CL.flowLineAttr as React.SVGProps<SVGPathElement>

@@ -110,6 +110,16 @@ export function formatNumberWithCommas(num: number) {
   return integerPart + decimalPart;
 }
 
+function calculateUnitVector(x1:number, y1:number, x2:number, y2:number) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const magnitude = Math.sqrt(dx * dx + dy * dy);
+  return {
+    x: dx / magnitude,
+    y: dy / magnitude
+  };
+}
+
 // 生成一个贝塞尔曲线
 export function getBezier(props: {
   start: { x: number; y: number };
@@ -121,6 +131,14 @@ export function getBezier(props: {
   const extendS = props.extendS || 0;
   const extendE = props.extendE || 0;
 
+  const startControl:[number, number] = [props.start.x + extendS + props.bezier[0], props.start.y + props.bezier[1]]
+  const endControl:[number, number] = [props.end.x - extendE - props.bezier[2], props.end.y - props.bezier[3]]
+  const unitVector = calculateUnitVector(...startControl, ...endControl)
+  const length1 = Math.sqrt(props.bezier[0] * props.bezier[0] + props.bezier[1] * props.bezier[1])
+  const pointer1:[number, number] = [startControl[0] + unitVector.x * length1, startControl[1] + unitVector.y * length1]
+  const length2 = Math.sqrt(props.bezier[2] * props.bezier[2] + props.bezier[3] * props.bezier[3])
+  const pointer2:[number, number] = [endControl[0] - unitVector.x * length2, endControl[1] - unitVector.y * length2]
+
   let path = "";
   // 起始点
   path += `M${props.start.x},${props.start.y}`;
@@ -130,14 +148,21 @@ export function getBezier(props: {
   }
   // 贝塞尔曲线本体，终点取决于
   path += `
-    C${props.start.x + extendS + props.bezier[0]},${
-    props.start.y + props.bezier[1]
-  }
-      ${props.end.x - extendE - props.bezier[2]},${
-    props.end.y - props.bezier[3]
-  }
-      ${props.end.x - extendE},${props.end.y}
+    Q${startControl[0]},${startControl[1]}
+      ${pointer1[0]},${pointer1[1]} 
   `;
+  path += `
+    L${pointer2[0]},${pointer2[1]} 
+  `
+  path += `
+    Q${endControl[0]},${endControl[1]},
+      ${props.end.x - extendE},${props.end.y}
+  `
+  // path += `
+  //   C${startControl[0]},${startControl[1]}
+  //     ${endControl[0]},${endControl[1]}
+  //     ${props.end.x - extendE},${props.end.y}
+  // `;
   // 存在横向结束扩展
   // 结束点被包含在贝塞尔曲线的终点上
   if (extendE) {

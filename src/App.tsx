@@ -20,43 +20,44 @@ function App() {
   // }, 4000)
 
   // 可视化交互组件所需数据结构
+  // const [data, setData] = useState({}) // 空数据状态传入一个空对象
   const [data, setData] = useState({
-    // left: {
-    //   extraSource: 12, // 总数据源数量
-    //   // 权重前9的数据源
-    //   sources: [
-    //     { pic: amazon, name: 'Amazon', status: 'safe', size: 121321 },
-    //     { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 231 },
-    //     { pic: microsoft, name: 'Microsort', status: 'danger', size: 1321321321 },
-    //     { pic: office, name: 'Microsort 365', status: 'safe', size: 1313 },
-    //     { pic: amazon, name: 'Amazon', status: 'safe', size: 44444 },
-    //     { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 123 },
-    //     { pic: microsoft, name: 'Microsort', status: 'safe', size: 1 },
-    //     { pic: office, name: '标题长度测试测试测试测试测试xxxxxxxxxxxxxxxxxxxxxxxxx', status: 'danger', size: 11111111111111 },
-    //     // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
-    //     // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
-    //     // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
-    //     // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
-    //   ]
-    // },
-    // center: {
-    //   alerts: 54932,
-    //   incidents: 350,
-    //   rules: 82,
-    //   userName: 'Stellaa', // 首屏显示用户名
-    //   day: 181, // 服务天数
-    //   dataIngestion: 66,
-    //   eventIngestion: 6666,
-    //   alertAnalysis: 49,
-    //   preventedAlerts: 286113
-    // },
-    // right: {
-    //   // 数据展示
-    //   automated: 252,
-    //   resolvedIncidents: 258,
-    //   manual: 98,
-    //   openIncidents: 92
-    // }
+    left: {
+      extraSource: 12, // 总数据源数量
+      // 权重前9的数据源
+      sources: [
+        { pic: amazon, name: 'Amazon', status: 'safe', size: 121321 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 231 },
+        { pic: microsoft, name: 'Microsort', status: 'danger', size: 1321321321 },
+        { pic: office, name: 'Microsort 365', status: 'safe', size: 1313 },
+        { pic: amazon, name: 'Amazon', status: 'safe', size: 44444 },
+        { pic: google_cloud, name: 'Google Cloud', status: 'safe', size: 123 },
+        { pic: microsoft, name: 'Microsort', status: 'safe', size: 1 },
+        { pic: office, name: '标题长度测试测试测试测试测试xxxxxxxxxxxxxxxxxxxxxxxxx', status: 'danger', size: 11111111111111 },
+        // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+        // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+        // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+        // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
+      ]
+    },
+    center: {
+      alerts: 54932,
+      incidents: 350,
+      rules: 82,
+      userName: 'Stellaa', // 首屏显示用户名
+      day: 181, // 服务天数
+      dataIngestion: 66,
+      eventIngestion: 6666,
+      alertAnalysis: 49,
+      preventedAlerts: 286113
+    },
+    right: {
+      // 数据展示
+      automated: 252,
+      resolvedIncidents: 258,
+      manual: 98,
+      openIncidents: 92
+    }
   })
 
   const updateData = () => {
@@ -157,7 +158,44 @@ function App() {
 
   const addDataSource = () => {
     // 空数据时左侧的添加按钮点击事件
-    console.log ('add data source')
+    setData({
+      left: {
+        extraSource: 24, // 总数据源数量
+        // 权重前9的数据源
+        sources: [
+          { pic: amazon, name: 'Amazon2', status: 'safe', size: 121321 },
+          { pic: google_cloud, name: 'Google Cloud2', status: 'safe', size: 231 },
+          { pic: microsoft, name: 'Microsort2', status: 'danger', size: 1321321321 },
+          { pic: microsoft, name: 'Microsort 3652', status: 'safe', size: 1313 },
+          { pic: amazon, name: 'Amazon2', status: 'safe', size: 44444 },
+          { pic: google_cloud, name: 'Google Cloud2', status: 'safe', size: 123 },
+          { pic: office, name: '标题长度测试2测试测试测试测试xxxxxxxxxxxxxxxxxxxxxxxxx', status: 'safe', size: 1 },
+          { pic: office, name: 'Microsort2', status: 'danger', size: 11111111111111 },
+          // { pic: amazon, name: 'Amazon', status: 'safe',  width: 745, height: 200 },
+          // { pic: google_cloud, name: 'Google Cloud', status: 'safe', width: 200, height: 200 },
+          // { pic: microsoft, name: 'Microsort', status: 'danger', width: 200, height: 200 },
+          // { pic: office, name: 'Microsort 365', status: 'safe', width: 621, height: 200 }
+        ]
+      },
+      center: {
+        alerts: 5493,
+        incidents: 3502,
+        rules: 822,
+        userName: 'Stellaa', // 首屏显示用户名
+        day: 1821, // 服务天数
+        dataIngestion: 662,
+        eventIngestion: 66662,
+        alertAnalysis: 982,
+        preventedAlerts: 2861132
+      },
+      right: {
+        // 数据展示
+        automated: 2522,
+        resolvedIncidents: 2258,
+        manual: 982,
+        openIncidents: 922
+      }
+    })
   }
 
   return (

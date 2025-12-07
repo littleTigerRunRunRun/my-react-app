@@ -51,7 +51,7 @@ function RightComp({ props }:{ props: {
       end={CR.automatedPosition.icon}
       extendS={20}
       extendE={40}
-      bezier={[50, 0, 50, 0]}
+      bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
         outerLine: {
@@ -76,7 +76,7 @@ function RightComp({ props }:{ props: {
       end={CR.manualPosition.icon}
       extendS={20}
       extendE={40}
-      bezier={[50, 0, 50, 0]}
+      bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
         outerLine: {
@@ -148,7 +148,7 @@ function RightComp({ props }:{ props: {
       end={{ x: CR.openIncidentsPosition.icon.x, y: CR.openIncidentsPosition.icon.y - 12 }}
       extendS={40}
       extendE={40}
-      bezier={[40, 0, 40, 0]}
+      bezier={[10, 0, 10, 0]}
       className="hover-thick-6"
       styleAttr={{
         outerLine: {
@@ -172,7 +172,7 @@ function RightComp({ props }:{ props: {
       end={{ x: CR.resolvedIncidentsPosition.icon.x, y: CR.resolvedIncidentsPosition.icon.y + 12 }}
       extendS={40}
       extendE={40}
-      bezier={[40, 0, 40, 0]}
+      bezier={[10, 0, 10, 0]}
       className="hover-thick-6"
       styleAttr={{
         outerLine: {

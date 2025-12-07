@@ -178,7 +178,7 @@ function Incident({ props, Back }: {
         end={CI.curve.automated}
         extendS={40}
         extendE={70}
-        bezier={[50, 0, 80, 0]}
+        bezier={[20, 0, 20, 0]}
         className="hover-thick-8"
         styleAttr={{
           outerLine: {
@@ -203,7 +203,7 @@ function Incident({ props, Back }: {
         end={CI.curve.manual}
         extendS={40}
         extendE={70}
-        bezier={[50, 0, 80, 0]}
+        bezier={[20, 0, 20, 0]}
         className="hover-thick-8"
         styleAttr={{
           outerLine: {
@@ -252,8 +252,8 @@ function Incident({ props, Back }: {
         start={{ x: CI.curve.automated.x, y: CI.curve.automated.y + 12 }}
         end={{ x: CI.curve.openIncidents.x, y: CI.curve.openIncidents.y - 6 }}
         extendS={80}
-        extendE={280}
-        bezier={[50, 0, 50, 0]}
+        extendE={300}
+        bezier={[20, 0, 20, 0]}
         className="hover-thick-6"
         styleAttr={{
           outerLine: {
@@ -275,10 +275,10 @@ function Incident({ props, Back }: {
       <GlowBezier
         k={'mto'}
         start={{ x: CI.curve.manual.x, y: CI.curve.manual.y }}
-        end={{ x: CI.curve.openIncidents.x, y: CI.curve.openIncidents.y + 6 }}
-        extendS={240}
-        extendE={100}
-        bezier={[50, 0, 50, 0]}
+        end={{ x: CI.curve.openIncidents.x, y: CI.curve.openIncidents.y + 12 }}
+        extendS={200}
+        extendE={170}
+        bezier={[20, 0, 20, 0]}
         className="hover-thick-8"
         styleAttr={{
           outerLine: {
@@ -303,7 +303,7 @@ function Incident({ props, Back }: {
         end={{ x: CI.curve.resolvedIncidents.x, y: CI.curve.resolvedIncidents.y + 20 }}
         extendS={80}
         extendE={0}
-        bezier={[50, 0, 0, 0]}
+        bezier={[20, 0, 0, 0]}
         className="hover-thick-6"
         styleAttr={{
           outerLine: {
@@ -552,7 +552,7 @@ function Incident({ props, Back }: {
                     end: { x: CI.details.startX + CI.details.lineLength, y: (index - 1.5) * CI.details.lineEndSpan },
                     extendS: 15,
                     extendE: 15,
-                    bezier: [10, 0, 10, 0]
+                    bezier: [4, 0, 4, 0]
                   })
                 }
                 stroke={`url(#svg_pt_ic_${text}_lg)`}
@@ -613,9 +613,9 @@ function Incident({ props, Back }: {
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: -54 },
                         end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
-                        extendS: 15,
-                        extendE: 15,
-                        bezier: [10, 0, 10, 0]
+                        extendS: 12,
+                        extendE: 12,
+                        bezier: [7, 0, 7, 0]
                       })
                     }
                     stroke="#F54E4E"
@@ -628,9 +628,9 @@ function Incident({ props, Back }: {
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: -18 },
                         end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
-                        extendS: 15,
-                        extendE: 15,
-                        bezier: [10, 0, 10, 0]
+                        extendS: 12,
+                        extendE: 12,
+                        bezier: [7, 0, 7, 0]
                       })
                     }
                     stroke="#F77E45"
@@ -643,9 +643,9 @@ function Incident({ props, Back }: {
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: 18 },
                         end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
-                        extendS: 15,
-                        extendE: 15,
-                        bezier: [10, 0, 10, 0]
+                        extendS: 12,
+                        extendE: 12,
+                        bezier: [7, 0, 7, 0]
                       })
                     }
                     stroke="#F7C034"
@@ -658,9 +658,9 @@ function Incident({ props, Back }: {
                       getBezier({
                         start: { x: CI.details.rlineStartX, y: 54 },
                         end: { x: CI.details.rlineStartX + CI.details.lineLength, y: (index - (props.attackList.length - 1) * 0.5) * CI.details.attackListHeight + (tIndex - (type.length - 1) * 0.5) * CI.details.lineEndTypeSpan },
-                        extendS: 15,
-                        extendE: 15,
-                        bezier: [10, 0, 10, 0]
+                        extendS: 12,
+                        extendE: 12,
+                        bezier: [7, 0, 7, 0]
                       })
                     }
                     stroke="#1DB440"
