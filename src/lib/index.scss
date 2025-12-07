@@ -20,6 +20,13 @@
   .left-comp{
     .left-item{
       cursor: pointer;
+      .data-source-name{
+        font-weight: normal;
+        transition: font-weight 0.2s;
+        &:hover {
+          font-weight: bold;
+        }
+      }
     }
     .nodata-add{
       cursor: pointer;

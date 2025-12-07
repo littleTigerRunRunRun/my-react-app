@@ -137,6 +137,7 @@ function LeftLeftComp({ props }:{ props: {
             </text> : ''
           }
           <text
+            // className="data-source-name"
             x={CL.nameStartPosition}
             {...CL.nameAttr as React.SVGProps<SVGTextElement>}
           >
