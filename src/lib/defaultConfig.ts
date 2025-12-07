@@ -4,9 +4,11 @@ export default {
   global: {
     size: {
       width: 1548, // 410 + 688 + 450, 480 = leftWidth 560 = centerWidth 680 = rightWidth
-      height: 480 + 186 * 2, // 只有center有高度
-      hp: 40, // 水平方向padding
-      vp: 40, // 竖直方向padding
+      height: 852, // 只有center有高度
+      hp: 50, // 水平方向padding
+      vp: 50, // 竖直方向padding
+      hm: 0,
+      vm: 10
     },
     color: {
       safe: '#00D5F5',

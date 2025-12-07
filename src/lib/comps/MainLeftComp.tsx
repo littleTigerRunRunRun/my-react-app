@@ -85,69 +85,19 @@ function LeftComp({ props, addDataSource }:{ props: {
       </radialGradient>
       <mask id="svg_pt_mask_left_line">
         <rect
-          width={CL.lineWidth + 12}
+          width={CL.width + 12}
           height={height + 40}
           fill="url(#svg_pt_lg_left_mask)"
-          x={CL.lineStartPosition - 12}
+          x={CL.iconStartPosition - 12}
           y={height * -0.5 - 40}
         />
       </mask>
     </defs>
-    {
+    {/* {
       items.map((item, i) => {
-        return <g
-          className='left-item'
-          opacity="0"
-          transform={`translate(-20, ${CL.height * (i - (items.length - 1) * 0.5)})`}
-          key={i}
-          onClick={() => subscriber.broadcast(Event.DIG, ['main', 'dataInventory'])}
-        >
-          <animate
-            attributeName="opacity"
-            from="0"
-            to="1"
-            dur={`${CL.anime.itemsOpacityDuration}s`}
-            begin={`${svgTime + CLAI(i)}s`}
-            fill="freeze"
-          />
-          <animateTransform
-            attributeName="transform"
-            attributeType="XML"
-            type="translate"
-            from={`-20,${CL.height * (i - (items.length - 1) * 0.5)}`}
-            to={`0,${CL.height * (i - (items.length - 1) * 0.5)}`}
-            dur={`${CL.anime.itemsMoveDuration}s`}
-            begin={`${svgTime + CLAI(i)}s`}
-            fill="freeze"
-          />
-          {
-            item.pic ? <image
-              href={item.pic}
-              width={CL.iconMaxWidth}
-              height={CL.iconMaxHeight}
-              x={0}
-              y={CL.iconMaxHeight * -0.5}
-            /> : ''
-          }
-          {
-            item.count ? <text
-              x={CL.iconMaxWidth * 0.5 - 20}
-              {...CL.nameAttr as React.SVGProps<SVGTextElement>}
-              fontSize={22}
-            >
-              +{ item.count }
-            </text> : ''
-          }
-          <text
-            className="data-source-name"
-            x={CL.nameStartPosition}
-            {...CL.nameAttr as React.SVGProps<SVGTextElement>}
-          >
-            { textLengthLimit(item.name, CL.nameAttr.fontSize, 106, 6) }
-          </text>
-        </g>
+        return 
       })
-    }
+    } */}
     {
       !props ? <g className="nodata-info">
         <text
@@ -198,6 +148,57 @@ function LeftComp({ props, addDataSource }:{ props: {
           const sizeNum = parseFloat(size)
           const sizeUnit = size.replace(`${sizeNum}`, '') + 'B/24H'
           return <g className="left-line" key={`line_${i}`}>
+            <g
+              className='left-item'
+              opacity="0"
+              transform={`translate(-20, ${CL.height * (i - (items.length - 1) * 0.5)})`}
+              key={i}
+              onClick={() => subscriber.broadcast(Event.DIG, ['main', 'dataInventory'])}
+            >
+              <animate
+                attributeName="opacity"
+                from="0"
+                to="1"
+                dur={`${CL.anime.itemsOpacityDuration}s`}
+                begin={`${svgTime + CLAI(i)}s`}
+                fill="freeze"
+              />
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="translate"
+                from={`-20,${CL.height * (i - (items.length - 1) * 0.5)}`}
+                to={`0,${CL.height * (i - (items.length - 1) * 0.5)}`}
+                dur={`${CL.anime.itemsMoveDuration}s`}
+                begin={`${svgTime + CLAI(i)}s`}
+                fill="freeze"
+              />
+              {
+                item.pic ? <image
+                  href={item.pic}
+                  width={CL.iconMaxWidth}
+                  height={CL.iconMaxHeight}
+                  x={0}
+                  y={CL.iconMaxHeight * -0.5}
+                /> : ''
+              }
+              {
+                item.count ? <text
+                  x={CL.iconMaxWidth * 0.5 - 20}
+                  {...CL.nameAttr as React.SVGProps<SVGTextElement>}
+                  fontSize={22}
+                >
+                  +{ item.count }
+                </text> : ''
+              }
+              <text
+                className="data-source-name"
+                x={CL.nameStartPosition}
+                {...CL.nameAttr as React.SVGProps<SVGTextElement>}
+              >
+                { textLengthLimit(item.name, CL.nameAttr.fontSize, 106, 6) }
+              </text>
+            </g>
             {
               item.status !== 'nodata' ? <g className="traffic" transform={`translate(${CL.lineStartPosition}, ${CL.height * (i - (items.length - 1) * 0.5)})`}>
                 <text
