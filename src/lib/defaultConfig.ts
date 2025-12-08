@@ -6,7 +6,7 @@ export default {
       width: 1548, // 410 + 688 + 450, 480 = leftWidth 560 = centerWidth 680 = rightWidth
       height: 852, // 只有center有高度
       hp: 50, // 水平方向padding
-      vp: 50, // 竖直方向padding
+      vp: 60, // 竖直方向padding
       hm: 0,
       vm: 10
     },
