@@ -102,6 +102,18 @@ function CenterComp({ props }:{
           height="100"
         />
       </clipPath>
+      <filter id="svg_pt_mc_text_glow" x="-100%" y="-100%" width="400%" height="400%">
+
+        <feFlood floodColor="#000" floodOpacity="1" result="glowColor"/>
+        <feComposite in="glowColor" in2="SourceAlpha" operator="atop" result="colorResult"/>
+        <feMorphology in="colorResult" operator="dilate" radius="4" result="extendResult" />
+        <feGaussianBlur in="extendResult" stdDeviation="6" result="blurResult"/>
+        
+        <feMerge>
+          <feMergeNode in="blurResult"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
     </defs>
     <g transform={`translate(${CC.position.x + CC.size.width * -0.5}, ${CC.position.y + CC.size.height * -0.5})`}>
       <foreignObject
@@ -154,7 +166,7 @@ function CenterComp({ props }:{
         fontSize="16"
         x="63"
         y="426"
-        style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.8)' }}
+        filter="url(#svg_pt_mc_text_glow)"
       >
         <tspan>{props ? props.rules : '--'}</tspan>
         <tspan dx="5" fill="#929293">Rules</tspan>

@@ -122,7 +122,7 @@ function Main({
         width="100%"
         height="100%"
         viewBox={`${DCGSize.width * -0.5 - DCGSize.hp + DCGSize.hm} ${DCGSize.height * -0.5 - DCGSize.vp + DCGSize.vm} ${DCGSize.width + DCGSize.hp * 2} ${DCGSize.height + DCGSize.vp * 2}`}
-        // viewBox="-720 -170 400 350"
+        // viewBox="-360 80 200 150"
         style={{
           animationDuration: `${DC.global.anime.duration}s`,
           animationDelay: `${DC.global.anime.delay}s`
