@@ -20,7 +20,10 @@ function RightComp({ props }:{ props: {
     
   useEffect(() => {
     subscriber.set(Value.MAIN_RIGHT_ANIME, true)
-    
+    requestAnimationFrame(() => {
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, ['mr_sta', 'mr_stm'], 'right1')
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, ['mr_atr', 'mr_ato', 'mr_mtr', 'mr_mto'], 'right2')
+    })
     return () => {
       subscriber.set(Value.MAIN_RIGHT_ANIME, false)
     }
@@ -46,7 +49,7 @@ function RightComp({ props }:{ props: {
       </clipPath>
     </defs>
     <GlowBezier
-      k={'sta'}
+      k={'mr_sta'}
       start={{ x: 0, y: -6 }}
       end={CR.automatedPosition.icon}
       extendS={20}
@@ -54,6 +57,12 @@ function RightComp({ props }:{ props: {
       bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 3,
+          strokeOpacity: 0.3
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_sta)',
@@ -62,8 +71,8 @@ function RightComp({ props }:{ props: {
         },
         flowLine: {
           fill: 'none',
-          stroke: 'none',
-          strokeWidth: 2,
+          stroke: "#84dcff",
+          strokeWidth: 3,
           strokeLinecap: 'round'
         }
       }}
@@ -71,7 +80,7 @@ function RightComp({ props }:{ props: {
       anime={Event.LINE_ANIME}
     />
     <GlowBezier
-      k={'stm'}
+      k={'mr_stm'}
       start={{ x: 0, y: 6 }}
       end={CR.manualPosition.icon}
       extendS={20}
@@ -79,6 +88,12 @@ function RightComp({ props }:{ props: {
       bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 3,
+          strokeOpacity: 0.3
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_stm)',
@@ -87,15 +102,16 @@ function RightComp({ props }:{ props: {
         },
         flowLine: {
           fill: 'none',
-          stroke: 'none',
-          strokeWidth: 2,
+          stroke: "#84dcff",
+          strokeWidth: 3,
           strokeLinecap: 'round'
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin1}`}
+      anime={Event.LINE_ANIME}
     />
     <GlowBezier
-      k={'atr'}
+      k={'mr_atr'}
       start={CR.automatedPosition.icon}
       end={{ x: CR.resolvedIncidentsPosition.icon.x, y: CR.resolvedIncidentsPosition.icon.y - 1}}
       extendS={0}
@@ -103,23 +119,31 @@ function RightComp({ props }:{ props: {
       bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 3,
+          strokeOpacity: 0.4
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_atr)',
           strokeWidth: 8,
-          strokeLinecap: 'round'
+          strokeLinecap: 'round',
+          strokeOpacity: 0.6
         },
         flowLine: {
           fill: 'none',
-          stroke: 'none',
-          strokeWidth: 2,
+          stroke: "#84dcff",
+          strokeWidth: 3,
           strokeLinecap: 'round'
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
+      anime={Event.LINE_ANIME}
     />
     <GlowBezier
-      k={'mto'}
+      k={'mr_mto'}
       start={CR.manualPosition.icon}
       end={{ x: CR.openIncidentsPosition.icon.x, y: CR.openIncidentsPosition.icon.y + 1}}
       extendS={0}
@@ -127,23 +151,31 @@ function RightComp({ props }:{ props: {
       bezier={[20, 0, 20, 0]}
       className="hover-thick-8"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 3,
+          strokeOpacity: 0.4
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_mto)',
           strokeWidth: 8,
+          strokeOpacity: 0.6,
           strokeLinecap: 'round'
         },
         flowLine: {
           fill: 'none',
-          stroke: 'none',
-          strokeWidth: 2,
+          stroke: "#84dcff",
+          strokeWidth: 3,
           strokeLinecap: 'round'
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
+      anime={Event.LINE_ANIME}
     />
     <GlowBezier
-      k={'ato'}
+      k={'mr_ato'}
       start={{ x: CR.automatedPosition.icon.x, y: CR.automatedPosition.icon.y + 12 }}
       end={{ x: CR.openIncidentsPosition.icon.x, y: CR.openIncidentsPosition.icon.y - 12 }}
       extendS={40}
@@ -151,6 +183,12 @@ function RightComp({ props }:{ props: {
       bezier={[10, 0, 10, 0]}
       className="hover-thick-6"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 2,
+          strokeOpacity: 0.4
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_ato_p5)',
@@ -159,15 +197,17 @@ function RightComp({ props }:{ props: {
         },
         flowLine: {
           fill: 'none',
-          stroke: 'url(#svg_pt_lg_lc_ato)',
+          stroke: "#84dcff",
+          // stroke: 'url(#svg_pt_lg_lc_ato)',
           strokeWidth: 2,
           strokeLinecap: 'round'
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
+      anime={Event.LINE_ANIME}
     />
     <GlowBezier
-      k={'mtr'}
+      k={'mr_mtr'}
       start={{ x: CR.manualPosition.icon.x, y: CR.manualPosition.icon.y - 12 }}
       end={{ x: CR.resolvedIncidentsPosition.icon.x, y: CR.resolvedIncidentsPosition.icon.y + 12 }}
       extendS={40}
@@ -175,6 +215,12 @@ function RightComp({ props }:{ props: {
       bezier={[10, 0, 10, 0]}
       className="hover-thick-6"
       styleAttr={{
+        innerLine: {
+          fill: 'none',
+          stroke: "#84dcff",
+          strokeWidth: 2,
+          strokeOpacity: 0.4
+        },
         outerLine: {
           fill: 'none',
           stroke: 'url(#svg_pt_lg_lc_mtr_p5)',
@@ -183,12 +229,14 @@ function RightComp({ props }:{ props: {
         },
         flowLine: {
           fill: 'none',
-          stroke: 'url(#svg_pt_lg_lc_mtr)',
+          stroke: "#84dcff",
+          // stroke: 'url(#svg_pt_lg_lc_mtr)',
           strokeWidth: 2,
           strokeLinecap: 'round'
         }
       }}
       startAnimeBegin={`${svgTime + CR.anime.lineBegin2}s`}
+      anime={Event.LINE_ANIME}
     />
     <g className="type-node" opacity="0">
       <animate

@@ -47,7 +47,9 @@ function LeftLeftComp({ props }:{ props: {
 
   useEffect(() => {
     requestAnimationFrame(() => {
-      subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ll_${index}`))
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ll_${index}`), 'left')
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, [], 'right1')
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, [], 'right2')
     })
     return () => {}
   }, [])

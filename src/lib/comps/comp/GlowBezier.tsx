@@ -30,7 +30,7 @@ export function GlowBezier(props: {
     bezier: props.bezier
   })
   const pk = props.k
-  const fms = { w: 150, h: 300 } // flowMaskSize
+  const fms = { w: 150, h: 1000 } // flowMaskSize
   const sas = { w: 20, h: 20} // start anime size
   const moveGlowPath = path + `l${fms.w}, 0`
 

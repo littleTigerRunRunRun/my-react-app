@@ -23,7 +23,7 @@ function LeftComp({ props, addDataSource }:{ props: {
   useEffect(() => {
     subscriber.set(Value.MAIN_LEFT_ANIME, true)
     requestAnimationFrame(() => {
-      subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ml_${index}`))
+      subscriber.broadcast(Event.UPDATE_LINE_TARGET, items.map((_item, index) => `ml_${index}`), 'left')
     })
     
     return () => {
