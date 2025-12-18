@@ -4,15 +4,10 @@ import { createSmoothLine } from '../utils/createCurve'
 import { GlowBezier } from './comp/GlowBezier'
 import LabelCount from './comp/LabelCount'
 import Node from './comp/Node'
-import { getBezier } from '../utils'
-import { Event, Value, subscriber } from '../utils/Subscriber'
+import { Value, subscriber } from '../utils/Subscriber'
 import ic_automated from '../../assets/ic_automated.png'
 import ic_manual from '../../assets/ic_manual.png'
-
-function customSort(arr:Array<'low' | 'middle' | 'high' | 'critical' | 'normal'>) {
-  const order = ['normal', 'low', 'middle', 'high', 'critical'];
-  return arr.sort((a, b) => order.indexOf(b) - order.indexOf(a));
-}
+import IncidentType from './IncidentTypeComp'
 
 function Incident({ props, Back }: {
   props: {
@@ -35,7 +30,7 @@ function Incident({ props, Back }: {
   const CIT = CI.total
   const svgTime = (Date.now() - (subscriber.get(Value.SVG_START_TIME) as number)) / 1000
 
-  const totalRate = 0.22
+  const totalRate = (props.total - props.resolvedIncidents) / props.total
   const interval = CIT.inner.interval * Math.PI * 2
   const totalStart = [
     CIT.inner.r * Math.cos(interval * 0.5),
@@ -384,32 +379,6 @@ function Incident({ props, Back }: {
           })
         }
         <path
-          d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 0 1 ${totalP1[0]},${totalP1[1]}`}
-          strokeWidth={CIT.inner.width}
-          stroke="#00DEFE"
-          strokeLinecap="round"
-          fill="none"
-          style={{
-            filter: `drop-shadow(0px 0px 8px #00DEFE)`
-          }}
-        />
-        <path
-          d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 1 1 ${totalEnd[0]},${totalEnd[1]}`}
-          strokeWidth={CIT.inner.width}
-          stroke="#008FFF"
-          strokeLinecap="round"
-          fill="none"
-          style={{
-            filter: `drop-shadow(0px 0px 8px #008FFF)`
-          }}
-        />
-        <text
-          {...CIT.mainText as React.SVGProps<SVGTextElement>}
-        >{ props.total }</text>
-        <text
-          {...CIT.subText as React.SVGProps<SVGTextElement>}
-        >Total Incidents</text>
-        <path
           d={smoothPath}
           fill="#008FFF"
           fillOpacity="0.1"
@@ -484,6 +453,35 @@ function Incident({ props, Back }: {
             </g>
           })
         }
+        <path
+          className="rate-border"
+          d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 0 1 ${totalP1[0]},${totalP1[1]}`}
+          strokeWidth={CIT.inner.width}
+          stroke="#00DEFE"
+          strokeLinecap="round"
+          fill="none"
+          style={{
+            filter: `drop-shadow(0px 0px 8px #00DEFE)`
+          }}
+        />
+        <path
+          className="rate-border"
+          d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 1 1 ${totalEnd[0]},${totalEnd[1]}`}
+          strokeWidth={CIT.inner.width}
+          stroke="#008FFF"
+          strokeLinecap="round"
+          fill="none"
+          style={{
+            filter: `drop-shadow(0px 0px 8px #008FFF)`
+          }}
+        />
+        <text
+          {...CIT.mainText as React.SVGProps<SVGTextElement>}
+        >{ props.total }</text>
+        <text
+          className="hovable-text"
+          {...CIT.subText as React.SVGProps<SVGTextElement>}
+        >Total Incidents</text>
       </g>
       <g className="resolve-incidents" transform={`translate(${CI.resolvedIncidents.x}, ${CI.resolvedIncidents.y})`} mask="url(#svg_pt_ic_ri_radiation_mask)">
         {
@@ -527,6 +525,7 @@ function Incident({ props, Back }: {
           <tspan fontWeight="normal" fontSize="14" dx="4" dy="3">%</tspan>
         </text>
         <text
+          className="hovable-text"
           {...CI.resolvedIncidents.subtext as React.SVGProps<SVGTextElement>}
         >
           <tspan x="0">Resolved</tspan>
@@ -591,6 +590,7 @@ function Incident({ props, Back }: {
           <tspan fontWeight="normal" fontSize="14" dx="4" dy="6">%</tspan>
         </text>
         <text
+          className="hovable-text"
           {...CI.openIncidents.subtext as React.SVGProps<SVGTextElement>}
         >
           Open Incidents
@@ -599,14 +599,20 @@ function Incident({ props, Back }: {
           {...CI.openIncidents.number as React.SVGProps<SVGTextElement>}
         >{ total } Incidents</text>
       </g>
-      <g className="safe-level">
+      <IncidentType
+        props={{
+          openIncidents: props.openIncidents,
+          attackList: props.attackList
+        }}
+      />
+      {/* <g className="safe-level">
         {
           [
-            { text: 'C', color: '#F54E4E', number: props.openIncidents.critical },
-            { text: 'H', color: '#F77E45', number: props.openIncidents.high },
-            { text: 'M', color: '#F7C034', number: props.openIncidents.middle },
-            { text: 'L', color: '#1DB440', number: props.openIncidents.low },
-          ].map(({ text, color, number }, index) => {
+            { text: 'C', type: 'critical', color: '#F54E4E', number: props.openIncidents.critical },
+            { text: 'H', type: 'high', color: '#F77E45', number: props.openIncidents.high },
+            { text: 'M', type: 'middle', color: '#F7C034', number: props.openIncidents.middle },
+            { text: 'L', type: 'low', color: '#1DB440', number: props.openIncidents.low },
+          ].map(({ text, type, color, number }, index) => {
             return <g className="safe-level-item" key={`linel${index}`}>
               <path
                 d={
@@ -622,28 +628,35 @@ function Incident({ props, Back }: {
                 strokeWidth="1"
                 fill="none"
               />
-              <circle
-                cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
-                cy={(index - 1.5) * CI.details.lineEndSpan}
-                fill="none"
-                stroke={color}
-                strokeWidth={CI.details.outerWidth}
-                r={CI.details.outerCR}
-              />
-              <circle
-                cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
-                cy={(index - 1.5) * CI.details.lineEndSpan}
-                fill={color}
-                r={CI.details.innerCR}
-              />
-              <text
-                {...CI.details.text as React.SVGProps<SVGTextElement>}
-                y={(index - 1.5) * CI.details.lineEndSpan + 1}
-              >{text}</text>
-              <text
-                {...CI.details.number as React.SVGProps<SVGTextElement>}
-                y={(index - 1.5) * CI.details.lineEndSpan + 1}
-              >{number}</text>
+              <g
+                className="safe-type"
+                onMouseEnter={() => setHoveringSafe(type)}
+                onMouseLeave={() => setHoveringSafe('')}
+              >
+                <circle
+                  cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
+                  cy={(index - 1.5) * CI.details.lineEndSpan}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={CI.details.outerWidth}
+                  r={CI.details.outerCR}
+                />
+                <circle
+                  cx={CI.details.startX + CI.details.lineLength + CI.details.outerCR}
+                  cy={(index - 1.5) * CI.details.lineEndSpan}
+                  fill={color}
+                  r={CI.details.innerCR}
+                />
+                <text
+                  {...CI.details.text as React.SVGProps<SVGTextElement>}
+                  y={(index - 1.5) * CI.details.lineEndSpan + 1}
+                >{text}</text>
+                <text
+                  className="type-num"
+                  {...CI.details.number as React.SVGProps<SVGTextElement>}
+                  y={(index - 1.5) * CI.details.lineEndSpan + 1}
+                >{number}</text>
+              </g>
             </g>
           })
         }
@@ -735,7 +748,7 @@ function Incident({ props, Back }: {
             </g>
           })
         }
-      </g>
+      </g> */}
     </g>
   </g>
 }

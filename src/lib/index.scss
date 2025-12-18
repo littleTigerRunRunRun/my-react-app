@@ -81,16 +81,52 @@
     }
   }
 
-  .trend-hover-group{
-    .hover-area {
+  .incident-comp {
+    .rate-border{
+      transition: stroke-width 0.2s;
       cursor: pointer;
-      &:hover ~ .hover-info {
-        opacity: 1;
+      &:hover {
+        stroke-width: 8px;
       }
     }
-    .hover-info{
-      opacity: 0;
-      transition: opacity 0.1s;
+
+    .hovable-text{
+      cursor: pointer;
+    }
+
+    .type-line{
+      transition: stroke-opacity 0.3s;
+    }
+
+    .type-line-group{
+      text {
+        transition: fill 0.3s;
+      }
+    }
+
+    .safe-type{
+      cursor: pointer;
+      .type-num{
+        transition: fill 0.2s;
+      }
+      &:hover{
+        .type-num{
+          fill: #fff;
+        }
+      }
+    }
+  
+    .trend-hover-group{
+      .hover-area {
+        cursor: pointer;
+        &:hover ~ .hover-info {
+          opacity: 1;
+        }
+      }
+      .hover-info{
+        opacity: 0;
+        transition: opacity 0.1s;
+      }
     }
   }
 
