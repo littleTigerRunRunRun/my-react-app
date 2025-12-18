@@ -23,7 +23,7 @@ function Main({
   addDataSource: () => void
 }) {
   const DCGSize = DC.global.size
-  const [digArray, setDigArray] = useState(['main-incident']) //, 'dataInventory' 'incident'
+  const [digArray, setDigArray] = useState(['main']) //, 'dataInventory' 'incident'
   const mainRef = useRef<SVGGElement>(null)
   const dataInventoryRef = useRef<SVGGElement>(null)
   const incidentRef = useRef<SVGGElement>(null)
