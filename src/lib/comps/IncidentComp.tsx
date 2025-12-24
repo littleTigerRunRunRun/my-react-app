@@ -33,8 +33,8 @@ function Incident({ props, Back }: {
   const totalRate = (props.total - props.resolvedIncidents) / props.total
   const interval = CIT.inner.interval * Math.PI * 2
   const totalStart = [
-    CIT.inner.r * Math.cos(interval * 0.5),
-    CIT.inner.r * Math.sin(interval * 0.5)
+    totalRate === 1 ? CIT.inner.r : CIT.inner.r * Math.cos(interval * 0.5),
+    totalRate === 1 ? 0 : CIT.inner.r * Math.sin(interval * 0.5)
   ]
   const P1angle = (1 - CIT.inner.interval * 2) * Math.PI * 2 * totalRate + interval * 0.5
   const totalP1 = [
@@ -457,7 +457,16 @@ function Incident({ props, Back }: {
           })
         }
         {
-          totalRate === 0 ? '' : <path
+          totalRate === 1 ? <circle
+            r={CIT.inner.r}
+            strokeWidth={CIT.inner.width}
+            stroke="#00DEFE"
+            strokeLinecap="round"
+            fill="none"
+            style={{
+              filter: `drop-shadow(0px 0px 8px #00DEFE)`
+            }}
+          /> : (totalRate === 0 ? '' : <path
             className="rate-border"
             d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 ${P1angle > Math.PI ? 1 : 0} 1 ${totalP1[0]},${totalP1[1]}`}
             strokeWidth={CIT.inner.width}
@@ -467,10 +476,20 @@ function Incident({ props, Back }: {
             style={{
               filter: `drop-shadow(0px 0px 8px #00DEFE)`
             }}
-          />
+          />)
+          
         }
         {
-          totalRate === 1 ? '' : <path
+          totalRate === 0 ? <circle
+            r={CIT.inner.r}
+            strokeWidth={CIT.inner.width}
+            stroke="#008FFF"
+            strokeLinecap="round"
+            fill="none"
+            style={{
+              filter: `drop-shadow(0px 0px 8px #008FFF)`
+            }}
+          /> : (totalRate === 1 ? '' : <path
             className="rate-border"
             d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 ${P2angle > Math.PI ? 0 : 1} 1 ${totalEnd[0]},${totalEnd[1]}`}
             strokeWidth={CIT.inner.width}
@@ -480,7 +499,7 @@ function Incident({ props, Back }: {
             style={{
               filter: `drop-shadow(0px 0px 8px #008FFF)`
             }}
-          />
+          />)
         }
         <text
           {...CIT.mainText as React.SVGProps<SVGTextElement>}

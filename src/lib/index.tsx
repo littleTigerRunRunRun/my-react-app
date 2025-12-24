@@ -55,7 +55,7 @@ function Main({
     })),
     automated: 251,
     manual: 96,
-    resolvedIncidents: 112,
+    resolvedIncidents: 120,
     openIncidents: {
       low: 21,
       middle: 36,
