@@ -38,15 +38,18 @@ function Incident({ props, Back }: {
   ]
   const P1angle = (1 - CIT.inner.interval * 2) * Math.PI * 2 * totalRate + interval * 0.5
   const totalP1 = [
-    CIT.inner.r * Math.cos(P1angle),
-    CIT.inner.r * Math.sin(P1angle)
+    totalRate === 1 ? totalStart[0] : CIT.inner.r * Math.cos(P1angle),
+    totalRate === 1 ? -totalStart[1] : CIT.inner.r * Math.sin(P1angle)
   ]
   const P2angle = P1angle + interval
   const totalP2 = [
-    CIT.inner.r * Math.cos(P2angle),
-    CIT.inner.r * Math.sin(P2angle)
+    totalRate === 0 ? totalStart[0] : CIT.inner.r * Math.cos(P2angle),
+    totalRate === 0 ? totalStart[1] : CIT.inner.r * Math.sin(P2angle)
   ]
-  const totalEnd = [totalStart[0], -totalStart[1]]
+  const totalEnd = [
+    totalStart[0],
+    -totalStart[1]
+  ]
 
   const trendSortArray = [...props.trend].sort((a, b) => a.value - b.value)
   const max = trendSortArray[trendSortArray.length - 1].value
@@ -160,7 +163,7 @@ function Incident({ props, Back }: {
       repeatCount="1"
       fill="freeze"
     />
-    <Back text="Incident" />
+    <Back text="Incident Overview" />
     <g className="incident-main" transform={`scale(${DC.global.size.width / CI.size.width}) translate(${CI.size.width * -0.5}, 0)`}>
       <GlowBezier
         k={'sta'}
@@ -453,28 +456,32 @@ function Incident({ props, Back }: {
             </g>
           })
         }
-        <path
-          className="rate-border"
-          d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 0 1 ${totalP1[0]},${totalP1[1]}`}
-          strokeWidth={CIT.inner.width}
-          stroke="#00DEFE"
-          strokeLinecap="round"
-          fill="none"
-          style={{
-            filter: `drop-shadow(0px 0px 8px #00DEFE)`
-          }}
-        />
-        <path
-          className="rate-border"
-          d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 1 1 ${totalEnd[0]},${totalEnd[1]}`}
-          strokeWidth={CIT.inner.width}
-          stroke="#008FFF"
-          strokeLinecap="round"
-          fill="none"
-          style={{
-            filter: `drop-shadow(0px 0px 8px #008FFF)`
-          }}
-        />
+        {
+          totalRate === 0 ? '' : <path
+            className="rate-border"
+            d={`M${totalStart[0]},${totalStart[1]} A${CIT.inner.r},${CIT.inner.r} 0 ${P1angle > Math.PI ? 1 : 0} 1 ${totalP1[0]},${totalP1[1]}`}
+            strokeWidth={CIT.inner.width}
+            stroke="#00DEFE"
+            strokeLinecap="round"
+            fill="none"
+            style={{
+              filter: `drop-shadow(0px 0px 8px #00DEFE)`
+            }}
+          />
+        }
+        {
+          totalRate === 1 ? '' : <path
+            className="rate-border"
+            d={`M${totalP2[0]},${totalP2[1]} A${CIT.inner.r},${CIT.inner.r} 0 ${P2angle > Math.PI ? 0 : 1} 1 ${totalEnd[0]},${totalEnd[1]}`}
+            strokeWidth={CIT.inner.width}
+            stroke="#008FFF"
+            strokeLinecap="round"
+            fill="none"
+            style={{
+              filter: `drop-shadow(0px 0px 8px #008FFF)`
+            }}
+          />
+        }
         <text
           {...CIT.mainText as React.SVGProps<SVGTextElement>}
         >{ props.total }</text>
