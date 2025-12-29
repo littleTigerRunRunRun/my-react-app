@@ -18,7 +18,7 @@ function Main({
   onDig,
   addDataSource
 }:{
-  data: Record<string, any>,
+  data: Record<string, any>, 
   onDig?: (digArray: Array<string>) => any,
   addDataSource: () => void
 }) {
