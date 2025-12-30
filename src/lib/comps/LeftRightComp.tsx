@@ -2,10 +2,10 @@ import DC from '../defaultConfig'
 import { Value, subscriber } from '../utils/Subscriber'
 import LabelCount from './comp/LabelCount'
 import video_fl from '../../assets/flowlines.mp4'
-import { useRef, type JSX } from 'react'
+import React, { useRef, type JSX } from 'react'
 import { getTextWidth } from '../utils'
 
-function LeftRightComp({ props, center, Back }: { props: {
+const LeftRightComp = React.memo(function LeftRightComp({ props, center, Back }: { props: {
   keywords: Array<Array<string>>,
   ruleHealthPercent: number,
   dangerRate: number,
@@ -322,6 +322,6 @@ function LeftRightComp({ props, center, Back }: { props: {
       `}
     />
   </g>
-}
+})
 
 export default LeftRightComp 

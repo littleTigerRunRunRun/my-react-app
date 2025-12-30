@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import DC from '../defaultConfig'
 import LabelCount from './comp/LabelCount'
 import { getGreeting, formatNumberTo4SignificantDigits } from '../utils'
@@ -18,7 +18,7 @@ const byteUnits = [
   { threshold: 1024, unit: 'K' }
 ]
 
-function CenterComp({ props }:{
+const CenterComp = React.memo(function CenterComp({ props }:{
   props: {
     alerts: number,
     rules: number,
@@ -338,6 +338,6 @@ function CenterComp({ props }:{
       </text>
     </g>
   </g>
-}
+})
 
 export default CenterComp

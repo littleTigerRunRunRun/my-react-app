@@ -252,7 +252,8 @@ export const Event = {
 export const Value = {
   SVG_START_TIME: 'svgStartTime',
   MAIN_LEFT_ANIME: 'mainLeftAnime',
-  MAIN_RIGHT_ANIME: 'mainRightAnime'
+  MAIN_RIGHT_ANIME: 'mainRightAnime',
+  ADD_DATA_SOURCE: 'addDataSource'
 }
 
 // command是一个由|分隔的由调用名和参数组成的字符串，该方法需要帮助用户把里面的数字参数自动从字符串转成数字

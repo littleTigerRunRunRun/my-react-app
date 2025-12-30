@@ -1,5 +1,5 @@
 import DC from '../defaultConfig'
-import { type JSX } from 'react'
+import React, { type JSX } from 'react'
 import { createSmoothLine } from '../utils/createCurve'
 import { GlowBezier } from './comp/GlowBezier'
 import LabelCount from './comp/LabelCount'
@@ -9,7 +9,7 @@ import ic_automated from '../../assets/ic_automated.png'
 import ic_manual from '../../assets/ic_manual.png'
 import IncidentType from './IncidentTypeComp'
 
-function Incident({ props, Back }: {
+const Incident = React.memo(function Incident({ props, Back }: {
   props: {
     total: number,
     trend: Array<{ value: number, time: string }>
@@ -777,6 +777,6 @@ function Incident({ props, Back }: {
       </g> */}
     </g>
   </g>
-}
+})
 
 export default Incident

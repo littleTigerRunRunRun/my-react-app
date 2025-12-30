@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './index.scss'
 import DC from './defaultConfig'
 import BackComp from './comps/BackComp'
@@ -13,7 +13,7 @@ import { CSSTransition } from 'react-transition-group'
 import { subscriber, Event, Value } from './utils/Subscriber'
 // import { useNavigate } from 'react-router-dom'
 
-function Main({
+const Main = React.memo(function Main({
   data,
   onDig,
   addDataSource
@@ -30,6 +30,7 @@ function Main({
   if (!subscriber.get(Value.SVG_START_TIME)) {
     subscriber.set(Value.SVG_START_TIME, Date.now())
   }
+  subscriber.set(Value.ADD_DATA_SOURCE, addDataSource)
   // const navigate = useNavigate()
 
   const [dataInventory, setDataInventory] = useState({
@@ -94,9 +95,8 @@ function Main({
     }
     setDigArray(dt)
   }
-
   useEffect(() => {
-    // console.log('挂载')
+    console.log('挂载')
     subscriber.listen(Event.DIG, dig)
  
     const rlfl = new RandomLeftFlowline({
@@ -221,7 +221,7 @@ function Main({
             <g className="main" ref={mainRef}>
               <MainLeftComp
                 props={data.left}
-                addDataSource={addDataSource}
+                // addDataSource={addDataSource}
               />
               <MainRightComp
                 props={data.right}
@@ -278,6 +278,6 @@ function Main({
       }} onClick={() => navigate('./home')}>跳转测试(临时）</div> */}
     </div>
   </>
-}
+})
 
 export default Main  

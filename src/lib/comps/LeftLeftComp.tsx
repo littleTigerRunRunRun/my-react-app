@@ -2,7 +2,7 @@ import DC from '../defaultConfig'
 import { Event, Value, subscriber } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 const byteUnits = [
   { threshold: 1024 * 1024 * 1024 * 1024, unit: 'T' },
@@ -11,7 +11,7 @@ const byteUnits = [
   { threshold: 1024, unit: 'K' }
 ]
 
-function LeftLeftComp({ props }:{ props: { 
+const LeftLeftComp = React.memo(function LeftLeftComp({ props }:{ props: { 
   extraSource: number,
   sources: Array<{ pic?: string, name: string, status: string, size: number }>
 } }) {
@@ -269,6 +269,6 @@ function LeftLeftComp({ props }:{ props: {
       }
     </g> 
   </g>
-}
+})
 
 export default LeftLeftComp 

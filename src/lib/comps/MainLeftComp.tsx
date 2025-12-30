@@ -2,7 +2,7 @@ import DC from '../defaultConfig'
 import { Event, subscriber, Value } from '../utils/Subscriber'
 import { GlowBezier } from './comp/GlowBezier'
 import { formatNumberTo4SignificantDigits, textLengthLimit } from '../utils'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 const byteUnits = [
   { threshold: 1024 * 1024 * 1024 * 1024, unit: 'T' },
@@ -11,10 +11,10 @@ const byteUnits = [
   { threshold: 1024, unit: 'K' }
 ]
 
-function LeftComp({ props, addDataSource }:{ props: {
+const LeftComp = React.memo(function LeftComp({ props }:{ props: {
   extraSource: number,
   sources: Array<{ pic?: string, name: string, status: string, size: number }>
-}, addDataSource: () => void }) {
+} }) {
   const CL = DC.left
   const CLAI = CL.anime.itemsBegin
   const height = (props ? props.sources.length : 8) * CL.height + CL.iconMaxHeight
@@ -137,7 +137,7 @@ function LeftComp({ props, addDataSource }:{ props: {
           x={0}
           y={55}
           className="nodata-add"
-          onClick={addDataSource}
+          onClick={subscriber.get(Value.ADD_DATA_SOURCE) as any}
         >+ Add Data Source</text>
       </g> : ''
     }
@@ -345,6 +345,6 @@ function LeftComp({ props, addDataSource }:{ props: {
       }
     </g> 
   </g>
-}
+})
 
 export default LeftComp 

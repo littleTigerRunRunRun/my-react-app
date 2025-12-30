@@ -7,9 +7,9 @@ import ic_resolved from '../../assets/ic_resolved.png'
 import ic_manual from '../../assets/ic_manual.png'
 import ic_open from '../../assets/ic_open.png'
 import { Event, Value, subscriber } from '../utils/Subscriber'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-function RightComp({ props }:{ props: {
+const RightComp = React.memo(function RightComp({ props }:{ props: {
   automated: number,
   resolvedIncidents: number,
   manual: number,
@@ -343,6 +343,6 @@ function RightComp({ props }:{ props: {
       />
     </g>
   </g>
-}
+})
 
 export default RightComp

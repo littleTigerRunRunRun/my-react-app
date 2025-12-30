@@ -7,6 +7,18 @@ import office from './assets/office.png'
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './Home.tsx'
+import { Menu, Button } from '@arco-design/web-react';
+import {
+  IconMenuFold,
+  IconMenuUnfold,
+  IconApps,
+  IconBug,
+  IconBulb,
+  IconBook,
+} from '@arco-design/web-react/icon';
+import "@arco-design/web-react/dist/css/arco.css";
+const MenuItem = Menu.Item;
+const SubMenu = Menu.SubMenu;
 
 function App() {
   // const [centerAlerts, updateCenterAlert] = useState(0)
@@ -208,16 +220,78 @@ function App() {
     })
   }
 
+  const [collapse, setCollapse] = useState(false);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={
-          <DiagramMain
-            data={data}
-            onDig={onDig}
-            addDataSource={addDataSource}
-          />
+          <div className="main">
+            {/* <div className="sidebar">
+              <Button
+                style={{
+                  padding: '0 12px',
+                  height: 30,
+                  lineHeight: '30px',
+                  marginBottom: 4,
+                }}
+                type='primary'
+                onClick={() => setCollapse(!collapse)}
+              >
+                {collapse ? <IconMenuUnfold /> : <IconMenuFold />}
+              </Button>
+              <Menu
+                style={{ width: 200, borderRadius: 4 }}
+                theme='dark'
+                collapse={collapse}
+                defaultOpenKeys={['0']}
+                defaultSelectedKeys={['0_2']}
+              >
+                <SubMenu
+                  key='0'
+                  title={
+                    <>
+                      <IconApps /> Navigation 1
+                    </>
+                  }
+                >
+                  <MenuItem key='0_0'>Menu 1</MenuItem>
+                  <MenuItem key='0_1'>Menu 2</MenuItem>
+                  <MenuItem key='0_2'>Menu 3</MenuItem>
+                  <MenuItem key='0_3'>Menu 4</MenuItem>
+                </SubMenu>
+                <SubMenu
+                  key='1'
+                  title={
+                    <>
+                      <IconBug /> Navigation 2
+                    </>
+                  }
+                >
+                  <MenuItem key='1_0'>Menu 1</MenuItem>
+                  <MenuItem key='1_1'>Menu 2</MenuItem>
+                  <MenuItem key='1_2'>Menu 3</MenuItem>
+                </SubMenu>
+                <SubMenu
+                  key='2'
+                  title={
+                    <>
+                      <IconBulb /> Navigation 3
+                    </>
+                  }
+                >
+                  <MenuItem key='2_0'>Menu 1</MenuItem>
+                  <MenuItem key='2_1'>Menu 2</MenuItem>
+                </SubMenu>
+              </Menu>
+            </div> */}
+            <DiagramMain
+              data={data}
+              onDig={onDig}
+              addDataSource={addDataSource}
+            />
+          </div>
         } />
       </Routes>
     </BrowserRouter>
